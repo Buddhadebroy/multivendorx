@@ -2,66 +2,56 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'store-inventory',
-    priority: 22,
-    name: __( 'Store Inventory', 'multivendorx' ),
-    desc: __( 'Store Inventory', 'multivendorx' ),
+    priority: 16,
+    name: __('Store Inventory', 'multivendorx'),
+    desc: __('Store Inventory', 'multivendorx'),
     icon: 'adminlib-support',
     submitUrl: 'settings',
     modal: [
         {
-            key: 'low_stock_enabled',
-            label: __( 'Enable low stock alert for Vendors', 'multivendorx' ),
-            desc: __( 'It will enable low stock limit', 'multivendorx' ),
+            key: 'stock_alerts',
             type: 'checkbox',
+            label: __('Stock Alerts for Vendors', 'multivendorx'),
+            desc: __(
+                'Select the type of stock alerts you want to enable for vendors.',
+                'multivendorx'
+            ),
+            class: 'mvx-toggle-checkbox',
             options: [
                 {
                     key: 'low_stock_enabled',
+                    label: __('Enable low stock alert for Vendors', 'multivendorx'),
                     value: 'low_stock_enabled',
                 },
-            ],
-            look: 'toggle',
-            proSetting: true,
-            moduleEnabled: 'store-inventory',
-        },
-        {
-            key: 'out_of_stock_enabled',
-            label: __(
-                'Enable out of stock alert for Vendors',
-                'multivendorx'
-            ),
-            desc: __( 'It will enable out of stock limit', 'multivendorx' ),
-            type: 'checkbox',
-            options: [
                 {
                     key: 'out_of_stock_enabled',
+                    label: __('Enable out of stock alert for Vendors', 'multivendorx'),
                     value: 'out_of_stock_enabled',
                 },
             ],
-            look: 'toggle',
-            proSetting: true,
-            moduleEnabled: 'store-inventory',
+            selectDeselect: true,
         },
         {
             key: 'low_stock_limit',
             type: 'text',
-            label: __( 'Low stock alert limit for Vendors', 'multivendorx' ),
-            desc: __( 'It will represent low stock limit', 'multivendorx' ),
+            label: __('Low stock alert limit for Vendors', 'multivendorx'),
+            desc: __('It will represent low stock limit', 'multivendorx'),
             dependent: {
-                key: 'low_stock_enabled',
+                key: 'stock_alerts',
                 set: true,
+                value: 'low_stock_enabled',
             },
-            moduleEnabled: 'store-inventory',
         },
         {
             key: 'out_of_stock_limit',
             type: 'text',
-            label: __( 'Out of stock alert limit for Vendors', 'multivendorx' ),
-            desc: __( 'It will represent out of stock limit', 'multivendorx' ),
+            label: __('Out of stock alert limit for Vendors', 'multivendorx'),
+            desc: __('It will represent out of stock limit', 'multivendorx'),
             dependent: {
-                key: 'out_of_stock_enabled',
+                key: 'stock_alerts',
                 set: true,
+                value: 'out_of_stock_enabled',
             },
-            moduleEnabled: 'store-inventory',
         },
     ],
 };

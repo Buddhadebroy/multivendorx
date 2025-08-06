@@ -19,8 +19,6 @@ export default {
                 },
             ],
             look: 'toggle',
-            moduleEnabled: 'live-chat',
-            proSetting: true,
         },
         {
             key: 'chat_provider',
@@ -47,8 +45,10 @@ export default {
                     value: 'whatsapp',
                 },
             ],
-            moduleEnabled: 'live-chat',
-            proSetting: true,
+            dependent: {
+                key: 'enable_chat',
+                value: 'enable_chat',
+            },
         },
         {
             key: 'whatsapp_opening_pattern',
@@ -156,6 +156,10 @@ export default {
                     value: 'none',
                 },
             ],
+            dependent: {
+                key: 'enable_chat',
+                value: 'enable_chat',
+            },
             moduleEnabled: 'live-chat',
             proSetting: true,
         },

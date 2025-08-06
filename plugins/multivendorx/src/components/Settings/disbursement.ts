@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'disbursement',
-    priority: 9,
+    priority: 8,
     name: __( 'Disbursement', 'multivendorx' ),
     desc: __(
         'Manage payment and disbursement setting of your site.',
@@ -11,38 +11,6 @@ export default {
     icon: 'adminlib-price',
     submitUrl: 'settings',
     modal: [
-        {
-            key: 'commission_include_coupon',
-            label: __( 'Who will bear the Coupon Cost', 'multivendorx' ),
-            type: 'checkbox',
-            desc: __(
-                'Tap to let the vendors bear the coupon discount charges of the coupons created by them',
-                'multivendorx'
-            ),
-            options: [
-                {
-                    key: 'commission_include_coupon',
-                    value: 'commission_include_coupon',
-                },
-            ],
-            look: 'toggle',
-        },
-        {
-            key: 'admin_coupon_excluded',
-            label: __( 'Exclude Admin Created Coupon', 'multivendorx' ),
-            desc: __(
-                'Bear the coupon discount charges of the coupons created by you',
-                'multivendorx'
-            ),
-            type: 'checkbox',
-            options: [
-                {
-                    key: 'admin_coupon_excluded',
-                    value: 'admin_coupon_excluded',
-                },
-            ],
-            look: 'toggle',
-        },
         {
             key: 'commission_calculation_on_tax',
             label: __( 'Commission Calculation On Tax', 'multivendorx' ),
@@ -89,6 +57,72 @@ export default {
             look: 'toggle',
         },
         {
+            key: 'exclude_cod_payments',
+            label: __( 'Exclude COD Payments', 'multivendorx' ),
+            desc: __(
+                'Disable the Cash on Delivery (COD) payment method for vendor orders.',
+                'multivendorx'
+            ),
+            type: 'checkbox',
+            options: [
+                {
+                    key: 'exclude_cod_payments',
+                    value: 'exclude_cod_payments',
+                },
+            ],
+            look: 'toggle',
+        },
+        {
+            key: 'separator_coupon_cost_responsibility',
+            type: 'section',
+            desc: __( 'Coupon Cost Responsibility', 'multivendorx' ),
+            hint: __(
+                'Decide whether the admin or the vendor bears the cost of discount coupons applied to orders.',
+                'multivendorx'
+            ),
+        },        
+        {
+            key: 'commission_include_coupon',
+            label: __( 'Who will bear the Coupon Cost', 'multivendorx' ),
+            type: 'checkbox',
+            desc: __(
+                'Tap to let the vendors bear the coupon discount charges of the coupons created by them',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'commission_include_coupon',
+                    value: 'commission_include_coupon',
+                },
+            ],
+            look: 'toggle',
+        },
+        {
+            key: 'admin_coupon_excluded',
+            label: __( 'Exclude Admin Created Coupon', 'multivendorx' ),
+            desc: __(
+                'Bear the coupon discount charges of the coupons created by you',
+                'multivendorx'
+            ),
+            type: 'checkbox',
+            options: [
+                {
+                    key: 'admin_coupon_excluded',
+                    value: 'admin_coupon_excluded',
+                },
+            ],
+            look: 'toggle',
+        },
+        {
+            key: 'separator_disbursement_schedule_limits',
+            type: 'section',
+            desc: __( 'Disbursement Schedule & Limits', 'multivendorx' ),
+            hint: __(
+                'Set the schedule, minimum limits, and restrictions for vendor payment disbursements in your marketplace.',
+                'multivendorx'
+            ),
+        },        
+        {
             key: 'choose_payment_mode_automatic_disbursal',
             label: __( 'Disbursement Schedule', 'multivendorx' ),
             desc: __(
@@ -104,7 +138,6 @@ export default {
             ],
             look: 'toggle',
         },
-        //
         {
             key: 'payment_schedule',
             type: 'radio',
@@ -151,6 +184,15 @@ export default {
             ),
         },
         {
+            key: 'separator_vendor_withdrawal_settings',
+            type: 'section',
+            desc: __( 'Vendor Withdrawal Settings', 'multivendorx' ),
+            hint: __(
+                'Manage and control vendor withdrawal permissions, payment schedules, and withdrawal request settings in your marketplace.',
+                'multivendorx'
+            ),
+        },        
+        {
             key: 'withdrawal_request',
             label: __( 'Allow Withdrawal Request', 'multivendorx' ),
             desc: __(
@@ -175,21 +217,6 @@ export default {
                 'multivendorx'
             ),
             placeholder: __( 'in days', 'multivendorx' ),
-        },
-        {
-            key: 'commission_transfer',
-            type: 'number',
-            label: __( 'Withdrawal Charges', 'multivendorx' ),
-            desc: __(
-                'Vendors will be charged this amount per withdrawal after the quota of free withdrawals is over.',
-                'multivendorx'
-            ),
-        },
-        {
-            key: 'no_of_orders',
-            type: 'number',
-            label: __( 'Number of Free Withdrawals', 'multivendorx' ),
-            desc: __( 'Number of free withdrawal requests.', 'multivendorx' ),
         },
         {
             key: 'order_withdrawl_status',
@@ -220,5 +247,20 @@ export default {
                 },
             ],
         },
+        {
+            key: 'no_of_orders',
+            type: 'number',
+            label: __( 'Number of Free Withdrawals', 'multivendorx' ),
+            desc: __( 'Number of free withdrawal requests.', 'multivendorx' ),
+        },
+        {
+            key: 'commission_transfer',
+            type: 'number',
+            label: __( 'Withdrawal Charges', 'multivendorx' ),
+            desc: __(
+                'Vendors will be charged this amount per withdrawal after the quota of free withdrawals is over.',
+                'multivendorx'
+            ),
+        },    
     ],
 };

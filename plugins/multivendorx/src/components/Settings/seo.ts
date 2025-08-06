@@ -9,20 +9,19 @@ export default {
     submitUrl: 'settings',
     modal: [
         {
-            key: 'is_yoast_allowed_for_vendors',
-            label: __( 'Enable SEO Support', 'mvx-pro' ),
+            key: 'seo_support_for_vendors',
             type: 'checkbox',
-            desc: __( 'Enable SEO Support for Vendors', 'mvx-pro' ),
+            label: __( 'Enable SEO Support', 'mvx-pro' ),
+            desc: __( 'Enable SEO support for vendors.', 'mvx-pro' ),
             options: [
                 {
-                    key: 'is_yoast_allowed_for_vendors',
-                    value: 'is_yoast_allowed_for_vendors',
+                    key: 'seo_support_for_vendors',
+                    label: __( 'Allow vendors to use Yoast SEO features', 'mvx-pro' ),
+                    value: 'seo_support_for_vendors',
                 },
             ],
             look: 'toggle',
-            moduleEnabled: 'store-seo',
-            proSetting: true,
-        },
+        },        
         {
             key: 'vendor_seo_options',
             type: 'radio',
@@ -39,8 +38,10 @@ export default {
                     value: 'rank_math',
                 },
             ],
-            moduleEnabled: 'store-seo',
-            proSetting: true,
+            dependent: {
+                key: 'seo_support_for_vendors',
+                set: true,
+            },
         },
     ],
 };

@@ -39,7 +39,7 @@ export default {
                     value: 'completed',
                 },
             ],
-            select_deselect: true,
+            selectDeselect: true,
             moduleEnabled: 'marketplace-refund',
         },
         {
