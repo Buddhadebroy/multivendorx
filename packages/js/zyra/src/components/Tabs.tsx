@@ -21,7 +21,7 @@ type TabContent = {
 };
 
 type TabData = {
-    name?: string; // For folder tabs
+    name?: string;
     type: 'file' | 'folder';
     content: TabContent | TabData[];
 };
@@ -56,16 +56,17 @@ const Tabs: React.FC<TabsProps> = ({
     Link,
 }) => {
     const [menuCol, setMenuCol] = useState(false);
-
     const [activeTab, setActiveTab] = useState<string>(currentTab);
-
     const [menuStack, setMenuStack] = useState<TabData[][]>([tabData]);
-    const [folderStack, setFolderStack] = useState<string[]>([]); // Breadcrumb path
+    const [breadcrumbPath, setBreadcrumbPath] = useState<{ name: string; id: string; type: string }[]>([
+        { name: 'All Settings', id: 'all-settings', type: 'root' },
+    ]);
 
     const handleMenuShow = () => {
         setMenuCol(!menuCol);
     };
 
+    // ✅ Find first file recursively
     const findFirstFile = (items: TabData[]): TabContent | null => {
         for (const item of items) {
             if (item.type === 'file') {
@@ -78,83 +79,153 @@ const Tabs: React.FC<TabsProps> = ({
         return null;
     };
 
+    // ✅ Build breadcrumb and menu stack dynamically
+    const buildPathToTab = (
+        data: TabData[],
+        tabId: string,
+        path: { name: string; id: string; type: string }[] = [],
+        stack: TabData[][] = [data]
+    ): { path: { name: string; id: string; type: string }[]; stack: TabData[][] } | null => {
+        for (const item of data) {
+            if (item.type === 'file') {
+                const file = item.content as TabContent;
+                if (file.id === tabId) {
+                    return {
+                        path: [...path, { name: file.name, id: file.id, type: 'file' }],
+                        stack,
+                    };
+                }
+            } else if (item.type === 'folder') {
+                const folderItems = item.content as TabData[];
+                const result = buildPathToTab(
+                    folderItems,
+                    tabId,
+                    [...path, { name: item.name ?? '', id: item.name ?? '', type: 'folder' }],
+                    [...stack, folderItems]
+                );
+                if (result) return result;
+            }
+        }
+        return null;
+    };
+
+    // ✅ Open submenu
     const openSubmenu = (folderName: string, items: TabData[]) => {
         setMenuStack((prev) => [...prev, items]);
-        setFolderStack((prev) => [...prev, folderName]);
-
-        // Auto select first file inside submenu
         const firstFile = findFirstFile(items);
         if (firstFile) {
             setActiveTab(firstFile.id);
-        }
-    };
-
-    const goToBreadcrumb = (index: number) => {
-        setMenuStack((prev) => prev.slice(0, index + 1));
-        setFolderStack((prev) => prev.slice(0, index + 1));
-
-        // Auto select first file of that level
-        const firstFile = findFirstFile(menuStack[index]);
-        if (firstFile) {
-            setActiveTab(firstFile.id);
-        }
-    };
-
-    // ✅ Current menu items
-    const currentMenuItems = menuStack[menuStack.length - 1];
-
-    // ✅ Recursive Tab Description
-    const getTabDescription = (tabDataVal: TabData[]): JSX.Element[] => {
-        return tabDataVal?.flatMap(({ content, type }) => {
-            if (type === 'file') {
-                const tab = content as TabContent;
-                return tab.id === activeTab && tab.id !== 'support' ? (
-                    <div className="tab-description-header" key={tab.id}>
-                        <div className="child">
-                            <div>
-                                <div className="tab-name">{tab.name}</div>
-                                <div className="tab-desc">{tab.desc}</div>
-                            </div>
-                        </div>
-                    </div>
-                ) : [];
-            } else if (type === 'folder') {
-                return getTabDescription(content as TabData[]);
+            const result = buildPathToTab(tabData, firstFile.id);
+            if (result) {
+                setBreadcrumbPath([
+                    { name: 'All Settings', id: 'all-settings', type: 'root' },
+                    ...result.path,
+                ]);
             }
-            return [];
-        });
+        }
     };
 
-    // ✅ Dynamic Breadcrumb
+    // ✅ Handle breadcrumb navigation
+    const goToBreadcrumb = (index: number) => {
+        const crumb = breadcrumbPath[index];
+        if (!crumb) return;
+
+        // Return to main root menu
+        if (crumb.type === 'root' && crumb.id === 'all-settings') {
+            setMenuStack([tabData]);
+            setBreadcrumbPath([{ name: 'All Settings', id: 'all-settings', type: 'root' }]);
+
+            // Load first root tab automatically
+            const firstFile = findFirstFile(tabData);
+            if (firstFile) {
+                setActiveTab(firstFile.id);
+            } else {
+                setActiveTab('');
+            }
+            return;
+        }
+
+        // Folder breadcrumb
+        if (crumb.type === 'folder') {
+            const findFolder = (items: TabData[], name: string): TabData[] | null => {
+                for (const item of items) {
+                    if (item.type === 'folder' && item.name === name) {
+                        return item.content as TabData[];
+                    } else if (item.type === 'folder') {
+                        const result = findFolder(item.content as TabData[], name);
+                        if (result) return result;
+                    }
+                }
+                return null;
+            };
+
+            const folderItems = findFolder(tabData, crumb.id);
+            if (folderItems) {
+                setMenuStack((prev) => [...prev.slice(0, index), folderItems]);
+                const firstFile = findFirstFile(folderItems);
+                if (firstFile) {
+                    setActiveTab(firstFile.id);
+                    const result = buildPathToTab(tabData, firstFile.id);
+                    if (result) {
+                        setBreadcrumbPath([
+                            { name: 'All Settings', id: 'all-settings', type: 'root' },
+                            ...result.path,
+                        ]);
+                    }
+                }
+            }
+        } else {
+            // File breadcrumb
+            setActiveTab(crumb.id);
+            const result = buildPathToTab(tabData, crumb.id);
+            if (result) {
+                setMenuStack(result.stack);
+                setBreadcrumbPath([
+                    { name: 'All Settings', id: 'all-settings', type: 'root' },
+                    ...result.path,
+                ]);
+            }
+        }
+    };
+
+    // ✅ Render breadcrumb
     const renderBreadcrumb = () => {
-        const fullPath = folderStack.length > 0 ? folderStack : ['All Settings'];
-        return fullPath.map((name, index) => (
+        return breadcrumbPath.map((crumb, index) => (
             <span key={index}>
-                {index > 0 && " / "}
-                <a
-                    href="#"
+                {index > 0 && ' / '}
+                <Link
+                    to={crumb.type === 'file' ? prepareUrl(crumb.id) : '#'}
                     onClick={(e) => {
                         e.preventDefault();
                         goToBreadcrumb(index);
                     }}
                 >
-                    {name}
-                </a>
+                    {crumb.name}
+                </Link>
             </span>
         ));
     };
 
-    // ✅ Render Menu Items
+    // ✅ Render menu items
     const renderMenuItems = (items: TabData[]) => {
-        console.log(items)
         return items.map(({ type, content, name }, idx) => {
             if (type === 'file') {
                 const tab = content as TabContent;
                 return (
                     <div
-                        key={idx}
+                        key={tab.id}
                         className={`menu-item ${activeTab === tab.id ? 'active-current-tab' : ''}`}
-                        onClick={() => setActiveTab(tab.id)}
+                        onClick={() => {
+                            setActiveTab(tab.id);
+                            const result = buildPathToTab(tabData, tab.id);
+                            if (result) {
+                                setMenuStack(result.stack);
+                                setBreadcrumbPath([
+                                    { name: 'All Settings', id: 'all-settings', type: 'root' },
+                                    ...result.path,
+                                ]);
+                            }
+                        }}
                     >
                         <Link to={prepareUrl(tab.id)}>
                             <p className="menu-name">{menuCol ? null : tab.name}</p>
@@ -183,23 +254,56 @@ const Tabs: React.FC<TabsProps> = ({
         });
     };
 
+    // ✅ Recursive tab description
+    const getTabDescription = (tabDataVal: TabData[]): JSX.Element[] => {
+        return tabDataVal?.flatMap(({ content, type }) => {
+            if (type === 'file') {
+                const tab = content as TabContent;
+                return tab.id === activeTab && tab.id !== 'support' ? (
+                    <div className="tab-description-header" key={tab.id}>
+                        <div className="child">
+                            <div>
+                                <div className="tab-name">{tab.name}</div>
+                                <div className="tab-desc">{tab.desc}</div>
+                            </div>
+                        </div>
+                    </div>
+                ) : [];
+            } else if (type === 'folder') {
+                return getTabDescription(content as TabData[]);
+            }
+            return [];
+        });
+    };
+
+    // ✅ Ensure valid tab on load
     useEffect(() => {
-        // Ensure a valid tab is always selected
-        if (!activeTab) {
-            const first = findFirstFile(menuStack[0]);
-            if (first) setActiveTab(first.id);
+        if (currentTab) {
+            setActiveTab(currentTab);
+            const result = buildPathToTab(tabData, currentTab);
+            if (result) {
+                setMenuStack(result.stack);
+                setBreadcrumbPath([
+                    { name: 'All Settings', id: 'all-settings', type: 'root' },
+                    ...result.path,
+                ]);
+            }
+        } else {
+            // Default to first file
+            const firstFile = findFirstFile(tabData);
+            if (firstFile) setActiveTab(firstFile.id);
         }
-    }, []);
+    }, [currentTab, tabData]);
+
+    const currentMenuItems = menuStack[menuStack.length - 1];
+    const parentTabName = breadcrumbPath.length > 1 ? breadcrumbPath[breadcrumbPath.length - 2]?.name : '';
 
     return (
         <>
+            {/* Header */}
             <div className="top-header">
                 <div className="left-section">
-                    <img
-                        className="brand-logo"
-                        src={menuCol ? smallbrandImg : brandImg}
-                        alt="Logo"
-                    />
+                    <img className="brand-logo" src={menuCol ? smallbrandImg : brandImg} alt="Logo" />
                 </div>
                 <div className="right-section">
                     <div className="search-field">
@@ -209,15 +313,15 @@ const Tabs: React.FC<TabsProps> = ({
                 </div>
             </div>
 
-            {/* -------- Breadcrumbs -------- */}
+            {/* Breadcrumb */}
             <div className="admin-breadcrumbs">
                 <div className="breadcrumbs-title">
-                    {folderStack.length > 0 ? folderStack[folderStack.length - 1] : 'All Settings'}
+                    {parentTabName || (breadcrumbPath.length > 0 ? breadcrumbPath[breadcrumbPath.length - 1].name : '')}
                 </div>
                 <p className="breadcrumbs-menu">{renderBreadcrumb()}</p>
             </div>
 
-            {/* -------- Main Wrapper -------- */}
+            {/* Main Wrapper */}
             <div className="general-wrapper">
                 {HeaderSection && <HeaderSection />}
                 {BannerSection && <BannerSection />}
@@ -225,12 +329,10 @@ const Tabs: React.FC<TabsProps> = ({
                 <div className={`middle-container-wrapper ${horizontally ? 'horizontal-tabs' : 'vertical-tabs'}`}>
                     <div className={`${menuCol ? 'show-menu' : ''} middle-child-container`}>
                         <div id="current-tab-lists" className="current-tab-lists">
-                            <div className="current-tab-lists-container">
-                                {renderMenuItems(currentMenuItems)}
-                            </div>
+                            <div className="current-tab-lists-container">{renderMenuItems(currentMenuItems)}</div>
                         </div>
 
-                        {/* -------- Tab Content -------- */}
+                        {/* Tab Content */}
                         <div className="tab-content">
                             {getTabDescription(tabData)}
                             {getForm(activeTab)}
