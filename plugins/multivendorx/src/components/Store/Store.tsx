@@ -104,7 +104,6 @@ const Store: React.FC<SettingsProps> = () => {
         getTemplateData('stores'),
         []
     );
-    console.log(settingsArray);
     // get current browser location
     const location = new URLSearchParams(useLocation().hash);
 

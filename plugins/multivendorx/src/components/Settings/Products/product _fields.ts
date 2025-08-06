@@ -1,72 +1,16 @@
 import { __ } from '@wordpress/i18n';
 
 export default {
-    id: 'products',
-    priority: 5,
-    name: __( 'Products', 'multivendorx' ),
+    id: 'products-fields',
+    priority: 2,
+    name: __( 'Product Fields', 'multivendorx' ),
     desc: __(
-        'Choose the product types and options that best fit your marketplace.',
+        'Enable specific data fields that sellers must or can use when listing a product.',
         'multivendorx'
     ),
     icon: 'adminlib-warehousing-icon',
     submitUrl: 'settings',
     modal: [
-        {
-            key: 'product_types',
-            type: 'checkbox',
-            label: __( 'Product Types', 'multivendorx' ),
-            class: 'mvx-toggle-checkbox',
-            desc: __(
-                'Select the types of products you want to allow in your marketplace. <li>Simple: Standard product with no variations. <li>Variable: Product with variations (like size or color). <li>External: Links to another site. <li>Rental: Rental-based product.',
-                'multivendorx'
-            ),
-            options: [
-                {
-                    key: 'simple',
-                    label: __( 'Simple', 'multivendorx' ),
-                    value: 'simple',
-                },
-                {
-                    key: 'variable',
-                    label: __( 'Variable', 'multivendorx' ),
-                    value: 'variable',
-                },
-                {
-                    key: 'external',
-                    label: __( 'External', 'multivendorx' ),
-                    value: 'external',
-                },
-                {
-                    key: 'rental',
-                    label: __( 'Rental', 'multivendorx' ),
-                    value: 'rental',
-                },
-            ],
-            selectDeselect: true,
-        },        
-        {
-            key: 'type_options',
-            type: 'checkbox',
-            label: __( 'Type options', 'multivendorx' ),
-            class: 'mvx-toggle-checkbox',
-            desc: __(
-                'Select the types of products you want to enable in your marketplace: <li>Virtual Products: Choose this option for products that don’t have a physical form (e.g., services, memberships). <li>Downloadable Products: Use this option for products that customers can download (e.g., software, eBooks).',
-                'multivendorx'
-            ),
-            options: [
-                {
-                    key: 'virtual',
-                    label: __( 'Virtual', 'multivendorx' ),
-                    value: 'virtual',
-                },
-                {
-                    key: 'downloadable',
-                    label: __( 'Downloadable', 'multivendorx' ),
-                    value: 'downloadable',
-                },
-            ],
-            selectDeselect: true,
-        },
         {
             key: 'products_fields',
             type: 'checkbox',

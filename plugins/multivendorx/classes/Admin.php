@@ -86,7 +86,7 @@ class Admin {
                 ),
                 'marketplace' => array(
                     'name'   => __( 'Marketplace Settings', 'multivendorx' ),
-                    'subtab' => 'gatekeeping',
+                    'subtab' => 'vendor-registration-form',
                 ),
                 'stores' => array(
                     'name'   => __( 'Stores', 'multivendorx' ),
