@@ -66,7 +66,6 @@ const Tabs: React.FC<TabsProps> = ({
         setMenuCol(!menuCol);
     };
 
-    // ✅ Find first file recursively
     const findFirstFile = (items: TabData[]): TabContent | null => {
         for (const item of items) {
             if (item.type === 'file') {
@@ -79,7 +78,6 @@ const Tabs: React.FC<TabsProps> = ({
         return null;
     };
 
-    // ✅ Build breadcrumb and menu stack dynamically
     const buildPathToTab = (
         data: TabData[],
         tabId: string,
@@ -109,12 +107,12 @@ const Tabs: React.FC<TabsProps> = ({
         return null;
     };
 
-    // ✅ Open submenu
     const openSubmenu = (folderName: string, items: TabData[]) => {
         setMenuStack((prev) => [...prev, items]);
         const firstFile = findFirstFile(items);
         if (firstFile) {
             setActiveTab(firstFile.id);
+            window.history.pushState(null, '', prepareUrl(firstFile.id));
             const result = buildPathToTab(tabData, firstFile.id);
             if (result) {
                 setBreadcrumbPath([
@@ -125,27 +123,25 @@ const Tabs: React.FC<TabsProps> = ({
         }
     };
 
-    // ✅ Handle breadcrumb navigation
     const goToBreadcrumb = (index: number) => {
         const crumb = breadcrumbPath[index];
         if (!crumb) return;
 
-        // Return to main root menu
         if (crumb.type === 'root' && crumb.id === 'all-settings') {
             setMenuStack([tabData]);
             setBreadcrumbPath([{ name: 'All Settings', id: 'all-settings', type: 'root' }]);
 
-            // Load first root tab automatically
             const firstFile = findFirstFile(tabData);
             if (firstFile) {
                 setActiveTab(firstFile.id);
+                window.history.pushState(null, '', prepareUrl(firstFile.id));
             } else {
                 setActiveTab('');
+                window.history.pushState(null, '', prepareUrl(''));
             }
             return;
         }
 
-        // Folder breadcrumb
         if (crumb.type === 'folder') {
             const findFolder = (items: TabData[], name: string): TabData[] | null => {
                 for (const item of items) {
@@ -165,6 +161,7 @@ const Tabs: React.FC<TabsProps> = ({
                 const firstFile = findFirstFile(folderItems);
                 if (firstFile) {
                     setActiveTab(firstFile.id);
+                    window.history.pushState(null, '', prepareUrl(firstFile.id));
                     const result = buildPathToTab(tabData, firstFile.id);
                     if (result) {
                         setBreadcrumbPath([
@@ -175,8 +172,8 @@ const Tabs: React.FC<TabsProps> = ({
                 }
             }
         } else {
-            // File breadcrumb
             setActiveTab(crumb.id);
+            window.history.pushState(null, '', prepareUrl(crumb.id));
             const result = buildPathToTab(tabData, crumb.id);
             if (result) {
                 setMenuStack(result.stack);
@@ -188,7 +185,6 @@ const Tabs: React.FC<TabsProps> = ({
         }
     };
 
-    // ✅ Render breadcrumb
     const renderBreadcrumb = () => {
         return breadcrumbPath.map((crumb, index) => (
             <span key={index}>
@@ -206,7 +202,6 @@ const Tabs: React.FC<TabsProps> = ({
         ));
     };
 
-    // ✅ Render menu items
     const renderMenuItems = (items: TabData[]) => {
         return items.map(({ type, content, name }, idx) => {
             if (type === 'file') {
@@ -217,6 +212,7 @@ const Tabs: React.FC<TabsProps> = ({
                         className={`menu-item ${activeTab === tab.id ? 'active-current-tab' : ''}`}
                         onClick={() => {
                             setActiveTab(tab.id);
+                            window.history.pushState(null, '', prepareUrl(tab.id));
                             const result = buildPathToTab(tabData, tab.id);
                             if (result) {
                                 setMenuStack(result.stack);
@@ -254,7 +250,6 @@ const Tabs: React.FC<TabsProps> = ({
         });
     };
 
-    // ✅ Recursive tab description
     const getTabDescription = (tabDataVal: TabData[]): JSX.Element[] => {
         return tabDataVal?.flatMap(({ content, type }) => {
             if (type === 'file') {
@@ -276,7 +271,6 @@ const Tabs: React.FC<TabsProps> = ({
         });
     };
 
-    // ✅ Ensure valid tab on load
     useEffect(() => {
         if (currentTab) {
             setActiveTab(currentTab);
@@ -289,7 +283,6 @@ const Tabs: React.FC<TabsProps> = ({
                 ]);
             }
         } else {
-            // Default to first file
             const firstFile = findFirstFile(tabData);
             if (firstFile) setActiveTab(firstFile.id);
         }
@@ -300,7 +293,6 @@ const Tabs: React.FC<TabsProps> = ({
 
     return (
         <>
-            {/* Header */}
             <div className="top-header">
                 <div className="left-section">
                     <img className="brand-logo" src={menuCol ? smallbrandImg : brandImg} alt="Logo" />
@@ -313,7 +305,6 @@ const Tabs: React.FC<TabsProps> = ({
                 </div>
             </div>
 
-            {/* Breadcrumb */}
             <div className="admin-breadcrumbs">
                 <div className="breadcrumbs-title">
                     {parentTabName || (breadcrumbPath.length > 0 ? breadcrumbPath[breadcrumbPath.length - 1].name : '')}
@@ -321,7 +312,6 @@ const Tabs: React.FC<TabsProps> = ({
                 <p className="breadcrumbs-menu">{renderBreadcrumb()}</p>
             </div>
 
-            {/* Main Wrapper */}
             <div className="general-wrapper">
                 {HeaderSection && <HeaderSection />}
                 {BannerSection && <BannerSection />}
@@ -332,7 +322,6 @@ const Tabs: React.FC<TabsProps> = ({
                             <div className="current-tab-lists-container">{renderMenuItems(currentMenuItems)}</div>
                         </div>
 
-                        {/* Tab Content */}
                         <div className="tab-content">
                             {getTabDescription(tabData)}
                             {getForm(activeTab)}
