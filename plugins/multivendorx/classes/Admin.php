@@ -76,10 +76,6 @@ class Admin {
                     'name'   => __( 'Work Board', 'multivendorx' ),
                     'subtab' => '',
                 ),
-                'store-conroller' => array(
-                    'name'   => __( 'Store Preferences', 'multivendorx' ),
-                    'subtab' => 'store-appearance',
-                ),
                 'modules' => array(
                     'name'   => __( 'Modules', 'multivendorx' ),
                     'subtab' => '',

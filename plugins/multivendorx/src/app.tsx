@@ -5,8 +5,6 @@ import Settings from './components/Settings/Settings';
 import Modules from './components/Modules/Modules';
 import { useEffect } from 'react';
 import { initializeModules } from 'zyra';
-import Stores from './components/Store/Store';
-import Membership from './components/Membership/Membership';
 
 
  './components/Stores/Stores';
@@ -19,12 +17,7 @@ const Route = () => {
             { currentTab.get( 'tab' ) === 'marketplace' && (
                 <Settings id={ 'marketplace' } />
             ) }
-            { currentTab.get( 'tab' ) === 'store-conroller' && (
-                <Stores id={ 'store' } />
-            ) }
-            { currentTab.get( 'tab' ) === 'memberships' && (
-                <Membership id={ 'message' } />
-            ) }
+
             {currentTab.get('tab') === 'modules' && <Modules />}
         </>
     );
