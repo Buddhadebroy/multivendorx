@@ -82,6 +82,7 @@ export default {
             key: 'store_address_input',
             type: 'textarea',
             label: __( 'Store Address Input', 'multivendorx' ),
+            
             desc: __( 'Enter the full store address. This information may be displayed on the vendor’s store page and used for shipping or location purposes.', 'multivendorx' ),
             placeholder: __( '123 Main Street, City, State, ZIP Code', 'multivendorx' ),
         },

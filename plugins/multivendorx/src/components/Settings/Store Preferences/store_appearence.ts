@@ -111,23 +111,6 @@ export default {
             ],
             look: 'toggle',
         },
-        {
-            key: 'store_sidebar_position',
-            type: 'setting-toggle',
-            label: __( 'Store Sidebar Position', 'multivendorx' ),
-            desc: __( 'Choose whether the sidebar should appear on the left or right side of the vendor store page.', 'multivendorx' ),
-            options: [
-                {
-                    key: 'left',
-                    label: __( 'Left', 'multivendorx' ),
-                    value: 'left',
-                },
-                {
-                    key: 'right',
-                    label: __( 'Right', 'multivendorx' ),
-                    value: 'right',
-                },
-            ],
-        }        
+           
     ],
 };

@@ -52,6 +52,11 @@
       font-weight: 500;
     }
   }
+  span:last-child{
+    a{
+      color: $text-color;
+    }
+  }
 }
 
 .general-wrapper {
@@ -213,12 +218,6 @@
           align-items: center;
           gap: 0.25rem;
           width: 100%;
-        }
-
-        &:hover {
-          background: $color-white;
-          border-bottom: 0.126rem solid $color-active !important; // To overwrite default common.scss
-          color: $color-active;
         }
 
         &:focus {

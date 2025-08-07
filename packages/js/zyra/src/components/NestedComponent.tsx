@@ -57,21 +57,12 @@ const NestedComponent: React.FC< NestedComponentProps > = ( {
             { rows.map( ( row, rowIndex ) => (
                 <div
                     className="nested-row"
-                    key={ rowIndex }
-                    style={ {
-                        display: 'flex',
-                        gap: '8px',
-                        marginBottom: '10px',
-                        alignItems: 'flex-start',
-                        flexWrap: 'wrap',
-                    } }
                 >
                     { fields.map( ( nestedField ) => {
                         const inputValue = row[ nestedField.key ] ?? '';
                         return (
                             <div
                                 key={ nestedField.key }
-                                style={ { flex: 1, minWidth: '150px' } }
                             >
                                 <label
                                     style={ {

@@ -56,11 +56,6 @@ const RadioInput: React.FC<RadioInputProps> = (props) => {
         <>
             <div
                 className={props.wrapperClass}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                }}
             >
                 {props.options.map((option) => {
                     const checked = props.value === option.value;

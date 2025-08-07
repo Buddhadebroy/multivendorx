@@ -16,12 +16,9 @@
 
         .title{
           font-size: 0.95rem;
-          color: #000;
+          color: $text-color;
+          line-height: 0.95rem;
         }
-      }
-
-      .settings-input-content {
-        flex: 1;
       }
     }
 
