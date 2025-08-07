@@ -48,6 +48,7 @@ interface ModuleProps {
     apiLink: string;
     proPopupContent: ProPopupContent;
     pluginName: string;
+    brandImg: string;
 }
 
 const Modules: React.FC<ModuleProps> = ({
@@ -55,6 +56,7 @@ const Modules: React.FC<ModuleProps> = ({
     appLocalizer,
     apiLink,
     proPopupContent,
+    brandImg,
     pluginName,
 }) => {
     const [modelOpen, setModelOpen] = useState<boolean>(false);
@@ -177,12 +179,28 @@ const Modules: React.FC<ModuleProps> = ({
                 </div>
             )}
 
-            <div className="tab-name">
+            {/* <div className="tab-name">
                 <h2>Modules</h2>
+            </div> */}
+
+            <div className="top-header">
+                <div className="left-section">
+                    <img
+                        className="brand-logo"
+                        src={brandImg}
+                        alt="Logo"
+                    />
+                </div>
+                <div className="right-section">
+                    <div className="search-field">
+                        <i className="adminlib-search"></i>
+                        <input type="text" className="basic-input" placeholder="Search Here" />
+                    </div>
+                </div>
             </div>
 
             <div className="category-filter">
-                <div className="module-status-filter">
+                {/* <div className="module-status-filter">
                     <button
                         className={`filter-button ${selectedFilter === 'Total' ? 'active' : ''}`}
                         onClick={() => setSelectedFilter('Total')}
@@ -201,8 +219,8 @@ const Modules: React.FC<ModuleProps> = ({
                     >
                         Inactive Modules ({inactiveModules})
                     </button>
-                </div>
-                <div className="module-search">
+                </div> */}
+                {/* <div className="module-search">
                     <label htmlFor="module-search">Search Modules: </label>
                     <input
                         id="module-search"
@@ -211,34 +229,32 @@ const Modules: React.FC<ModuleProps> = ({
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search by module name..."
                     />
-                </div>
+                </div> */}
                 {modulesArray.category && categories.length > 1 && (
                     <>
-                        <label htmlFor="category-select">Filter by Category: </label>
-                        <select
-                            id="category-select"
-                            value={selectedCategory}
-                            onChange={(e) => setSelectedCategory(e.target.value)}
-                        >
-                            {categories.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {category.label}
-                                </option>
-                            ))}
-                        </select>
+                        {categories.map((category) => (
+                            <span
+                                key={category.id}
+                                id={category.id}
+                                className={`category-item ${selectedCategory === category.id ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(category.id)}
+                            >
+                                {category.label}
+                            </span>
+                        ))}
                     </>
                 )}
             </div>
 
             <div className="module-option-row">
                 {filteredModules.map((item, index) => {
-                    if ('type' in item && item.type === 'separator') {
-                        return (
-                            <div key={`separator-${item.id}`} className="module-separator">
-                                <h3 className="separator-title">{item.label}</h3>
-                            </div>
-                        );
-                    }
+                    // if ('type' in item && item.type === 'separator') {
+                    //     return (
+                    //         <div key={`separator-${item.id}`} className="module-separator">
+                    //             <h3 className="separator-title">{item.label}</h3>
+                    //         </div>
+                    //     );
+                    // }
 
                     const module = item as Module;
 
@@ -247,34 +263,9 @@ const Modules: React.FC<ModuleProps> = ({
                             {module.pro_module && !appLocalizer.khali_dabba && (
                                 <span className="admin-pro-tag">Pro</span>
                             )}
-                            <div className="module-icon">
-                                <i className={`font ${module.icon}`}></i>
-                            </div>
-                            <div className="card-meta">
-                                <div className="meta-name">{module.name}</div>
-                                <p
-                                    className="meta-description"
-                                    dangerouslySetInnerHTML={{ __html: module.desc }}
-                                ></p>
-                            </div>
-                            <div className="card-footer">
-                                <div className="card-support">
-                                    {module.doc_link && (
-                                        <a
-                                            href={module.doc_link}
-                                            className="admin-btn btn-purple card-support-btn"
-                                        >
-                                            Docs
-                                        </a>
-                                    )}
-                                    {module.settings_link && (
-                                        <a
-                                            href={module.settings_link}
-                                            className="admin-btn btn-purple card-support-btn"
-                                        >
-                                            Setting
-                                        </a>
-                                    )}
+                            <div className="module-header">
+                                <div className="icon">
+                                    <i className={`font ${module.icon}`}></i>
                                 </div>
                                 <div
                                     className="toggle-checkbox"
@@ -292,6 +283,13 @@ const Modules: React.FC<ModuleProps> = ({
                                         className="toggle-switch-is_hide_cart_checkout"
                                     ></label>
                                 </div>
+                            </div>
+                            <div className="module-details">
+                                <div className="meta-name">{module.name}</div>
+                                <p
+                                    className="meta-description"
+                                    dangerouslySetInnerHTML={{ __html: module.desc }}
+                                ></p>
                             </div>
                         </div>
                     );

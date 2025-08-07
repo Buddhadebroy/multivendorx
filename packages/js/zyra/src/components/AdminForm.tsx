@@ -1996,7 +1996,8 @@ const AdminForm: React.FC<AdminFormProps> = ({
                                 key={'l' + inputField.key}
                                 htmlFor={inputField.key}
                             >
-                                <p>{inputField.label}</p>
+                                <div className="title">{inputField.label}</div>
+                                <div className="settings-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
                             </label>
                         )}
 

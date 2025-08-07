@@ -65,15 +65,23 @@ const MultiCheckBox: React.FC< MultiCheckBoxProps > = ( props ) => {
     return (
         <div className={ props.wrapperClass }>
             { props.selectDeselect && (
-                <button
-                    className={ props.selectDeselectClass }
-                    onClick={ ( e ) => {
-                        e.preventDefault();
-                        props.onMultiSelectDeselectChange?.( e );
-                    } }
-                >
-                    { props.selectDeselectValue }
-                </button>
+                // <button
+                //     className={ props.selectDeselectClass }
+                //     onClick={ ( e ) => {
+                //         e.preventDefault();
+                //         props.onMultiSelectDeselectChange?.( e );
+                //     } }
+                // >
+                //     { props.selectDeselectValue }
+                // </button>
+                <div className="checkbox-list-header">
+                    <div className="checkbox">
+                        <input type="checkbox" />
+                        <span className="">12 items</span>
+                    </div>
+                    <span className="clear">Clear</span>
+                </div>
+                
             ) }
 
             { props.options.map( ( option ) => {
