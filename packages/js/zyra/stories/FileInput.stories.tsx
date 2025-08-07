@@ -21,7 +21,7 @@ export const TestFileInput: Story = {
         imageWidth: 100,
         imageHeight: 100,
         buttonClass: 'btn btn-purple',
-        openUploader: 'Upload Image',
+        openUploader: 'Browse File',
         type: 'hidden',
         name: 'userFile',
         value: '',

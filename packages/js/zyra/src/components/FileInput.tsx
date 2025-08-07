@@ -32,7 +32,11 @@ interface FileInputProps {
 const FileInput: React.FC< FileInputProps > = ( props ) => {
     return (
         <>
-            <div className="file-uploader">
+            <div
+                className="file-uploader"
+                style={{ backgroundImage: `url(${props.imageSrc})` }}
+                >
+                <i className="adminlib-cloud-upload"></i>
                 <input
                     className={ props.inputClass }
                     id={ props.id }
@@ -50,12 +54,13 @@ const FileInput: React.FC< FileInputProps > = ( props ) => {
                 { props.proSetting && (
                     <span className="admin-pro-tag">pro</span>
                 ) }
-                <img
+                {/* <img
                     src={ props.imageSrc }
                     width={ props.imageWidth }
                     height={ props.imageHeight }
-                    alt="Uploaded Preview"
-                />
+                /> */}
+                <span className="title">Drag and drop your file here</span>
+                <span>Or</span>
                 <button
                     className={ `${ props.buttonClass } admin-btn` }
                     type="button"
@@ -63,6 +68,46 @@ const FileInput: React.FC< FileInputProps > = ( props ) => {
                 >
                     { props.openUploader }
                 </button>
+                <div className="overlay">
+                    <div className="button-wrapper">
+                        <button className="admin-btn btn-red">Remove</button>
+                        <button className="admin-btn btn-purple">Replace</button>
+                    </div>
+                </div>
+            </div>
+            <div className="uploaded-image">
+                <div className="image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWCckIxpgjbCd_FYGqhLgC_miYobNoySMaVQ&s" alt="" />
+                    <i className="adminlib-close"></i>
+                </div>
+                <div className="image">
+                    <img src="https://i.ytimg.com/vi/r_NZrmBtdBE/mqdefault.jpg" alt="" />
+                    <i className="adminlib-close"></i>
+                </div>
+                <div className="image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWCckIxpgjbCd_FYGqhLgC_miYobNoySMaVQ&s" alt="" />
+                    <i className="adminlib-close"></i>
+                </div>
+                <div className="image">
+                    <img src="https://i.ytimg.com/vi/r_NZrmBtdBE/mqdefault.jpg" alt="" />
+                    <i className="adminlib-close"></i>
+                </div>
+                <div className="image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWCckIxpgjbCd_FYGqhLgC_miYobNoySMaVQ&s" alt="" />                    <i className="adminlib-close"></i>
+                    <i className="adminlib-close"></i>
+                </div>
+                <div className="image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWCckIxpgjbCd_FYGqhLgC_miYobNoySMaVQ&s" alt="" />
+                    <i className="adminlib-close"></i>
+                </div>
+                <div className="image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWCckIxpgjbCd_FYGqhLgC_miYobNoySMaVQ&s" alt="" />                    <i className="adminlib-close"></i>
+                    <i className="adminlib-close"></i>
+                </div>
+                <div className="image">
+                    <img src="https://i.ytimg.com/vi/r_NZrmBtdBE/mqdefault.jpg" alt="" />
+                    <i className="adminlib-close"></i>
+                </div>
             </div>
             { props.description && (
                 <p
