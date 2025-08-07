@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'min-max',
-    priority: 20,
+    priority: 3,
     name: __( 'Min-Max Quantities', 'multivendorx' ),
     desc: __( 'Manage Min-Max Quantities/Amount', 'multivendorx' ),
     icon: 'adminlib-form-section',

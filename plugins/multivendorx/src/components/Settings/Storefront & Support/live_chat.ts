@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'live-chat',
-    priority: 23,
+    priority: 3,
     name: __( 'Live Chat', 'mvx-pro' ),
     desc: __( 'Live Chat', 'mvx-pro' ),
     icon: 'adminlib-wholesale',

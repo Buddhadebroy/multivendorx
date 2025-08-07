@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'commissions',
-    priority: 7,
+    priority: 100,
     name: __( 'Commission', 'multivendorx' ),
     desc: __(
         "Tailor your marketplace's commission plan to fit your revenue-sharing preferences.",

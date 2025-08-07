@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'refund-management',
-    priority: 12,
+    priority: 5,
     name: __( 'Refunds', 'multivendorx' ),
     desc: __( 'Set conditions for refund requests.', 'multivendorx' ),
     icon: 'adminlib-form-section',

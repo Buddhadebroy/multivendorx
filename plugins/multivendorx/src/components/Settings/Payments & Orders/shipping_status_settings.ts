@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'shipping-status',
-    priority: 11,
+    priority: 3,
     name: __( 'Shipping Status', 'mvx-pro' ),
     desc: __( 'Shipping Status', 'mvx-pro' ),
     icon: 'adminlib-wholesale',

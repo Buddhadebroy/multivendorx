@@ -2,8 +2,8 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'vendor-registration-form',
-    priority: 2,
-    name: 'Registration Form',
+    priority: 1,
+    name: 'Vendor Registration Form',
     desc: __(
         'Customise personalised seller registration form for marketplace.',
         'multivendorx'

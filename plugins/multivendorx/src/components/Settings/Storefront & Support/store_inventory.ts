@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'store-inventory',
-    priority: 16,
+    priority: 2,
     name: __('Store Inventory', 'multivendorx'),
     desc: __('Store Inventory', 'multivendorx'),
     icon: 'adminlib-support',

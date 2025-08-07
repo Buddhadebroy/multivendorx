@@ -10,7 +10,6 @@ import { getTemplateData } from '../../services/templateService';
 import {
     getAvailableSettings,
     getSettingById,
-    SettingContent,
     Support,
     AdminForm,
     Banner,

@@ -2,8 +2,8 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'seo',
-    priority: 21,
-    name: __( 'SEO', 'mvx-pro' ),
+    priority: 1,
+    name: __( 'Yoast SEO Support', 'mvx-pro' ),
     desc: __( 'Manage and Process vendor seo', 'mvx-pro' ),
     icon: 'adminlib-support',
     submitUrl: 'settings',

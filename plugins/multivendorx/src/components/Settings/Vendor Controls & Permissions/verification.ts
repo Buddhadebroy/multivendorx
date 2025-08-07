@@ -2,8 +2,8 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'identity-verification',
-    priority: 17,
-    name: __( 'Verification', 'mvx-pro' ),
+    priority: 3,
+    name: __( 'Vendor Verification', 'mvx-pro' ),
     desc: __(
         'Enable various forms of identity verification for vendors and ensure a trusted marketplace.',
         'mvx-pro'

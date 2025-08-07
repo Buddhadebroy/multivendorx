@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'product-report-abuse',
-    priority: 6,
+    priority: 4,
     name: __('Product Report Abuse Settings', 'mvx-pro'),
     desc: __('Product Report Abuse Settings', 'mvx-pro'),
     icon: 'adminlib-wholesale',

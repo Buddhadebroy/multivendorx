@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 export default {
     id: 'email_verification',
-    priority: 3,
+    priority: 2,
     name: __('Email Verification', 'mvx-pro'),
     desc: __('Email Verification', 'mvx-pro'),
     icon: 'adminlib-wholesale',

@@ -1,8 +1,5 @@
 /// <reference types="webpack-env" />
 
-import Membership from "@/components/Membership/Membership";
-
-
 // Predefined contexts
 const contexts: Record<string, __WebpackModuleApi.RequireContext> = {
     settings: require.context('../components/Settings', true, /\.ts$/),
@@ -12,6 +9,7 @@ type SettingNode = {
     name: string;
     type: 'folder' | 'file';
     content: SettingNode[] | any;
+    folderPriority?: number;
 };
 
 const importAll = (
@@ -19,33 +17,83 @@ const importAll = (
 ): SettingNode[] => {
     const folderStructure: SettingNode[] = [];
 
+    // Step 1: Build folder priority map
+    const folderPriorityMap: Record<string, number> = {};
+
     inpContext.keys().forEach((key) => {
-        const path = key.substring(2);
+        if (key.endsWith('folder_priority.ts')) {
+            const folderPath = key
+                .replace('./', '')
+                .replace('/folder_priority.ts', '');
+            const priorityData = inpContext(key)?.default;
+            if (priorityData && typeof priorityData.priority === 'number') {
+                folderPriorityMap[folderPath] = priorityData.priority;
+            }
+        }
+    });
+
+    // Step 2: Build folder/file structure
+    inpContext.keys().forEach((key) => {
+        const path = key.substring(2); // remove leading './'
         const parts = path.split('/');
         const fileName = parts.pop();
         let currentFolder = folderStructure;
+        let fullPath = '';
 
         parts.forEach((folder) => {
+            fullPath = fullPath ? `${fullPath}/${folder}` : folder;
+
             let folderObject = currentFolder.find(
                 (item) => item.name === folder && item.type === 'folder'
             ) as SettingNode | undefined;
 
             if (!folderObject) {
-                folderObject = { name: folder, type: 'folder', content: [] };
+                folderObject = {
+                    name: folder,
+                    type: 'folder',
+                    content: [],
+                    folderPriority: folderPriorityMap[fullPath], // attach priority if exists
+                };
                 currentFolder.push(folderObject);
             }
 
             currentFolder = folderObject.content;
         });
 
-        currentFolder.push({
-            name: fileName!.replace('.js', ''),
-            type: 'file',
-            content: inpContext(key).default,
-        });
+        // Step 3: Skip folder-priority.ts
+        if (fileName !== 'folder-priority.ts') {
+            currentFolder.push({
+                name: fileName!.replace('.ts', ''),
+                type: 'file',
+                content: inpContext(key).default,
+            });
+        }
     });
 
-    return folderStructure;
+    // Step 4: Sort recursively: files first, then folders by folderPriority
+    const sortStructure = (nodes: SettingNode[]): SettingNode[] => {
+        return nodes
+            .sort((a, b) => {
+                if (a.type === 'file' && b.type === 'folder') return -1;
+                if (a.type === 'folder' && b.type === 'file') return 1;
+
+                const aPriority = a.folderPriority ?? Infinity;
+                const bPriority = b.folderPriority ?? Infinity;
+
+                return aPriority - bPriority;
+            })
+            .map((node) => {
+                if (node.type === 'folder') {
+                    return {
+                        ...node,
+                        content: sortStructure(node.content),
+                    };
+                }
+                return node;
+            });
+    };
+
+    return sortStructure(folderStructure);
 };
 
 const getTemplateData = (
@@ -66,7 +114,6 @@ const getModuleData = (): any | null => {
         const module = require('../components/Modules/index.ts').default;
         return module;
     } catch (error) {
-        // eslint-disable-next-line no-console
         console.warn('Module not found, skipping...');
         return null;
     }
