@@ -5,8 +5,8 @@ export default {
         { type: 'separator', id: 'marketplace_types', label: 'Marketplace Types' },
         {
             id: 'simple',
-            name: __('Simple (Downloadable & Virtual)', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Covers the vast majority of any tangible products you may sell or ship i.e books</span></fieldset>",
+            name: __('Downloadable & Virtual', 'multivendorx'),
+            desc: "Covers the vast majority of any tangible products you may sell or ship i.e books",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/simple-product',
             //settings_link: appLocalizer.site_url,
@@ -16,7 +16,7 @@ export default {
         {
             id: 'variable',
             name: __('Variable', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>A product with variations, like different SKU, price, stock option, etc.</span></fieldset>",
+            desc: "A product with variations, like different SKU, price, stock option, etc.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/variable-product',
             //settings_link: appLocalizer.site_url,
@@ -26,7 +26,7 @@ export default {
         {
             id: 'external',
             name: __('External', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Grants vendor the option to list and describe on admin website but sold elsewhere</span></fieldset>",
+            desc: "Grants vendor the option to list and describe on admin website but sold elsewhere",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/external-product/',
             //settings_link: appLocalizer.site_url,
@@ -36,7 +36,7 @@ export default {
         {
             id: 'grouped',
             name: __('Grouped', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>A cluster of simple related products that can be purchased individually</span></fieldset>",
+            desc: "A cluster of simple related products that can be purchased individually",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/grouped-product',
             //settings_link: appLocalizer.site_url,
@@ -46,7 +46,7 @@ export default {
         {
             id: 'booking',
             name: __('Booking', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Allow customers to book appointments, make reservations or rent equipment etc</span></fieldset>",
+            desc: "Allow customers to book appointments, make reservations or rent equipment etc",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/booking-product',
             //settings_link: appLocalizer.site_url,
@@ -56,7 +56,7 @@ export default {
         {
             id: 'appointment',
             name: __('Appointments', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Allow customers to book appointments</span></fieldset>",
+            desc: "Allow customers to book appointments",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/appointment-product/',
             //settings_link: appLocalizer.site_url,
@@ -66,7 +66,7 @@ export default {
         {
             id: 'subscription',
             name: __('Subscription', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Let customers subscribe to your products or services and pay weekly, monthly or yearly</span></fieldset>",
+            desc: "Let customers subscribe to your products or services and pay weekly, monthly or yearly",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/subscription-product',
             //settings_link: appLocalizer.site_url,
@@ -76,7 +76,7 @@ export default {
         {
             id: 'accommodation',
             name: __('Accommodation', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Grant your guests the ability to quickly book overnight stays in a few clicks</span></fieldset>",
+            desc: "Grant your guests the ability to quickly book overnight stays in a few clicks",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/accommodation-product',
             //settings_link: appLocalizer.site_url,
@@ -86,7 +86,7 @@ export default {
         {
             id: 'bundle',
             name: __('Bundle', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Offer personalized product bundles, bulk discount packages, and assembled products.</span></fieldset>",
+            desc: "Offer personalized product bundles, bulk discount packages, and assembled products.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/bundle-product',
             //settings_link: appLocalizer.site_url,
@@ -96,7 +96,7 @@ export default {
         {
             id: 'auction',
             name: __('Auction', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Implement an auction system similar to eBay on your store</span></fieldset>",
+            desc: "Implement an auction system similar to eBay on your store",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/auction-product',
             //settings_link: appLocalizer.site_url,
@@ -106,7 +106,7 @@ export default {
         {
             id: 'rental-pro',
             name: __('Rental Pro', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Perfect for those desiring to offer rental, booking, or real state agencies or services.</span></fieldset>",
+            desc: "Perfect for those desiring to offer rental, booking, or real state agencies or services.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/rental-product',
             //settings_link: appLocalizer.site_url,
@@ -116,7 +116,7 @@ export default {
         {
             id: 'gift-card',
             name: __('Gift Cards', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Activate this module to offer gift cards, boosting your store's earnings and attracting fresh clientele.</span></fieldset>",
+            desc: "Activate this module to offer gift cards, boosting your store's earnings and attracting fresh clientele.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/gift-card/',
             //settings_link: appLocalizer.site_url,
@@ -127,7 +127,7 @@ export default {
         {
             id: 'identity-verification',
             name: __('Seller Identity Verification', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Verify vendors on the basis of Id documents, Address and Social Media Account</span></fieldset>",
+            desc: "Verify vendors on the basis of Id documents, Address and Social Media Account",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/identity-verification/',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-identity-verification'),
@@ -137,7 +137,7 @@ export default {
         {
             id: 'spmv',
             name: __('Single Product Multiple Vendor', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Lets multiple vendors sell the same products</span></fieldset>",
+            desc: "Lets multiple vendors sell the same products",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/single-product-multiple-vendors-spmv',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=spmv-pages'),
@@ -147,7 +147,7 @@ export default {
         {
             id: 'import-export',
             name: __('Import Export', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Helps vendors seamlessly import or export product data using CSV etc</span></fieldset>",
+            desc: "Helps vendors seamlessly import or export product data using CSV etc",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/import-export',
             //settings_link: appLocalizer.site_url,
@@ -156,7 +156,7 @@ export default {
         {
             id: 'store-inventory',
             name: __('Store Inventory', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Present vendors with the choice to handle normal product quantities, set low inventory and no inventory alarms and manage a subscriber list for the unavailable products.</span></fieldset>",
+            desc: "Present vendors with the choice to handle normal product quantities, set low inventory and no inventory alarms and manage a subscriber list for the unavailable products.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/store-inventory',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-store-inventory'),
@@ -165,7 +165,7 @@ export default {
         {
             id: 'min-max',
             name: __('Min Max Quantities', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Set a minimum or maximum purchase quantity or amount for the products of your marketplace.</span></fieldset>",
+            desc: "Set a minimum or maximum purchase quantity or amount for the products of your marketplace.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/non-knowledgebase/min-max-quantities/',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-min-max'),
@@ -174,7 +174,7 @@ export default {
         {
             id: 'bank-payment',
             name: __('Bank Transfer', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Manually transfer money directly to the vendor's bank account.</span></fieldset>",
+            desc: "Manually transfer money directly to the vendor's bank account.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/direct-bank-transfer/',
             //settings_link: appLocalizer.site_url,
@@ -183,7 +183,7 @@ export default {
         {
             id: 'paypal-masspay',
             name: __('PayPal Masspay', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Schedule payment to multiple vendors at the same time.</span></fieldset>",
+            desc: "Schedule payment to multiple vendors at the same time.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/paypal-masspay/',
             //settings_link: appLocalizer.site_url,
@@ -192,7 +192,7 @@ export default {
         {
             id: 'paypal-payout',
             name: __('PayPal Payout', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Send payments automatically to multiple vendors as per scheduled</span></fieldset>",
+            desc: "Send payments automatically to multiple vendors as per scheduled",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/paypal-payout',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=payment&name=payment-payout'),
@@ -201,7 +201,7 @@ export default {
         {
             id: 'paypal-marketplace',
             name: __('PayPal Marketplace (Real time Split)', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Using split payment pay vendors instantly after a completed order</span></fieldset>",
+            desc: "Using split payment pay vendors instantly after a completed order",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/paypal-marketplace-real-time-split/',
             //settings_link: admin_url('admin.php?page=wc-settings&tab=checkout&section=mvx_paypal_marketplace'),
@@ -210,7 +210,7 @@ export default {
         {
             id: 'stripe-connect',
             name: __('Stripe Connect', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Connect to vendors stripe account and make hassle-free transfers as scheduled.</span></fieldset>",
+            desc: "Connect to vendors stripe account and make hassle-free transfers as scheduled.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/stripe-connect',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=payment&name=payment-stripe-connect'),
@@ -219,7 +219,7 @@ export default {
         {
             id: 'stripe-marketplace',
             name: __('Stripe Marketplace (Real time Split)', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Real-Time Split payments pays vendor directly after a completed order</span></fieldset>",
+            desc: "Real-Time Split payments pays vendor directly after a completed order",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/stripe-marketplace',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=payment&name=payment-stripe-connect'),
@@ -228,7 +228,7 @@ export default {
         {
             id: 'mangopay',
             name: __('Mangopay', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Gives the benefit of both realtime split transfer and scheduled distribution</span></fieldset>",
+            desc: "Gives the benefit of both realtime split transfer and scheduled distribution",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/mangopay',
             //settings_link: admin_url('admin.php?page=mvx-setting-admin'),
@@ -237,7 +237,7 @@ export default {
         {
             id: 'razorpay',
             name: __('Razorpay', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>For clients looking to pay multiple Indian vendors instantly</span></fieldset>",
+            desc: "For clients looking to pay multiple Indian vendors instantly",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/payment/',
             //settings_link: admin_url('admin.php?page=mvx-setting-admin'),
@@ -246,7 +246,7 @@ export default {
         {
             id: 'zone-shipping',
             name: __('Zone-Wise Shipping', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Limit vendors to sell in selected zones</span></fieldset>",
+            desc: "Limit vendors to sell in selected zones",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/shipping-by-zone/',
             //settings_link: admin_url('admin.php?page=wc-settings&tab=shipping'),
@@ -255,7 +255,7 @@ export default {
         {
             id: 'distance-shipping',
             name: __('Distance Shipping', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Calculate Rates based on distance between the vendor store and drop location</span></fieldset>",
+            desc: "Calculate Rates based on distance between the vendor store and drop location",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/distance-shipping',
             //settings_link: admin_url('admin.php?page=wc-settings&tab=shipping&section=mvx_product_shipping_by_distance'),
@@ -264,7 +264,7 @@ export default {
         {
             id: 'country-shipping',
             name: __('Country-Wise Shipping', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Let vendors choose and manage shipping, to countries of their choice</span></fieldset>",
+            desc: "Let vendors choose and manage shipping, to countries of their choice",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/country-shipping',
             //settings_link: admin_url('admin.php?page=wc-settings&tab=shipping&section=mvx_product_shipping_by_country'),
@@ -273,7 +273,7 @@ export default {
         {
             id: 'weight-shipping',
             name: __('Weight Wise Shipping (using Table Rate Shipping)', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Vendors can create shipping rates based on price, weight and quantity</span></fieldset>",
+            desc: "Vendors can create shipping rates based on price, weight and quantity",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/weight-shipping',
             //settings_link: admin_url('admin.php?page=wc-settings&tab=shipping'),
@@ -282,7 +282,7 @@ export default {
         {
             id: 'per-product-shipping',
             name: __('Per Product Shipping', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Let vendors add shipping cost to specific products</span></fieldset>",
+            desc: "Let vendors add shipping cost to specific products",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/per-product-shipping',
             //settings_link: admin_url('admin.php?page=wc-settings&tab=shipping'),
@@ -291,7 +291,7 @@ export default {
         {
             id: 'invoice',
             name: __('Invoice & Packing slip', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Send invoice and packaging slips to vendor</span></fieldset>",
+            desc: "Send invoice and packaging slips to vendor",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/invoice-packing-slip',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-vendor-invoice'),
@@ -300,7 +300,7 @@ export default {
         {
             id: 'marketplace-refund',
             name: __('Marketplace Refund', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Enable customer refund requests & Let vendors manage customer refund</span></fieldset>",
+            desc: "Enable customer refund requests & Let vendors manage customer refund",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/marketplace-refund',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=refund-management'),
@@ -309,7 +309,7 @@ export default {
         {
             id: 'store-location',
             name: __('Store Location', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>If enabled customers can view a vendor's store location</span></fieldset>",
+            desc: "If enabled customers can view a vendor's store location",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/store-location',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=store'),
@@ -318,7 +318,7 @@ export default {
         {
             id: 'store-policy',
             name: __('Store Policy', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Offers vendors the option to set individual store specific policies</span></fieldset>",
+            desc: "Offers vendors the option to set individual store specific policies",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/store-policy',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=policy'),
@@ -327,7 +327,7 @@ export default {
         {
             id: 'follow-store',
             name: __('Follow Store', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Permit customers to follow store, receive updates & lets vendors keep track of customers</span></fieldset>",
+            desc: "Permit customers to follow store, receive updates & lets vendors keep track of customers",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/follow-store',
             //settings_link: appLocalizer.site_url,
@@ -336,7 +336,7 @@ export default {
         {
             id: 'store-review',
             name: __('Store Review', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Allows customers to rate and review stores and their purchased products</span></fieldset>",
+            desc: "Allows customers to rate and review stores and their purchased products",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/store-review',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=review-management'),
@@ -345,7 +345,7 @@ export default {
         {
             id: 'business-hours',
             name: __('Business Hours', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Gives vendors the option to set and manage business timings</span></fieldset>",
+            desc: "Gives vendors the option to set and manage business timings",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/business-hours/',
             //settings_link: appLocalizer.site_url,
@@ -354,7 +354,7 @@ export default {
         {
             id: 'mvx-blocks',
             name: __('Gutenberg Blocks', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Lets you add widgets using Gutenberg block editor. Use the block to register our widget area on any page or post using the Gutenberg editor.</span></fieldset>",
+            desc: "Lets you add widgets using Gutenberg block editor. Use the block to register our widget area on any page or post using the Gutenberg editor.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: '',
             //settings_link: appLocalizer.site_url,
@@ -363,7 +363,7 @@ export default {
         {
             id: 'advertisement',
             name: __('Advertise Product', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Enable the option of paid advertisiment by letting vendors advertise their products on your website.</span></fieldset>",
+            desc: "Enable the option of paid advertisiment by letting vendors advertise their products on your website.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/advertise-product/',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-advertising'),
@@ -372,7 +372,7 @@ export default {
         {
             id: 'vacation',
             name: __('Vacation', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>On vacation mode, vendor can allow / disable sale & notify customer accordingly</span></fieldset>",
+            desc: "On vacation mode, vendor can allow / disable sale & notify customer accordingly",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/vacation',
             //settings_link: appLocalizer.site_url,
@@ -381,7 +381,7 @@ export default {
         {
             id: 'staff-manager',
             name: __('Staff Manager', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Lets vendors hire and manage staff to support store</span></fieldset>",
+            desc: "Lets vendors hire and manage staff to support store",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/staff-manager',
             //settings_link: appLocalizer.site_url,
@@ -390,7 +390,7 @@ export default {
         {
             id: 'wholesale',
             name: __('Wholesale', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Set wholesale price and quantity for customers</span></fieldset>",
+            desc: "Set wholesale price and quantity for customers",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/wholesale',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-wholesale'),
@@ -399,7 +399,7 @@ export default {
         {
             id: 'live-chat',
             name: __('Live Chat', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Allows real-time messaging between vendors and customers</span></fieldset>",
+            desc: "Allows real-time messaging between vendors and customers",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/live-chat',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-live-chat'),
@@ -408,7 +408,7 @@ export default {
         {
             id: 'store-support',
             name: __('Store Support', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Streamline order support with vendor-customer ticketing system.</span></fieldset>",
+            desc: "Streamline order support with vendor-customer ticketing system.",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/store-support/',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-store-support'),
@@ -417,7 +417,7 @@ export default {
         {
             id: 'store-analytics',
             name: __('Store Analytics', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Gives vendors detailed store report & connect to google analytics</span></fieldset>",
+            desc: "Gives vendors detailed store report & connect to google analytics",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/store-analytics',
             //settings_link: admin_url('admin.php?page=mvx-setting-admin'),
@@ -426,7 +426,7 @@ export default {
         {
             id: 'store-seo',
             name: __('Store SEO', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Lets vendors manage their store SEOs using Rank Math and Yoast SEO</span></fieldset>",
+            desc: "Lets vendors manage their store SEOs using Rank Math and Yoast SEO",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/store-seo',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-seo'),
@@ -435,7 +435,7 @@ export default {
         {
             id: 'marketplace-membership',
             name: __('Marketplace Membership', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Lets Admin create marketplace memberships levels and manage vendor-wise individual capablity</span></fieldset>",
+            desc: "Lets Admin create marketplace memberships levels and manage vendor-wise individual capablity",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/marketplace-memberhsip',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=settings-vendor-membership'),
@@ -444,7 +444,7 @@ export default {
         {
             id: 'announcement',
             name: __('Announcement', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Lets admin broadcast important news to sellers</span></fieldset>",
+            desc: "Lets admin broadcast important news to sellers",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/announcement/',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=work-board&name=announcement'),
@@ -453,7 +453,7 @@ export default {
         {
             id: 'report-abuse',
             name: __('Report Abuse', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Lets customers report false products</span></fieldset>",
+            desc: "Lets customers report false products",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/report-abuse',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=work-board&name=report-abuse'),
@@ -462,7 +462,7 @@ export default {
         {
             id: 'knowladgebase',
             name: __('Knowledgebase', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Admin can share tutorials and othe vendor-specific information with vendors</span></fieldset>",
+            desc: "Admin can share tutorials and othe vendor-specific information with vendors",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/knowledgebase/',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=work-board&name=knowladgebase'),
@@ -471,7 +471,7 @@ export default {
         {
             id: 'elementor',
             name: __('Elementor', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Create Sellers Pages using Elementors drag and drop feature</span></fieldset>",
+            desc: "Create Sellers Pages using Elementors drag and drop feature",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/mvx-elementor',
             //settings_link: appLocalizer.site_url,
@@ -480,7 +480,7 @@ export default {
         {
             id: 'buddypress',
             name: __('Buddypress', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Allows stores to have a social networking feature</span></fieldset>",
+            desc: "Allows stores to have a social networking feature",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/mvx-buddypress',
             //settings_link: admin_url('admin.php?page=mvx#&submenu=settings&name=social'),
@@ -489,7 +489,7 @@ export default {
         {
             id: 'wpml',
             name: __('WPML', 'multivendorx'),
-            desc: "<fieldset><legend>Free</legend><span>Gives vendors the option of selling their product in different languages</span></fieldset>",
+            desc: "Gives vendors the option of selling their product in different languages",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/mvx-wpml',
             //settings_link: appLocalizer.site_url,
@@ -498,7 +498,7 @@ export default {
         {
             id: 'advance-custom-field',
             name: __('Advance Custom field', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Allows for an on demand product field in Add Product section</span></fieldset>",
+            desc: "Allows for an on demand product field in Add Product section",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/mvx-acf',
             //settings_link: appLocalizer.site_url,
@@ -507,7 +507,7 @@ export default {
         {
             id: 'geo-my-wp',
             name: __('GEOmyWP', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Offer vendor the option to attach location info along with their products</span></fieldset>",
+            desc: "Offer vendor the option to attach location info along with their products",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/geo-my-wp',
             //settings_link: appLocalizer.site_url,
@@ -516,7 +516,7 @@ export default {
         {
             id: 'toolset-types',
             name: __('Toolset Types', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Allows admin to create custom fields, and taxonomy for vendor's product field</span></fieldset>",
+            desc: "Allows admin to create custom fields, and taxonomy for vendor's product field",
             icon: 'adminlib-dynamic-pricing',
             doc_link: '',
             //settings_link: appLocalizer.site_url,
@@ -525,7 +525,7 @@ export default {
         {
             id: 'wp-affiliate',
             name: __('WP Affiliate', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Launch affiliate programme into your marketplace</span></fieldset>",
+            desc: "Launch affiliate programme into your marketplace",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/affiliate-product/',
             //settings_link: appLocalizer.site_url,
@@ -534,7 +534,7 @@ export default {
         {
             id: 'product-addon',
             name: __('Product Addon', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Offer add-ons like gift wrapping, special messages etc along with primary products</span></fieldset>",
+            desc: "Offer add-ons like gift wrapping, special messages etc along with primary products",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/mvx-product-addon',
             //settings_link: appLocalizer.site_url,
@@ -543,7 +543,7 @@ export default {
         {
             id: 'shipstation-module',
             name: __('Shipstation', 'multivendorx'),
-            desc: "<fieldset><legend><i class='adminlib-pro-tab'></i> Pro</legend><span>Shipstation</span></fieldset>",
+            desc: "Shipstation",
             icon: 'adminlib-dynamic-pricing',
             doc_link: 'https://multivendorx.com/docs/knowledgebase/shipstation/',
             //settings_link: appLocalizer.site_url,
