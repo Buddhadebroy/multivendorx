@@ -234,9 +234,10 @@ const Tabs: React.FC<TabsProps> = ({
                 return (
                     <div
                         key={`folder-${name}-${idx}`}
-                        className="menu-item folder"
+                        className="menu-item"
                         onClick={() => openSubmenu(name ?? '', content as TabData[])}
                     >
+                        
                         <p className="menu-name">{menuCol ? null : name}</p>
                         {!menuCol && (
                             <span className="submenu-arrow">
@@ -290,6 +291,7 @@ const Tabs: React.FC<TabsProps> = ({
 
     const currentMenuItems = menuStack[menuStack.length - 1];
     const parentTabName = breadcrumbPath.length > 1 ? breadcrumbPath[breadcrumbPath.length - 2]?.name : '';
+    const previousMenu = menuStack.length > 1 ? menuStack[menuStack.length - 2] : null;
 
     return (
         <>
@@ -307,9 +309,14 @@ const Tabs: React.FC<TabsProps> = ({
 
             <div className="admin-breadcrumbs">
                 <div className="breadcrumbs-title">
-                    {parentTabName || (breadcrumbPath.length > 0 ? breadcrumbPath[breadcrumbPath.length - 1].name : '')}
+                    <i className="adminlib-cart"></i>
+                    {parentTabName}
                 </div>
                 <p className="breadcrumbs-menu">{renderBreadcrumb()}</p>
+
+                <div id="current-tab-lists" className="current-tab-lists">
+                    <div className="current-tab-lists-container">{renderMenuItems(currentMenuItems)}</div>
+                </div>
             </div>
 
             <div className="general-wrapper">
