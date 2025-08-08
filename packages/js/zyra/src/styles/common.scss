@@ -72,7 +72,7 @@ a {
 }
 
 .btn-purple {
-  background: #ece2f9f1;
+  background: $theme-background-color;
   color: $theme-color;
 }
 
@@ -82,8 +82,8 @@ a {
 }
 
 .btn-red {
-  background: #e34f4a40;
-  color: #e34f4a;
+  background: #fde8e4;
+    color: #f06b4f;
 }
 
 .btn-light-blue {
@@ -98,7 +98,10 @@ a {
 .btn-reject {
   background-color: #e5e5e5;
 }
-
+.btn-green{
+  background: #d9f5f0;
+  color: #06be9f;
+}
 
 .admin-badge {
   font-size: 13px;
@@ -853,7 +856,7 @@ input:checked::before {
       cursor: pointer;
     }
 
-    &:hover i{
+    &:hover i {
       opacity: 1;
     }
   }
@@ -900,9 +903,9 @@ input:checked::before {
 
   label {
     cursor: pointer;
-    width: 3.3rem;
-    height: 1.5rem;
-    background: 0 0;
+    width: 2.785rem;
+    height: 1.4rem;
+    background: #b4b6b940;
     display: block;
     border-radius: $border-radius-button;
     position: relative;
@@ -926,12 +929,13 @@ input:checked::before {
       top: 50%;
       transform: translateY(-50%);
       left: 0.313rem;
-      width: 0.75rem;
-      height: 0.75rem;
+      width: 0.8rem;
+      height: 0.8rem;
       border-radius: 90rem;
       transition: 0.3s;
       z-index: 1;
       border: $border-light-medium;
+      background: #fff;
     }
   }
 
@@ -951,6 +955,7 @@ input:checked::before {
   input:checked+label {
     border: $border-theme-medius;
     border-color: $theme-color;
+    background: $theme-background-color;
 
     &::after {
       border-color: $theme-color;
@@ -1201,8 +1206,60 @@ input:checked::before {
 .buttons-wrapper {
   display: flex;
   justify-content: end;
+  align-items: end;
   gap: 0.625rem;
   padding-top: 0.5rem;
 }
 
 // footer button style end
+
+// multi select start
+// .settings-from-multi-select {
+  
+//   &:first-child {
+//     &:nth-child(3) {
+//       &:first-child {
+//         padding: 0 0.313rem;
+//         &:first-child{
+//           margin: 0;
+//         }
+//         &:last-child{
+//           margin: 0;
+//         }
+//       }
+//     }
+//   }
+// }
+.settings-from-multi-select {
+  > :first-child {
+    margin: 0;
+
+    > :nth-child(3) {
+
+      > :first-child {
+        padding: 0 0.313rem;
+
+        > :first-child {
+          margin: 0;
+        }
+      }
+
+    }
+  }
+
+  > :last-child {
+    margin: 0;
+  }
+}
+.settings-from-multi-select > :first-child > :nth-child(3) > :first-child {
+  padding: 0 0.313rem;
+  > :first-child {
+      margin: 0; 
+      > :first-child {
+        margin: 0;
+      }
+  }
+  > :first-child { margin: 0; }
+}
+
+// multi select end

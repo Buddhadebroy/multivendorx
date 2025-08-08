@@ -1,0 +1,22 @@
+@use '../../global.scss' as *;
+
+.nested-wrapper {
+    .nested-row {
+        background: #ece2f92e;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        gap: 1rem;
+
+        .form-wrapper {
+            width: 48%;
+
+            label {
+                padding-bottom: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    }
+}
