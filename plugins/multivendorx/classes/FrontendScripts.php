@@ -336,6 +336,7 @@ class FrontendScripts {
 						'restUrl'                  => MultiVendorX()->rest_namespace,
 						'nonce'                    => wp_create_nonce( 'wp_rest' ),
 						'khali_dabba'              => Utill::is_khali_dabba(),
+                        'vendor_dashboard_pages'   => $vendor_dashboard_pages,
 						'tab_name'                 => __( 'MultiVendorX', 'multivendorx' ),
 						'settings_databases_value' => $settings_databases_value,
 						'pages_list'               => $pages_array,

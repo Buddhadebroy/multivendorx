@@ -10,7 +10,7 @@ export default {
     modal: [       
         {
             key: 'vendor_seo_options',
-            type: 'radio',
+            type: 'setting-toggle',
             label: __( 'SEO Mode', 'mvx-pro' ),
             options: [
                 {

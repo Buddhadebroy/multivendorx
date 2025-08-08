@@ -12,14 +12,44 @@ export default {
     submitUrl: 'settings',
     modal: [
         {
-            key: 'vendor_url',
-            type: 'text',
+            key: 'approve_seller',
+            type: 'setting-toggle',
+            label: __( 'Approve Seller', 'multivendorx' ),
             desc: __(
-                'Define the custom slug for the vendor store URL. For example, in the URL: https://yourdomain.com/store/[this-text]/[vendor-name], "[this-text]" will be replaced by the slug you set here.',
+                'Decide how you want to approve new sellers for your marketplace: <li>Manual Approval: Review and approve sellers manually. <li>Automatic Approval: Automatically approve sellers without review.',
                 'multivendorx'
             ),
-            label: __('Vendor Store URL', 'multivendorx'),
+            options: [
+                {
+                    key: 'manually',
+                    label: __( 'Manually', 'multivendorx' ),
+                    value: 'manually',
+                },
+                {
+                    key: 'automatically',
+                    label: __( 'Automatically', 'multivendorx' ),
+                    value: 'automatically',
+                },
+            ],
         },
+        {
+            key: 'vendors_backend_access',
+            type: 'checkbox',
+            label: __( "Seller's Backend Access", 'multivendorx' ),
+            desc: __(
+                'Allow sellers to access the full WordPress backend with an integrated dashboard to manage products, orders, and more from one place.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'vendors_backend_access',
+                    value: 'vendors_backend_access',
+                },
+            ],
+            look: 'toggle',
+            proSetting: true,
+        },
+
         {
             key: 'disable_setup_wizard',
             type: 'checkbox',

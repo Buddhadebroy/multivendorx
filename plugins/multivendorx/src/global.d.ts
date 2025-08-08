@@ -15,6 +15,7 @@ declare global {
         tab_name: string;
         settings_databases_value: any;
         pages_list: any;
+        vendor_dashboard_pages: any;
         pro_url: string;
         pro_settings_list: any;
     }

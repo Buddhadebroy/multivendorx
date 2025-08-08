@@ -1,52 +1,80 @@
 import { __ } from '@wordpress/i18n';
 
 export default {
-    id: 'store_colour_customization',
-    priority: 2,
-    name: __( 'Store Colour Customization', 'multivendorx' ),
+    id: 'store-appearance',
+    priority: 3,
+    name: __( 'Store Appearance', 'multivendorx' ),
     desc: __(
         "Control store branding, layout, and identity.",
         'multivendorx'
     ),
     icon: 'adminlib-clock2',
     submitUrl: 'settings',
-    modal: [      
+    modal: [
         {
-            key: 'vendor_color_scheme_picker',
-            type: 'radio-color',
-            label: __( 'Color Scheme', 'multivendorx' ),
-            desc: __(
-                'Select your prefered seller dashboard colour scheme',
-                'multivendorx'
-            ),
-            showPreview: true,
+            key: 'mvx_new_dashboard_site_logo',
+            type: 'file',
+            label: __( 'Branding Logo', 'multivendorx' ),
+            width: 75,
+            height: 75,
+            desc: __( 'Upload brand image as logo', 'multivendorx' ),
+        },
+        {
+            key: 'enable_store_category',
+            type: 'checkbox',
+            label: __( 'Store Category', 'multivendorx' ),
+            desc: __( 'Enable this to allow grouping of vendor stores by category.', 'multivendorx' ),
             options: [
                 {
-                    key: 'outer_space_blue',
+                    key: 'enable_store_category',
+                    value: 'enable_store_category',
+                },
+            ],
+            look: 'toggle',
+        },        
+        {
+            key: 'mvx_vendor_shop_template',
+            type: 'radio-select',
+            label: __( 'Store header', 'multivendorx' ),
+            desc: __(
+                'Select a banner style for your vendors’ store headers. This allows you to choose how vendor stores will visually appear on the platform.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'template1',
                     label: __( 'Outer Space', 'multivendorx' ),
-                    value: 'outer_space_blue',
-                    color: [ '#202528', '#333b3d', '#3f85b9', '#316fa8' ],
+                    value: 'template1',
+                    color: appLocalizer.template1,
                 },
                 {
-                    key: 'green_lagoon',
+                    key: 'template2',
                     label: __( 'Green Lagoon', 'multivendorx' ),
-                    value: 'green_lagoon',
-                    color: [ '#171717', '#212121', '#009788', '#00796a' ],
+                    value: 'template2',
+                    color: appLocalizer.template2,
                 },
                 {
-                    key: 'old_west',
+                    key: 'template3',
                     label: __( 'Old West', 'multivendorx' ),
-                    value: 'old_west',
-                    color: [ '#46403c', '#59524c', '#c7a589', '#ad8162' ],
-                },
-                {
-                    key: 'wild_watermelon',
-                    label: __( 'Wild Watermelon', 'multivendorx' ),
-                    value: 'wild_watermelon',
-                    color: [ '#181617', '#353130', '#fd5668', '#fb3f4e' ],
+                    value: 'template3',
+                    color: appLocalizer.template3,
                 },
             ],
         },
+        {
+            key: 'enable_store_sidebar',
+            type: 'checkbox',
+            label: __( 'Store Sidebar', 'multivendorx' ),
+            desc: __( 'Enable this to show the sidebar on vendor store pages.', 'multivendorx' ),
+            options: [
+                {
+                    key: 'enable_store_sidebar',
+                    value: 'enable_store_sidebar',
+                },
+            ],
+            look: 'toggle',
+        },
+
         {
             key: 'vendor_color_settings',
             type: 'color-setting',
@@ -82,6 +110,6 @@ export default {
                 'Apply custom CSS to change dashboard design',
                 'multivendorx'
             ),
-        },
+        },  
     ],
 };

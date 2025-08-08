@@ -55,12 +55,12 @@ export default {
                 },
                 {
                     key: 'commission_by_product_price',
-                    label: __( 'Commission By Product Price', 'multivendorx' ),
+                    label: __( 'By Product Price', 'multivendorx' ),
                     value: 'commission_by_product_price',
                 },
                 {
                     key: 'commission_by_purchase_quantity',
-                    label: __( 'Commission By Purchase Quantity', 'multivendorx' ),
+                    label: __( 'By Purchase Quantity', 'multivendorx' ),
                     value: 'commission_by_purchase_quantity',
                 },
             ],

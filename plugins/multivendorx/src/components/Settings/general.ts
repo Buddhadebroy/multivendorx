@@ -19,83 +19,7 @@ export default {
     icon: 'adminlib-general-tab',
     submitUrl: 'settings',
     modal: [
-        {
-            key: 'section',
-            type: 'section',
-            hint: __(
-                'Marketplace Registration Flow',
-                'multivendorx'
-            ),
-        },
-        {
-            key: 'approve_seller',
-            type: 'setting-toggle',
-            label: __( 'Approve Seller', 'multivendorx' ),
-            desc: __(
-                'Decide how you want to approve new sellers for your marketplace: <li>Manual Approval: Review and approve sellers manually. <li>Automatic Approval: Automatically approve sellers without review.',
-                'multivendorx'
-            ),
-            options: [
-                {
-                    key: 'manually',
-                    label: __( 'Manually', 'multivendorx' ),
-                    value: 'manually',
-                },
-                {
-                    key: 'automatically',
-                    label: __( 'Automatically', 'multivendorx' ),
-                    value: 'automatically',
-                },
-            ],
-        },
-        {
-            key: 'vendors_backend_access',
-            type: 'checkbox',
-            label: __( "Seller's Backend Access", 'multivendorx' ),
-            desc: __(
-                'Allow sellers to access the full WordPress backend with an integrated dashboard to manage products, orders, and more from one place.',
-                'multivendorx'
-            ),
-            options: [
-                {
-                    key: 'vendors_backend_access',
-                    value: 'vendors_backend_access',
-                },
-            ],
-            look: 'toggle',
-            proSetting: true,
-        },
-        {
-            key: 'enable_email_verification',
-            label: __('Enable Email Verification', 'multivendorx'),
-            desc: __('Enable this to require users to verify their email address after registration.', 'multivendorx'),
-            type: 'checkbox',
-            options: [
-                {
-                    key: 'enable_email_verification',
-                    value: 'enable_email_verification',
-                },
-            ],
-            look: 'toggle',
-        },
 
-        // Registration Notice - Textarea
-        {
-            key: 'registration_notice',
-            label: __('Registration Notice', 'multivendorx'),
-            desc: __('This message will be displayed on the registration page.', 'multivendorx'),
-            type: 'textarea',
-            class: 'mvx-setting-textarea',
-        },
-
-        // Login Notice - Textarea
-        {
-            key: 'login_notice',
-            label: __('Login Notice', 'multivendorx'),
-            desc: __('This message will be shown on the login page.', 'multivendorx'),
-            type: 'textarea',
-            class: 'mvx-setting-textarea',
-        },
         {
             key: 'section',
             type: 'section',
@@ -123,6 +47,15 @@ export default {
                 'multivendorx'
             ),
             options: appLocalizer.pages_list,
+        },
+        {
+            key: 'vendor_url',
+            type: 'text',
+            desc: __(
+                'Define the custom slug for the vendor store URL. For example, in the URL: https://yourdomain.com/store/[this-text]/[vendor-name], "[this-text]" will be replaced by the slug you set here.',
+                'multivendorx'
+            ),
+            label: __('Vendor Store URL', 'multivendorx'),
         },
         {
             key: 'mvx_tinymce_api_section',
