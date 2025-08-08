@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/web/NestedComponent.scss';
 
 interface NestedField {
     key: string;
@@ -53,7 +54,7 @@ const NestedComponent: React.FC< NestedComponentProps > = ( {
     };
 
     return (
-        <div className="nested-component-wrapper">
+        <div className="nested-wrapper">
             { rows.map( ( row, rowIndex ) => (
                 <div
                     className="nested-row"
@@ -63,19 +64,15 @@ const NestedComponent: React.FC< NestedComponentProps > = ( {
                         return (
                             <div
                                 key={ nestedField.key }
+                                className="form-wrapper"
                             >
-                                <label
-                                    style={ {
-                                        display: 'block',
-                                        fontSize: '12px',
-                                        marginBottom: '4px',
-                                    } }
-                                >
+                                <label>
                                     { nestedField.label }
                                 </label>
                                 { nestedField.type === 'select' ? (
                                     <select
                                         value={ inputValue }
+                                        className="basic-select"
                                         onChange={ ( e ) =>
                                             handleFieldChange(
                                                 rowIndex,
@@ -83,10 +80,6 @@ const NestedComponent: React.FC< NestedComponentProps > = ( {
                                                 e.target.value
                                             )
                                         }
-                                        style={ {
-                                            width: '100%',
-                                            padding: '4px',
-                                        } }
                                     >
                                         <option value="">Select</option>
                                         { nestedField.options?.map( ( opt ) => (
@@ -105,6 +98,7 @@ const NestedComponent: React.FC< NestedComponentProps > = ( {
                                         placeholder={
                                             nestedField.placeholder || ''
                                         }
+                                        className="basic-input"
                                         onChange={ ( e ) =>
                                             handleFieldChange(
                                                 rowIndex,
@@ -112,39 +106,30 @@ const NestedComponent: React.FC< NestedComponentProps > = ( {
                                                 e.target.value
                                             )
                                         }
-                                        style={ {
-                                            width: '100%',
-                                            padding: '4px',
-                                        } }
                                     />
                                 ) }
                             </div>
                         );
                     } ) }
 
-                    <div
-                        style={ {
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'flex-end',
-                            gap: '4px',
-                        } }
-                    >
+                    <div className="buttons-wrapper">
                         { rowIndex === rows.length - 1 && (
                             <button
                                 type="button"
+                                className="admin-btn btn-green"
                                 onClick={ addRow }
-                                style={ { padding: '4px 8px' } }
                             >
+                                <i className="adminlib-vendor-form-add"></i>
                                 { addButtonLabel }
                             </button>
                         ) }
                         { rows.length > 1 && (
                             <button
                                 type="button"
+                                className="admin-btn btn-red"
                                 onClick={ () => removeRow( rowIndex ) }
-                                style={ { color: 'red', padding: '4px 8px' } }
                             >
+                                <i className="adminlib-close"></i>
                                 { deleteButtonLabel }
                             </button>
                         ) }
