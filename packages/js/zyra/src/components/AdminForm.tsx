@@ -40,8 +40,8 @@ import Popup, { PopupProps } from './Popup';
 import '../styles/web/AdminForm.scss';
 import NestedComponent from './NestedComponent';
 import MultiStringInput from './MultiInputString';
-import CategoryCommissionInput from './CategoryCommissionInput';
 import ColorSettingInput from './ColorSettingInput';
+import EndpointEditor from './EndpointEditor';
 
 // Types
 declare const wp: any;
@@ -129,8 +129,8 @@ interface InputField {
     | 'api-connect'
     | 'nested'
     | 'multi-string'
-    | 'categorycommissioninput'
-    | 'form-builder';
+    | 'form-builder'
+    | 'endpoint-editor';
     desc?: string;
     placeholder?: string;
     inputLabel?: string;
@@ -981,35 +981,6 @@ const AdminForm: React.FC<AdminFormProps> = ({
                             deleteBtnClass="btn-delete"
                             placeholder={inputField.placeholder}
                             values={value}
-                            name={inputField.key}
-                            proSetting={isProSetting(inputField.proSetting ?? false)}
-                            description={inputField.desc}
-                            descClass="settings-metabox-description"
-                            onChange={(e) => {
-                                if (
-                                    hasAccess(
-                                        inputField.proSetting ?? false,
-                                        String(inputField.moduleEnabled ?? ''),
-                                        String(inputField.dependentSetting ?? ''),
-                                        String(inputField.dependentPlugin ?? '')
-                                    )
-                                ) {
-                                    handleChange(e, inputField.key);
-                                }
-                            }}
-                        />
-                    );
-                    break;
-
-                case 'categorycommissioninput':
-                    input = (
-                        <CategoryCommissionInput
-                            wrapperClass="setting-form-category-commission"
-                            listClass="category-list"
-                            itemClass="category-item"
-                            buttonClass="btn-expand"
-                            categories={inputField.categories || []}
-                            value={value}
                             name={inputField.key}
                             proSetting={isProSetting(inputField.proSetting ?? false)}
                             description={inputField.desc}
@@ -1921,6 +1892,27 @@ const AdminForm: React.FC<AdminFormProps> = ({
                                     settingChanged.current = true;
                                 }
                             }}
+                        />
+                    );
+                    break;
+                case 'endpoint-editor':
+                    input = (
+                        <EndpointEditor
+                            name={ inputField.key }
+                            proSetting={ isProSetting(
+                                inputField.proSetting ?? false
+                            ) }
+                            proSettingChanged={ () =>
+                                proSettingChanged(
+                                    inputField.proSetting ?? false
+                                )
+                            }
+                            apilink={String(inputField.apiLink)}
+                            appLocalizer={ appLocalizer }
+                            onChange={ ( data ) => {
+                                settingChanged.current = true;
+                                updateSetting( inputField.key, data );
+                            } }
                         />
                     );
                     break;
