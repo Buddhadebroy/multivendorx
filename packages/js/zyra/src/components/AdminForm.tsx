@@ -1032,42 +1032,42 @@ const AdminForm: React.FC<AdminFormProps> = ({
                 case 'radio':
                     input = (
                         <RadioInput
-                            wrapperClass="settings-form-group-radio"
-                            inputWrapperClass="radio-basic-input-wrap"
-                            inputClass="setting-form-input"
-                            descClass="settings-metabox-description"
-                            activeClass="radio-select-active"
-                            description={inputField.desc}
-                            value={
-                                typeof value === 'number'
-                                    ? value.toString()
-                                    : value
-                            }
-                            name={inputField.name}
-                            keyName={inputField.key}
-                            options={Array.isArray(inputField.options) ? inputField.options : []}
-                            proSetting={isProSetting(
-                                inputField.proSetting ?? false
-                            )}
-                            onChange={(e) => {
-                                if (
-                                    hasAccess(
-                                        inputField.proSetting ?? false,
-                                        String(
-                                            inputField.moduleEnabled ?? ''
-                                        ),
-                                        String(
-                                            inputField.dependentSetting ?? ''
-                                        ),
-                                        String(
-                                            inputField.dependentPlugin ?? ''
-                                        )
+                        wrapperClass="settings-form-group-radio"
+                        inputWrapperClass="radio-basic-input-wrap"
+                        inputClass="setting-form-input"
+                        descClass="settings-metabox-description"
+                        activeClass="radio-select-active"
+                        description={ inputField.desc }
+                        value={
+                            typeof value === 'number'
+                                ? value.toString()
+                                : value
+                        }
+                        name={ inputField.name }
+                        keyName={ inputField.key }
+                        options={ Array.isArray( value ) ? value : [] }
+                        proSetting={ isProSetting(
+                            inputField.proSetting ?? false
+                        ) }
+                        onChange={ ( e ) => {
+                            if (
+                                hasAccess(
+                                    inputField.proSetting ?? false,
+                                    String(
+                                        inputField.moduleEnabled ?? ''
+                                    ),
+                                    String(
+                                        inputField.dependentSetting ?? ''
+                                    ),
+                                    String(
+                                        inputField.dependentPlugin ?? ''
                                     )
-                                ) {
-                                    handleChange(e, inputField.key);
-                                }
-                            }}
-                        />
+                                )
+                            ) {
+                                handleChange( e, inputField.key );
+                            }
+                        } }
+                    />
                     );
                     break;
                 // for radio select button with image hover
@@ -1120,60 +1120,6 @@ const AdminForm: React.FC<AdminFormProps> = ({
                     break;
 
                 // Check in MVX
-                // for radio color input
-                case 'radio-color':
-                    input = (
-                        <RadioInput
-                            wrapperClass="form-group-radio-color"
-                            inputWrapperClass="settings-radio-color "
-                            inputClass="setting-form-input"
-                            idPrefix="radio-color-under"
-                            activeClass="radio-color-active"
-                            descClass="settings-metabox-description"
-                            description={inputField.desc}
-                            showPreview={inputField.showPreview ?? false}
-                            type="radio-color"
-                            value={
-                                typeof value === 'number'
-                                    ? value.toString()
-                                    : value
-                            }
-                            name={inputField.name}
-                            keyName={inputField.key}
-                            options={
-                                Array.isArray(inputField.options)
-                                    ? inputField.options.map((opt) => ({
-                                        ...opt,
-                                        value: String(opt.value),
-                                        label: opt.label ?? '',
-                                        name: opt.name ?? '',
-                                    }))
-                                    : []
-                            }
-                            proSetting={isProSetting(
-                                inputField.proSetting ?? false
-                            )}
-                            onChange={(e) => {
-                                if (
-                                    hasAccess(
-                                        inputField.proSetting ?? false,
-                                        String(
-                                            inputField.moduleEnabled ?? ''
-                                        ),
-                                        String(
-                                            inputField.dependentSetting ?? ''
-                                        ),
-                                        String(
-                                            inputField.dependentPlugin ?? ''
-                                        )
-                                    )
-                                ) {
-                                    handleChange(e, inputField.key);
-                                }
-                            }}
-                        />
-                    );
-                    break;
                 case 'color-setting':
                     input = (
                         <ColorSettingInput

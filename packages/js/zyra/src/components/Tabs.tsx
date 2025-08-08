@@ -62,10 +62,6 @@ const Tabs: React.FC<TabsProps> = ({
         { name: 'All Settings', id: 'all-settings', type: 'root' },
     ]);
 
-    const handleMenuShow = () => {
-        setMenuCol(!menuCol);
-    };
-
     const findFirstFile = (items: TabData[]): TabContent | null => {
         for (const item of items) {
             if (item.type === 'file') return item.content as TabContent;
@@ -104,10 +100,9 @@ const Tabs: React.FC<TabsProps> = ({
     };
 
     const openSubmenu = (folderName: string, items: TabData[]) => {
-        // Prevent opening submenu if there are no valid children
         const hasValidChildren = items.some(item => item.type === 'file' || (item.type === 'folder' && (item.content as TabData[]).length > 0));
         if (!hasValidChildren) return;
-    
+
         setMenuStack((prev) => [...prev, items]);
         const firstFile = findFirstFile(items);
         if (firstFile) {
@@ -119,7 +114,6 @@ const Tabs: React.FC<TabsProps> = ({
             }
         }
     };
-    
 
     const goToBreadcrumb = (index: number) => {
         const crumb = breadcrumbPath[index];
@@ -197,68 +191,71 @@ const Tabs: React.FC<TabsProps> = ({
             </span>
         ));
 
-        function renderMenuItems(items: TabData[], isTopLevel: boolean = false) {
-            const menuElements: JSX.Element[] = [];
-        
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-        
-                if (item.type === 'file') {
-                    const tab = item.content as TabContent;
-        
-                    const element = (
-                        <div
-                            key={tab.id}
-                            className={`menu-item ${activeTab === tab.id ? 'active-current-tab' : ''}`}
-                            onClick={() => {
-                                setActiveTab(tab.id);
-                                window.history.pushState(null, '', prepareUrl(tab.id));
-        
-                                if (!isTopLevel) {
-                                    const result = buildPathToTab(tabData, tab.id);
-                                    if (result) {
-                                        setMenuStack(result.stack);
-                                        setBreadcrumbPath([
-                                            { name: 'All Settings', id: 'all-settings', type: 'root' },
-                                            ...result.path,
-                                        ]);
-                                    }
-                                }
-                            }}
-                        >
-                            <Link to={prepareUrl(tab.id)}>
-                                <p className="menu-name">{menuCol ? null : tab.name}</p>
-                            </Link>
-                        </div>
-                    );
-        
-                    menuElements.push(element);
-                } else if (item.type === 'folder') {
-                    const folderName = item.name ?? '';
-                    const folderContent = item.content as TabData[];
-        
-                    const element = (
-                        <div
-                            key={`folder-${folderName}-${i}`}
-                            className="menu-item"
-                            onClick={() => openSubmenu(folderName, folderContent)}
-                        >
-                            <p className="menu-name">{menuCol ? null : folderName}</p>
-                            {!menuCol && (
-                                <span className="submenu-arrow">
-                                    <i className="admin-font adminlib-keyboard-arrow-right"></i>
-                                </span>
-                            )}
-                        </div>
-                    );
-        
-                    menuElements.push(element);
-                }
+    function renderMenuItems(items: TabData[], isTopLevel: boolean = false) {
+        return items.map((item, i) => {
+            if (item.type === 'file') {
+                const tab = item.content as TabContent;
+                return (
+                    <div
+                        key={tab.id}
+                        className={`menu-item ${activeTab === tab.id ? 'active-current-tab' : ''}`}
+                        onClick={() => {
+                            setActiveTab(tab.id);
+                            window.history.pushState(null, '', prepareUrl(tab.id));
+                            const result = buildPathToTab(tabData, tab.id);
+                            if (result) {
+                                const isTopLevelFile = tabData.some(topItem => topItem.type === 'file' && (topItem.content as TabContent).id === tab.id);
+                                setMenuStack(isTopLevelFile ? [tabData] : result.stack);
+                                setBreadcrumbPath([
+                                    { name: 'All Settings', id: 'all-settings', type: 'root' },
+                                    ...result.path,
+                                ]);
+                            }
+                        }}
+                    >
+                        <Link to={prepareUrl(tab.id)}>
+                            <p className="menu-name">{menuCol ? null : tab.name}</p>
+                        </Link>
+                    </div>
+                );
+            } else if (item.type === 'folder') {
+                const folderName = item.name ?? '';
+                const folderContent = item.content as TabData[];
+
+                const isCurrentFolderOpen = menuStack.length > 1 && menuStack[menuStack.length - 1] === folderContent;
+
+                const folderHasActiveTab = (() => {
+                    const check = (items: TabData[]): boolean => {
+                        for (const i of items) {
+                            if (i.type === 'file' && (i.content as TabContent).id === activeTab) return true;
+                            if (i.type === 'folder' && check(i.content as TabData[])) return true;
+                        }
+                        return false;
+                    };
+                    return check(folderContent);
+                })();
+
+                const isActiveFolder = isCurrentFolderOpen || folderHasActiveTab;
+
+                return (
+                    <div
+                        key={`folder-${folderName}-${i}`}
+                        className={`menu-item ${isActiveFolder ? 'active-current-tab' : ''}`}
+                        onClick={() => openSubmenu(folderName, folderContent)}
+                    >
+                        <p className="menu-name">{menuCol ? null : folderName}</p>
+                        {!menuCol && (
+                            <span className="submenu-arrow">
+                                <i className="admin-font adminlib-keyboard-arrow-right"></i>
+                            </span>
+                        )}
+                    </div>
+                );
             }
-        
-            return menuElements;
-        }
-        
+
+            return null;
+        });
+    }
 
     const getTabDescription = (tabDataVal: TabData[]): JSX.Element[] => {
         return tabDataVal.flatMap(({ content, type }) => {
@@ -335,11 +332,14 @@ const Tabs: React.FC<TabsProps> = ({
 
                 <div className={`middle-container-wrapper ${horizontally ? 'horizontal-tabs' : 'vertical-tabs'}`}>
                     <div className={`${menuCol ? 'show-menu' : ''} middle-child-container`}>
-                        <div id="current-tab-lists" className="current-tab-lists">
-                            <div className="current-tab-lists-container">
-                                {renderMenuItems(currentMenuItems)}
+                        {/* Conditionally render submenu */}
+                        {menuStack.length > 1 && (
+                            <div id="current-tab-lists" className="current-tab-lists">
+                                <div className="current-tab-lists-container">
+                                    {renderMenuItems(currentMenuItems)}
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         <div className="tab-content">
                             {getTabDescription(tabData)}
