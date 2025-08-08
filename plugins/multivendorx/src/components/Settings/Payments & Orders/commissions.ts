@@ -215,8 +215,8 @@ export default {
             key: 'commission_by_purchase_quantity',
             type: 'nested',
             label: 'Commission By Purchase Quantity',
-            addButtonLabel: 'Add New',
-            deleteButtonLabel: 'Remove',
+            addButtonLabel: '+',
+            deleteButtonLabel: '×',
             nestedFields: [
                 {
                     key: 'purchase_quantity',

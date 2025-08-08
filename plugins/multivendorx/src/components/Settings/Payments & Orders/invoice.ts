@@ -229,7 +229,7 @@ export default {
                 },
             ],
             select_deselect: true,
-            // proSetting: true,
+            proSetting: true,
             moduleEnabled: 'invoice',
         },
         {
