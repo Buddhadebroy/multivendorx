@@ -111,6 +111,42 @@ export default {
             ],
             look: 'toggle',
         },
+        {
+            key: 'vendor_color_settings',
+            type: 'color-setting',
+            label: 'Colors Settings',
+            desc: 'You can configure your general site settings with the option to adjust the color of your dashboard.',
+            showPreview: true,
+            predefinedOptions: [
+                {
+                    key: 'purple_pulse',
+                    label: 'Purple Pulse',
+                    value: 'purple_pulse',
+                    color: ['#3c1f5d', '#5a2d82', '#7b3eb8', '#9e64d9'],
+                },
+                {
+                    key: 'majestic_orange',
+                    label: 'Majestic Orange',
+                    value: 'majestic_orange',
+                    color: ['#ff9f1a', '#ff6f00', '#ff8533', '#e65100'],
+                },
+                {
+                    key: 'ocean',
+                    label: 'Ocean',
+                    value: 'ocean',
+                    color: ['#102a43', '#243b53', '#2c5282', '#2b6cb0'],
+                },
+            ],
+        },             
+        {
+            key: 'mvx_vendor_dashboard_custom_css',
+            type: 'textarea',
+            label: __( 'Custom CSS', 'multivendorx' ),
+            desc: __(
+                'Apply custom CSS to change dashboard design',
+                'multivendorx'
+            ),
+        },
            
     ],
 };

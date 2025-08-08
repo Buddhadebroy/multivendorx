@@ -1,0 +1,322 @@
+import { __ } from '@wordpress/i18n';
+
+export default {
+    id: 'general',
+    priority: 1,
+    name: __( 'General', 'multivendorx' ),
+    desc: __(
+        'Controls how sellers are onboarded and what access they get.',
+        'multivendorx'
+    ),
+    video: {
+        icon: 'adminlib-general-tab', // optional icon class
+        link: 'https://example.com/video/general-settings',
+    },
+    docs: {
+        icon: 'adminlib-general-tab', // optional icon class
+        link: 'https://example.com/docs/general-settings',
+    },
+    icon: 'adminlib-general-tab',
+    submitUrl: 'settings',
+    modal: [
+        {
+            key: 'approve_seller',
+            type: 'setting-toggle',
+            label: __( 'Approve Seller', 'multivendorx' ),
+            desc: __(
+                'Decide how you want to approve new sellers for your marketplace: <li>Manual Approval: Review and approve sellers manually. <li>Automatic Approval: Automatically approve sellers without review.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'manually',
+                    label: __( 'Manually', 'multivendorx' ),
+                    value: 'manually',
+                },
+                {
+                    key: 'automatically',
+                    label: __( 'Automatically', 'multivendorx' ),
+                    value: 'automatically',
+                },
+            ],
+        },
+        {
+            key: 'vendors_backend_access',
+            type: 'checkbox',
+            label: __( "Seller's Backend Access", 'multivendorx' ),
+            desc: __(
+                'Allow sellers to access the full WordPress backend with an integrated dashboard to manage products, orders, and more from one place.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'vendors_backend_access',
+                    value: 'vendors_backend_access',
+                },
+            ],
+            look: 'toggle',
+            proSetting: true,
+        },
+        {
+            key: 'category_pyramid_guide',
+            type: 'checkbox',
+            label: __( 'Category assistance (CPG)', 'multivendorx' ),
+            desc: __(
+                'Help vendors categorize their products accurately with the Category Pyramid Guide.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'category_pyramid_guide',
+                    value: 'category_pyramid_guide',
+                },
+            ],
+            look: 'toggle',
+        },
+        {
+            key: 'is_singleproductmultiseller',
+            type: 'checkbox',
+            label: __( 'Allow Vendor to Copy Products', 'multivendorx' ),
+            desc: __(
+                'Let vendors search for products sold on your site and sell them from their store.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'is_singleproductmultiseller',
+                    value: 'is_singleproductmultiseller',
+                },
+            ],
+            look: 'toggle',
+            // moduleEnabled: 'spmv',
+        },
+        {
+            key: 'singleproductmultiseller_show_order',
+            type: 'select',
+            label: __( 'Display Shop Page Product', 'multivendorx' ),
+            desc: __(
+                'Select the criteria on which the SPMV product is going to be based on.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'min-price',
+                    label: __( 'Min Price', 'multivendorx' ),
+                    value: __( 'min-price', 'multivendorx' ),
+                },
+                {
+                    key: 'max-price',
+                    label: __( 'Max Price', 'multivendorx' ),
+                    value: __( 'max-price', 'multivendorx' ),
+                },
+                {
+                    key: 'top-rated-vendor',
+                    label: __( 'Top rated vendor', 'multivendorx' ),
+                    value: __( 'top-rated-vendor', 'multivendorx' ),
+                },
+            ],
+            dependent: {
+                key: 'is_singleproductmultiseller',
+                set: true,
+            },
+            proSetting: true,
+            moduleEnabled: 'spmv',
+        },
+        {
+            key: 'moreoffers_display_position',
+            type: 'select',
+            label: __( 'More Offers Display Position', 'multivendorx' ),
+            desc: __(
+                'Select where you want the "More Offers" section to appear on the Single Product Page.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'none',
+                    label: __( 'None', 'multivendorx' ),
+                    value: 'none',
+                },
+                {
+                    key: 'above-tabs',
+                    label: __( 'Above Single Page Product Tabs', 'multivendorx' ),
+                    value: 'above-tabs',
+                },
+                {
+                    key: 'inside-tabs',
+                    label: __( 'Display Inside Single Page Product Tabs', 'multivendorx' ),
+                    value: 'inside-tabs',
+                },
+                {
+                    key: 'after-tabs',
+                    label: __( 'After Single Page Product Tabs', 'multivendorx' ),
+                    value: 'after-tabs',
+                },
+            ],
+            dependent: {
+                key: 'is_singleproductmultiseller',
+                set: true,
+            },
+            proSetting: false,
+            moduleEnabled: 'spmv',
+        },
+        {
+            key: 'enable_store_category',
+            type: 'checkbox',
+            label: __( 'Enable Store Category', 'multivendorx' ),
+            desc: __(
+                'Allow vendors to assign their stores to categories for better browsing and filtering.',
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'enable_store_category',
+                    value: 'enable_store_category',
+                },
+            ],
+            look: 'toggle',
+        },
+        {
+            key: 'display_product_seller',
+            type: 'checkbox',
+            label: __( 'Display vendor name on products', 'multivendorx' ),
+            desc: __(
+                "show the vendor's name on their product listings. This helps customers identify who they're buying from.",
+                'multivendorx'
+            ),
+            options: [
+                {
+                    key: 'display_product_seller',
+                    value: 'display_product_seller',
+                },
+            ],
+            look: 'toggle',
+        },
+        {
+            key: 'seller_registration_page',
+            type: 'select',
+            label: __( 'Seller Registration Page', 'multivendorx' ),
+            desc: __(
+                'Select the page where you have inserted the <code>[seller_registration]</code> shortcode. This page will be used to onboard new sellers.',
+                'multivendorx'
+            ),
+            options: appLocalizer.pages_list,
+        },
+        {
+            key: 'vendor_dashboard_page',
+            type: 'select',
+            label: __( 'Vendor dashboard page', 'multivendorx' ),
+            desc: __(
+                'Select the page on which you have inserted <code>[mvx_vendor]</code> shortcode. This will be the main dashboard page for your vendors to manage their store.',
+                'multivendorx'
+            ),
+            options: appLocalizer.pages_list,
+        },
+        {
+            key: 'mvx_tinymce_api_section',
+            type: 'text',
+            label: __( 'TinyMCE Api', 'multivendorx' ),
+            desc: __(
+                'Set TinyMCE Api key <a href="https://www.tiny.cloud/blog/how-to-get-tinymce-cloud-up-in-less-than-5-minutes/" target="_blank">Click here to generate key</a> to enable the text editor for vendors. This allows them to format their product descriptions and other content with ease.',
+                'multivendorx'
+            ),
+        },
+        {
+            key: 'available_shortcodes',
+            type: 'shortcode-table',
+            label: __( 'Available shortcodes', 'multivendorx' ),
+            desc: __( '', 'multivendorx' ),
+            optionLabel: [ 'Shortcodes', 'Description' ],
+            options: [
+                {
+                    key: '',
+                    label: '[mvx_vendor]',
+                    desc: __(
+                        'Enables you to create a seller dashboard ',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[vendor_registration]',
+                    desc: __(
+                        'Creates a page where the vendor registration form is available',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[vendor_coupons]',
+                    desc: __(
+                        'Lets you view  a brief summary of the coupons created by the seller and number of times it has been used by the customers',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_recent_products]',
+                    desc: __(
+                        'Allows you to glance at the recent products added by seller',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_products]',
+                    desc: __(
+                        'Displays the products added by seller',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_featured_products]',
+                    desc: __(
+                        'Exhibits featured products added by the seller',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_sale_products]',
+                    desc: __(
+                        'Allows you to see the products put on sale by a seller',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_top_rated_products]',
+                    desc: __(
+                        'Displays the top rated products of the seller',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_best_selling_products]',
+                    desc: __(
+                        'Presents you the option of viewing the best selling products of the vendor',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_product_category]',
+                    desc: __(
+                        'Lets you see the product categories used by the vendor',
+                        'multivendorx'
+                    ),
+                },
+                {
+                    key: '',
+                    label: '[mvx_vendorslist]',
+                    desc: __(
+                        'Shows customers a list of available seller.',
+                        'multivendorx'
+                    ),
+                },
+            ],
+        },
+
+    ],
+};
