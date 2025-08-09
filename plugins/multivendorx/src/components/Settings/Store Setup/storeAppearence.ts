@@ -23,7 +23,7 @@ export default {
             key: 'enable_store_category',
             type: 'checkbox',
             label: __( 'Store Category', 'multivendorx' ),
-            desc: __( 'Enable this to allow grouping of vendor stores by category.', 'multivendorx' ),
+            desc: __( 'Enable this to allow grouping of stores by category.', 'multivendorx' ),
             options: [
                 {
                     key: 'enable_store_category',
@@ -33,11 +33,11 @@ export default {
             look: 'toggle',
         },        
         {
-            key: 'mvx_vendor_shop_template',
+            key: 'mvx_store_shop_template',
             type: 'radio-select',
             label: __( 'Store header', 'multivendorx' ),
             desc: __(
-                'Select a banner style for your vendors’ store headers. This allows you to choose how vendor stores will visually appear on the platform.',
+                'Select a banner style for your stores’ store headers. This allows you to choose how stores will visually appear on the platform.',
                 'multivendorx'
             ),
             options: [
@@ -65,7 +65,7 @@ export default {
             key: 'enable_store_sidebar',
             type: 'checkbox',
             label: __( 'Store Sidebar', 'multivendorx' ),
-            desc: __( 'Enable this to show the sidebar on vendor store pages.', 'multivendorx' ),
+            desc: __( 'Enable this to show the sidebar on store pages.', 'multivendorx' ),
             options: [
                 {
                     key: 'enable_store_sidebar',
@@ -76,7 +76,7 @@ export default {
         },
 
         {
-            key: 'vendor_color_settings',
+            key: 'store_color_settings',
             type: 'color-setting',
             label: 'Colors Settings',
             desc: 'You can configure your general site settings with the option to adjust the color of your dashboard.',
@@ -101,15 +101,6 @@ export default {
                     color: ['#102a43', '#243b53', '#2c5282', '#2b6cb0'],
                 },
             ],
-        },             
-        {
-            key: 'mvx_vendor_dashboard_custom_css',
-            type: 'textarea',
-            label: __( 'Custom CSS', 'multivendorx' ),
-            desc: __(
-                'Apply custom CSS to change dashboard design',
-                'multivendorx'
-            ),
-        },  
+        }, 
     ],
 };

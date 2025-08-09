@@ -58,7 +58,7 @@ export default {
                 appLocalizer.woocommerce_currency
             ),
             desc: __(
-                'Specify the cost for each advertisement slot. Enter "0" if you want to allow vendors to advertise for free.',
+                'Specify the cost for each advertisement slot. Enter "0" if you want to allow stores to advertise for free.',
                 'mvx-pro'
             ),
             dependent: {

@@ -5,7 +5,7 @@ export default {
     priority: 8,
     name: __( 'Privacy Settings', 'multivendorx' ),
     desc: __(
-        'Control public visibility of store and seller info',
+        'Control public visibility of store and store info',
         'multivendorx'
     ),
     icon: 'adminlib-storefront',
@@ -15,7 +15,7 @@ export default {
             key: 'enable_profile_deactivation_request',
             type: 'checkbox',
             label: __( 'Profile Deactivation Request', 'multivendorx' ),
-            desc: __( 'Allow vendors to request temporary deactivation of their store from their dashboard.', 'multivendorx' ),
+            desc: __( 'Allow store to request temporary deactivation of their store from their dashboard.', 'multivendorx' ),
             options: [
                 {
                     key: 'enable_profile_deactivation_request',
@@ -37,9 +37,9 @@ export default {
                     value: 'hide_sold_by_label',
                 },
                 {
-                    key: 'display_vendor_name_on_products',
-                    label: __( 'Display Vendor Name on Products', 'multivendorx' ),
-                    value: 'display_vendor_name_on_products',
+                    key: 'display_store_name_on_products',
+                    label: __( 'Display Store Name on Products', 'multivendorx' ),
+                    value: 'display_store_name_on_products',
                 },
                 {
                     key: 'sold_by_location',
@@ -54,7 +54,7 @@ export default {
             type: 'section',
             desc: __( 'Store Page Details', 'multivendorx' ),
             hint: __(
-                'Control which vendor information is visible on the vendor’s store page.',
+                'Control which store information is visible on the store’s store page.',
                 'multivendorx'
             ),
         },
@@ -62,7 +62,7 @@ export default {
             key: 'store_page_details',
             type: 'checkbox',
             label: __( 'Store Page Settings', 'multivendorx' ),
-            desc: __( 'Manage vendor information visibility on the store page.', 'multivendorx' ),
+            desc: __( 'Manage store information visibility on the store page.', 'multivendorx' ),
             class: 'mvx-toggle-checkbox',
             options: [
                 {
@@ -98,7 +98,7 @@ export default {
             type: 'section',
             desc: __( 'Email Visibility', 'multivendorx' ),
             hint: __(
-                'Control what vendor/store information is visible in customer emails.',
+                'Control what store information is visible in customer emails.',
                 'multivendorx'
             ),
         },
@@ -122,7 +122,7 @@ export default {
             type: 'section',
             desc: __( 'Store Policy Override', 'multivendorx' ),
             hint: __(
-                'Allow vendors to set or override the default store policies (e.g., refund, shipping, and cancellation policies).',
+                'Allow stores to set or override the default store policies (e.g., refund, shipping, and cancellation policies).',
                 'multivendorx'
             ),
         },
@@ -130,7 +130,7 @@ export default {
             key: 'store_policy_override',
             type: 'checkbox',
             label: __( 'Store Policy Settings', 'multivendorx' ),
-            desc: __( 'Allow vendors to override default marketplace policies.', 'multivendorx' ),
+            desc: __( 'Allow stores to override default marketplace policies.', 'multivendorx' ),
             class: 'mvx-toggle-checkbox',
             options: [
                 {

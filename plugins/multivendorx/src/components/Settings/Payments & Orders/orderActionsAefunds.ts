@@ -5,24 +5,24 @@ export default {
     priority: 3,
     name: __( 'Order Actions & Refunds', 'multivendorx' ),
     desc: __(
-        'Control what actions vendors can take regarding their orders and how order details are displayed.',
+        'Control what actions stores can take regarding their orders and how order details are displayed.',
         'multivendorx'
     ),
     icon: 'adminlib-order',
     submitUrl: 'settings',
     modal: [
         {
-            key: 'disallow_vendor_order_status',
+            key: 'disallow_store_order_status',
             label: __( 'Order status control', 'multivendorx' ),
             type: 'checkbox',
             desc: __(
-                'Decide whether vendors have the ability to change the status of their orders.',
+                'Decide whether stores have the ability to change the status of their orders.',
                 'multivendorx'
             ),
             options: [
                 {
-                    key: 'disallow_vendor_order_status',
-                    value: 'disallow_vendor_order_status',
+                    key: 'disallow_store_order_status',
+                    value: 'disallow_store_order_status',
                 },
             ],
             look: 'toggle',

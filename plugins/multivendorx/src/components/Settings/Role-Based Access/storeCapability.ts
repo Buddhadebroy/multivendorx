@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 
 export default {
-    id: 'role-manager',
-    priority: 4,
-    name: __('Role-Based Access', 'mvx-pro'),
+    id: 'store-capability',
+    priority: 1,
+    name: __('Store Capability', 'mvx-pro'),
     desc: __('Manage access permissions for different store roles.', 'mvx-pro'),
     icon: 'adminlib-wholesale',
     submitUrl: 'settings',
@@ -13,7 +13,7 @@ export default {
             type: 'section',
             desc: __( 'Product Permission Options', 'multivendorx' ),
             hint: __(
-                'Control how sellers can submit and manage their products',
+                'Control how stores can submit and manage their products',
                 'multivendorx'
             ),
         },
@@ -21,7 +21,7 @@ export default {
             key: 'product_permission_options',
             type: 'checkbox',
             label: __( 'Product Permission Options', 'multivendorx' ),
-            desc: __( 'Manage the permissions sellers have for product submission, publishing, and editing.', 'multivendorx' ),
+            desc: __( 'Manage the permissions stores have for product submission, publishing, and editing.', 'multivendorx' ),
             options: [
                 {
                     key: 'is_submit_product',
@@ -51,7 +51,7 @@ export default {
             type: 'section',
             desc: __( 'Coupon Management', 'multivendorx' ),
             hint: __(
-                'Give sellers control over their discount coupons.',
+                'Give stores control over their discount coupons.',
                 'multivendorx'
             ),
         },
@@ -59,7 +59,7 @@ export default {
             key: 'coupon_management_options',
             type: 'checkbox',
             label: __( 'Coupon Management Options', 'multivendorx' ),
-            desc: __( 'Manage the permissions sellers have for creating, publishing, and editing coupons.', 'multivendorx' ),
+            desc: __( 'Manage the permissions stores have for creating, publishing, and editing coupons.', 'multivendorx' ),
             options: [
                 {
                     key: 'is_submit_coupon',
@@ -84,7 +84,7 @@ export default {
             type: 'section',
             desc: __( 'Media Management', 'multivendorx' ),
             hint: __(
-                'Manage the media files sellers can upload.',
+                'Manage the media files stores can upload.',
                 'multivendorx'
             ),
         },
@@ -93,7 +93,7 @@ export default {
             type: 'checkbox',
             label: __( 'Media Management Options', 'multivendorx' ),
             desc: __(
-                'Select the permissions you want to grant sellers for media file uploads.',
+                'Select the permissions you want to grant stores for media file uploads.',
                 'multivendorx'
             ),
             options: [
@@ -104,59 +104,6 @@ export default {
                 },
             ],
             selectDeselect: true,
-        },
-                       
-        {
-            key: 'role_access_table',
-            type: 'multi-checkbox-table',
-            label: __('Role Access Control', 'mvx-pro'),
-            desc: __('Define which permissions each role should have.', 'mvx-pro'),
-            moduleEnabled: 'role_manager',
-
-            columns: [
-                { key: 'storeOwner', label: __('Store Owner', 'mvx-pro') },
-                { key: 'storeManager', label: __('Store Manager', 'mvx-pro') },
-                { key: 'productManager', label: __('Product Manager', 'mvx-pro') },
-                { key: 'customerSupport', label: __('Customer Support', 'mvx-pro') },
-                { key: 'orderAssistant', label: __('Order Assistant', 'mvx-pro') },
-            ],
-
-            rows: [
-                { key: 'manageUsers', label: __('Manage Users', 'mvx-pro') },
-                { key: 'manageProducts', label: __('Manage Products', 'mvx-pro') },
-                {
-                    key: 'orders',
-                    label: __('View/Process Orders', 'mvx-pro'),
-                    options: [
-                        { value: 'Full', label: __('Full', 'mvx-pro') },
-                        { value: 'Limited', label: __('Limited', 'mvx-pro') },
-                        { value: 'View Only', label: __('View Only', 'mvx-pro') },
-                        { value: 'Views Only Basic Access', label: __('Views Only Basic Access', 'mvx-pro') },
-                        { value: 'No', label: __('No', 'mvx-pro') },
-                    ],
-                },
-                {
-                    key: 'finances',
-                    label: __('Access Finances', 'mvx-pro'),
-                    options: [
-                        { value: 'Full', label: __('Full', 'mvx-pro') },
-                        { value: 'Limited', label: __('Limited', 'mvx-pro') },
-                        { value: 'Refunds Only', label: __('Refunds Only', 'mvx-pro') },
-                        { value: 'No', label: __('No', 'mvx-pro') },
-                    ],
-                },
-                {
-                    key: 'analytics',
-                    label: __('Analytics', 'mvx-pro'),
-                    options: [
-                        { value: 'Full', label: __('Full', 'mvx-pro') },
-                        { value: 'Some', label: __('Some', 'mvx-pro') },
-                        { value: 'Product Only', label: __('Product Only', 'mvx-pro') },
-                        { value: 'No', label: __('No', 'mvx-pro') },
-                    ],
-                },
-                { key: 'messages', label: __('Customer Messages', 'mvx-pro') },
-            ],
-        },                     
+        },                   
     ],
 };

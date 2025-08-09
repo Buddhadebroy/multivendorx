@@ -91,7 +91,7 @@ export default {
             key: 'choose_payment_mode_automatic_disbursal',
             label: __( 'Disbursement Schedule', 'multivendorx' ),
             desc: __(
-                'Schedule when vendors would receive their commission',
+                'Schedule when stores would receive their commission',
                 'multivendorx'
             ),
             type: 'checkbox',
@@ -144,7 +144,7 @@ export default {
             type: 'number',
             label: __( 'Disbursement Threshold', 'multivendorx' ),
             desc: __(
-                'Add the minimum value required before payment is disbursed to the vendor',
+                'Add the minimum value required before payment is disbursed to the store',
                 'multivendorx'
             ),
         },
@@ -169,7 +169,7 @@ export default {
             type: 'number',
             label: __( 'Withdrawal Locking Period', 'multivendorx' ),
             desc: __(
-                'Refers to the minimum number of days required before a seller can send a withdrawal request',
+                'Refers to the minimum number of days required before a store can send a withdrawal request',
                 'multivendorx'
             ),
             placeholder: __( 'in days', 'multivendorx' ),
@@ -214,7 +214,7 @@ export default {
             type: 'number',
             label: __( 'Withdrawal Charges', 'multivendorx' ),
             desc: __(
-                'Vendors will be charged this amount per withdrawal after the quota of free withdrawals is over.',
+                'Stores will be charged this amount per withdrawal after the quota of free withdrawals is over.',
                 'multivendorx'
             ),
         },  

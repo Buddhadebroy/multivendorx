@@ -5,7 +5,7 @@ export default {
     priority: 8,
     name: __( 'Access & Verification Basics', 'mvx-pro' ),
     desc: __(
-        'Enable various forms of identity verification for vendors and ensure a trusted marketplace.',
+        'Enable various forms of identity verification for stores and ensure a trusted marketplace.',
         'mvx-pro'
     ),
     icon: 'adminlib-clock2',
@@ -65,15 +65,15 @@ export default {
             width: 75,
             height: 75,
             desc: __(
-                'Upload (32px height) size badge that will appear next to verified vendors for credibility.',
+                'Upload (32px height) size badge that will appear next to verified stores for credibility.',
                 'mvx-pro'
             ),
         },
         {
-            key: 'vendor_verification',
+            key: 'store_verification',
             type: 'checkbox',
-            label: __( 'Vendor Verification', 'mvx-pro' ),
-            desc: __( 'Choose the types of verification you want to enable for vendors.', 'mvx-pro' ),
+            label: __( 'Store Verification', 'mvx-pro' ),
+            desc: __( 'Choose the types of verification you want to enable for stores.', 'mvx-pro' ),
             options: [
                 {
                     key: 'address_verification',
@@ -99,10 +99,10 @@ export default {
             blocktext: __( 'Verification-only access', 'mvx-pro' ),
         },
         {
-            key: 'unverified_vendor_access',
+            key: 'unverified_store_access',
             type: 'checkbox',
-            label: __( 'Access Restrictions for Unverified Vendors', 'mvx-pro' ),
-            desc: __( 'Select the restrictions you want to apply to vendors who have not yet completed their verification process.', 'mvx-pro' ),
+            label: __( 'Access Restrictions for Unverified Stores', 'mvx-pro' ),
+            desc: __( 'Select the restrictions you want to apply to stores who have not yet completed their verification process.', 'mvx-pro' ),
             options: [
                 {
                     key: 'endpoint_control',
@@ -137,7 +137,7 @@ export default {
             key: 'google_enable',
             label: __( 'Enable', 'mvx-pro' ),
             type: 'checkbox',
-            desc: __( 'Enable this social verification for vendor', 'mvx-pro' ),
+            desc: __( 'Enable this social verification for store', 'mvx-pro' ),
             options: [
                 {
                     key: 'google_enable',
@@ -198,7 +198,7 @@ export default {
             key: 'facebook_enable',
             label: __( 'Enable', 'mvx-pro' ),
             type: 'checkbox',
-            desc: __( 'Enable this social verification for vendor', 'mvx-pro' ),
+            desc: __( 'Enable this social verification for store', 'mvx-pro' ),
             options: [
                 {
                     key: 'facebook_enable',
@@ -260,7 +260,7 @@ export default {
             key: 'twitter_enable',
             label: __( 'Enable', 'mvx-pro' ),
             type: 'checkbox',
-            desc: __( 'Enable this social verification for vendor', 'mvx-pro' ),
+            desc: __( 'Enable this social verification for store', 'mvx-pro' ),
             options: [
                 {
                     key: 'twitter_enable',
@@ -324,7 +324,7 @@ export default {
             key: 'linkedin_enable',
             label: __( 'Enable', 'mvx-pro' ),
             type: 'checkbox',
-            desc: __( 'Enable this social verification for vendor', 'mvx-pro' ),
+            desc: __( 'Enable this social verification for store', 'mvx-pro' ),
             options: [
                 {
                     key: 'linkedin_enable',

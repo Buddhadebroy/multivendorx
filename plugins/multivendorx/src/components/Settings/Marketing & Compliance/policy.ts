@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 export default {
     id: 'policy',
     priority: 3,
-    name: __( 'Add Policies For Your Site', 'mvx-pro' ),
+    name: __( 'Add Policies', 'mvx-pro' ),
     desc: __( 'Add policies that are applicable to your site.', 'mvx-pro' ),
     icon: 'adminlib-support',
     submitUrl: 'settings',

@@ -131,6 +131,7 @@ interface InputField {
     | 'multi-string'
     | 'form-builder'
     | 'endpoint-editor';
+    settingDescription?: string
     desc?: string;
     placeholder?: string;
     inputLabel?: string;
@@ -1003,42 +1004,42 @@ const AdminForm: React.FC<AdminFormProps> = ({
                 case 'radio':
                     input = (
                         <RadioInput
-                        wrapperClass="settings-form-group-radio"
-                        inputWrapperClass="radio-basic-input-wrap"
-                        inputClass="setting-form-input"
-                        descClass="settings-metabox-description"
-                        activeClass="radio-select-active"
-                        description={ inputField.desc }
-                        value={
-                            typeof value === 'number'
-                                ? value.toString()
-                                : value
-                        }
-                        name={ inputField.name }
-                        keyName={ inputField.key }
-                        options={ Array.isArray( value ) ? value : [] }
-                        proSetting={ isProSetting(
-                            inputField.proSetting ?? false
-                        ) }
-                        onChange={ ( e ) => {
-                            if (
-                                hasAccess(
-                                    inputField.proSetting ?? false,
-                                    String(
-                                        inputField.moduleEnabled ?? ''
-                                    ),
-                                    String(
-                                        inputField.dependentSetting ?? ''
-                                    ),
-                                    String(
-                                        inputField.dependentPlugin ?? ''
-                                    )
-                                )
-                            ) {
-                                handleChange( e, inputField.key );
+                            wrapperClass="settings-form-group-radio"
+                            inputWrapperClass="radio-basic-input-wrap"
+                            inputClass="setting-form-input"
+                            descClass="settings-metabox-description"
+                            activeClass="radio-select-active"
+                            description={inputField.desc}
+                            value={
+                                typeof value === 'number'
+                                    ? value.toString()
+                                    : value
                             }
-                        } }
-                    />
+                            name={inputField.name}
+                            keyName={inputField.key}
+                            options={Array.isArray(value) ? value : []}
+                            proSetting={isProSetting(
+                                inputField.proSetting ?? false
+                            )}
+                            onChange={(e) => {
+                                if (
+                                    hasAccess(
+                                        inputField.proSetting ?? false,
+                                        String(
+                                            inputField.moduleEnabled ?? ''
+                                        ),
+                                        String(
+                                            inputField.dependentSetting ?? ''
+                                        ),
+                                        String(
+                                            inputField.dependentPlugin ?? ''
+                                        )
+                                    )
+                                ) {
+                                    handleChange(e, inputField.key);
+                                }
+                            }}
+                        />
                     );
                     break;
                 // for radio select button with image hover
@@ -1099,7 +1100,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
                             descClass="settings-metabox-description"
                             description={inputField.desc}
                             showPreview={inputField.showPreview ?? false}
-                            predefinedOptions={inputField.predefinedOptions ?? []}                             value={typeof value === 'number' ? value.toString() : value}
+                            predefinedOptions={inputField.predefinedOptions ?? []} value={typeof value === 'number' ? value.toString() : value}
                             customValue={
                                 typeof value === 'object' && value?.customColors
                                     ? value.customColors
@@ -1896,24 +1897,25 @@ const AdminForm: React.FC<AdminFormProps> = ({
                 case 'endpoint-editor':
                     input = (
                         <EndpointEditor
-                            name={ inputField.key }
-                            proSetting={ isProSetting(
+                            name={inputField.key}
+                            proSetting={isProSetting(
                                 inputField.proSetting ?? false
-                            ) }
-                            proSettingChanged={ () =>
+                            )}
+                            proSettingChanged={() =>
                                 proSettingChanged(
                                     inputField.proSetting ?? false
                                 )
                             }
                             apilink={String(inputField.apiLink)}
-                            appLocalizer={ appLocalizer }
-                            onChange={ ( data ) => {
+                            appLocalizer={appLocalizer}
+                            onChange={(data) => {
                                 settingChanged.current = true;
-                                updateSetting( inputField.key, data );
-                            } }
+                                updateSetting(inputField.key, data);
+                            }}
                         />
                     );
                     break;
+
             }
 
             return inputField.type === 'section' ||
@@ -1925,7 +1927,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
                     className={`form-group ${inputField.classes ? inputField.classes : ''
                         }`}
                 >
-                    {inputField.type !== 'catalog-customizer' &&
+                    {inputField.label && inputField.type !== 'catalog-customizer' &&
                         inputField.type !== 'form-customizer' && (
                             <label
                                 className="settings-form-label"
@@ -1933,9 +1935,9 @@ const AdminForm: React.FC<AdminFormProps> = ({
                                 htmlFor={inputField.key}
                             >
                                 <div className="title">{inputField.label}</div>
-                                <div className="settings-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                                <div className="settings-description">{inputField.settingDescription}</div>
                             </label>
-                        )}
+                    )}
 
                     <div className="settings-input-content">{input}</div>
                 </div>
