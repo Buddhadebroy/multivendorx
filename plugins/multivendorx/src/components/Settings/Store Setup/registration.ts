@@ -5,7 +5,7 @@ export default {
     priority: 1,
     name: 'Store Registration Form',
     desc: __(
-        'Customise personalised seller registration form for marketplace.',
+        'Customise personalised store registration form for marketplace.',
         'multivendorx'
     ),
     icon: 'adminlib-form-section',
@@ -21,9 +21,9 @@ export default {
             ),
         },
         {
-            key: 'vendor_registration_from',
+            key: 'store_registration_from',
             type: 'form-builder',
-            desc: 'Customise personalised seller registration form for marketplace.',
+            desc: 'Customise personalised store registration form for marketplace.',
         },
     ],
 };

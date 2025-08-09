@@ -12,7 +12,7 @@ export default {
     submitUrl: 'settings',
     modal: [
         {
-            key: 'enable_store_map_for_vendor',
+            key: 'enable_store_map',
             type: 'checkbox',
             label: __( 'Store location', 'multivendorx' ),
             desc: __(
@@ -21,8 +21,8 @@ export default {
             ),
             options: [
                 {
-                    key: 'enable_store_map_for_vendor',
-                    value: 'enable_store_map_for_vendor',
+                    key: 'enable_store_map',
+                    value: 'enable_store_map',
                 },
             ],
             look: 'toggle',
@@ -46,7 +46,7 @@ export default {
                 },
             ],
             dependent: {
-                key: 'enable_store_map_for_vendor',
+                key: 'enable_store_map',
                 set: true,
             },
         },
@@ -83,7 +83,7 @@ export default {
             type: 'textarea',
             label: __( 'Store Address Input', 'multivendorx' ),
             
-            desc: __( 'Enter the full store address. This information may be displayed on the vendor’s store page and used for shipping or location purposes.', 'multivendorx' ),
+            desc: __( 'Enter the full store address. This information may be displayed on the store page and used for shipping or location purposes.', 'multivendorx' ),
             placeholder: __( '123 Main Street, City, State, ZIP Code', 'multivendorx' ),
         },
         {
@@ -123,7 +123,7 @@ export default {
             key: 'map_zoom_level',
             type: 'number',
             label: __( 'Map Zoom Level', 'multivendorx' ),
-            desc: __( 'Define the default zoom level of the map shown on the store or vendor page. Higher values zoom in closer.', 'multivendorx' ),
+            desc: __( 'Define the default zoom level of the map shown on the store or store page. Higher values zoom in closer.', 'multivendorx' ),
         }
                         
     ],

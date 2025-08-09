@@ -5,18 +5,18 @@ export default {
     priority: 2,
     name: 'Onboarding',
     desc: __(
-        'Customise personalised seller registration form for marketplace.',
+        'Customise personalised store registration form for marketplace.',
         'multivendorx'
     ),
     icon: 'adminlib-form-section',
     submitUrl: 'settings',
     modal: [
         {
-            key: 'approve_seller',
+            key: 'approve_store',
             type: 'setting-toggle',
-            label: __( 'Approve Seller', 'multivendorx' ),
+            label: __( 'Approve Store', 'multivendorx' ),
             desc: __(
-                'Decide how you want to approve new sellers for your marketplace: <li>Manual Approval: Review and approve sellers manually. <li>Automatic Approval: Automatically approve sellers without review.',
+                'Decide how you want to approve new stores for your marketplace: <li>Manual Approval: Review and approve stores manually. <li>Automatic Approval: Automatically approve stores without review.',
                 'multivendorx'
             ),
             options: [
@@ -33,17 +33,17 @@ export default {
             ],
         },
         {
-            key: 'vendors_backend_access',
+            key: 'store_backend_access',
             type: 'checkbox',
-            label: __( "Seller's Backend Access", 'multivendorx' ),
+            label: __( "Store's Backend Access", 'multivendorx' ),
             desc: __(
-                'Allow sellers to access the full WordPress backend with an integrated dashboard to manage products, orders, and more from one place.',
+                'Allow stores to access the full WordPress backend with an integrated dashboard to manage products, orders, and more from one place.',
                 'multivendorx'
             ),
             options: [
                 {
-                    key: 'vendors_backend_access',
-                    value: 'vendors_backend_access',
+                    key: 'store_backend_access',
+                    value: 'store_backend_access',
                 },
             ],
             look: 'toggle',
@@ -55,7 +55,7 @@ export default {
             type: 'checkbox',
             label: __( 'Disable Wizard', 'multivendorx' ),
             desc: __(
-                'Enable this to disable the setup wizard for vendors. When disabled, vendors will not be shown the onboarding steps after registration or login.',
+                'Enable this to disable the setup wizard for stores. When disabled, stores will not be shown the onboarding steps after registration or login.',
                 'multivendorx'
             ),
             options: [
@@ -70,11 +70,11 @@ export default {
             key: 'setup_wizard_introduction',
             type: 'textarea',
             label: __(
-                'Vendor Setup wizard Introduction Message',
+                'Store Setup wizard Introduction Message',
                 'multivendorx'
             ),
             desc: __(
-                'Welcome vendors with creative onboard messages',
+                'Welcome stores with creative onboard messages',
                 'multivendorx'
             ),
         },

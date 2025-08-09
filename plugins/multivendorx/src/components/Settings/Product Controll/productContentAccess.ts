@@ -5,7 +5,7 @@ export default {
     priority: 1,
     name: __( 'Product & Content Access', 'multivendorx' ),
     desc: __(
-        'Select the types of products sellers are allowed to add.',
+        'Select the types of products stores are allowed to add.',
         'multivendorx'
     ),
     icon: 'adminlib-warehousing-icon',
@@ -72,7 +72,7 @@ export default {
             type: 'section',
             desc: __( 'Media Management', 'multivendorx' ),
             hint: __(
-                'Manage the media files sellers can upload.',
+                'Manage the media files stores can upload.',
                 'multivendorx'
             ),
         },
@@ -81,7 +81,7 @@ export default {
             type: 'checkbox',
             label: __( 'Media Management Options', 'multivendorx' ),
             desc: __(
-                'Select the permissions you want to grant sellers for media file uploads.',
+                'Select the permissions you want to grant stores for media file uploads.',
                 'multivendorx'
             ),
             options: [

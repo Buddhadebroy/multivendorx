@@ -68,7 +68,7 @@ class Admin {
 
             // Array contain multivendorx submenu.
             $submenus = array(
-                'Dashboard' => array(
+                'dashboard' => array(
                     'name'   => __( 'Dashboard', 'multivendorx' ),
                     'subtab' => '',
                 ),
@@ -80,16 +80,12 @@ class Admin {
                     'name'   => __( 'Modules', 'multivendorx' ),
                     'subtab' => '',
                 ),
-                'marketplace' => array(
-                    'name'   => __( 'Marketplace Settings', 'multivendorx' ),
+                'settings' => array(
+                    'name'   => __( 'Settings', 'multivendorx' ),
                     'subtab' => 'general',
                 ),
                 'stores' => array(
                     'name'   => __( 'Stores', 'multivendorx' ),
-                    'subtab' => '',
-                ),
-                'payments' => array(
-                    'name'   => __( 'Payments', 'multivendorx' ),
                     'subtab' => '',
                 ),
                 'payments' => array(

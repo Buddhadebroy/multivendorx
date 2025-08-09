@@ -5,7 +5,7 @@ export default {
     priority: 2,
     name: __( 'Product & Store Category Control', 'multivendorx' ),
     desc: __(
-        'Controls how sellers are onboarded and what access they get.',
+        'Controls how stores are onboarded and what access they get.',
         'multivendorx'
     ),
     video: {
@@ -19,7 +19,6 @@ export default {
     icon: 'adminlib-general-tab',
     submitUrl: 'settings',
     modal: [
-
         {
             key: 'category_pyramid_guide',
             type: 'checkbox',
@@ -76,12 +75,12 @@ export default {
                     value: __( 'all_related', 'multivendorx' ),
                 },
                 {
-                    key: 'vendors_related',
+                    key: 'store_related',
                     label: __(
                         'Related Products from Seller Store',
                         'multivendorx'
                     ),
-                    value: __( 'vendors_related', 'multivendorx' ),
+                    value: __( 'store_related', 'multivendorx' ),
                 },
                 {
                     key: 'disable',
@@ -94,29 +93,29 @@ export default {
             key: 'section',
             type: 'section',
             hint: __(
-                'Single Product Multiple Vendor',
+                'Single Product Multiple Store',
                 'multivendorx'
             ),
         },
         {
-            key: 'is_singleproductmultiseller',
+            key: 'is_singleproductmultistore',
             type: 'checkbox',
-            label: __( 'Allow Vendor to Copy Products', 'multivendorx' ),
+            label: __( 'Allow Store to Copy Products', 'multivendorx' ),
             desc: __(
-                'Let vendors search for products sold on your site and sell them from their store.',
+                'Let stores search for products sold on your site and sell them from their store.',
                 'multivendorx'
             ),
             options: [
                 {
-                    key: 'is_singleproductmultiseller',
-                    value: 'is_singleproductmultiseller',
+                    key: 'is_singleproductmultistore',
+                    value: 'is_singleproductmultistore',
                 },
             ],
             look: 'toggle',
             // moduleEnabled: 'spmv',
         },
         {
-            key: 'singleproductmultiseller_show_order',
+            key: 'singleproductmultistore_show_order',
             type: 'select',
             label: __( 'Display Shop Page Product', 'multivendorx' ),
             desc: __(
@@ -135,13 +134,13 @@ export default {
                     value: __( 'max-price', 'multivendorx' ),
                 },
                 {
-                    key: 'top-rated-vendor',
-                    label: __( 'Top rated vendor', 'multivendorx' ),
-                    value: __( 'top-rated-vendor', 'multivendorx' ),
+                    key: 'top-rated-store',
+                    label: __( 'Top rated store', 'multivendorx' ),
+                    value: __( 'top-rated-store', 'multivendorx' ),
                 },
             ],
             dependent: {
-                key: 'is_singleproductmultiseller',
+                key: 'is_singleproductmultistore',
                 set: true,
             },
             proSetting: true,
@@ -178,7 +177,7 @@ export default {
                 },
             ],
             dependent: {
-                key: 'is_singleproductmultiseller',
+                key: 'is_singleproductmultistore',
                 set: true,
             },
             proSetting: false,

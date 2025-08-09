@@ -23,9 +23,9 @@ export default {
                     value: 'revenue_sharing_mode_admin',
                 },
                 {
-                    key: 'revenue_sharing_mode_seller',
+                    key: 'revenue_sharing_mode_store',
                     label: 'Seller commissions',
-                    value: 'revenue_sharing_mode_seller',
+                    value: 'revenue_sharing_mode_store',
                 },
             ],
         },
@@ -266,7 +266,7 @@ export default {
             key: 'payment_method_disbursement',
             label: __( 'Commission Disbursement Method', 'multivendorx' ),
             desc: __(
-                `Decide how vendors will receive their commissions, such as via Stripe, PayPal, or Bank Transfer. This setting determines the method through which payments are processed and transferred to your vendors. <li>Important: Kindly activate your preferred payment method in the <a href="${ appLocalizer.modules_page_url }">Module section</a>`,
+                `Decide how stores will receive their commissions, such as via Stripe, PayPal, or Bank Transfer. This setting determines the method through which payments are processed and transferred to your stores. <li>Important: Kindly activate your preferred payment method in the <a href="${ appLocalizer.modules_page_url }">Module section</a>`,
                 'multivendorx'
             ),
             type: 'checkbox',
@@ -310,7 +310,7 @@ export default {
             key: 'give_shipping',
             label: __( 'Shipping', 'multivendorx' ),
             desc: __(
-                'Allow sellers to collect & manage shipping charges',
+                'Allow stores to collect & manage shipping charges',
                 'multivendorx'
             ),
             type: 'checkbox',
@@ -326,7 +326,7 @@ export default {
             key: 'exclude_cod_payments',
             label: __( 'Exclude COD Payments', 'multivendorx' ),
             desc: __(
-                'Disable the Cash on Delivery (COD) payment method for vendor orders.',
+                'Disable the Cash on Delivery (COD) payment method for store orders.',
                 'multivendorx'
             ),
             type: 'checkbox',
@@ -343,7 +343,7 @@ export default {
             label: __( 'Who will bear the Coupon Cost', 'multivendorx' ),
             type: 'checkbox',
             desc: __(
-                'Tap to let the vendors bear the coupon discount charges of the coupons created by them',
+                'Tap to let the stores bear the coupon discount charges of the coupons created by them',
                 'multivendorx'
             ),
             options: [
@@ -392,7 +392,7 @@ export default {
             type: 'select',
             label: __( 'Gateway charges responsibility', 'multivendorx' ),
             desc: __(
-                'Decide who will bear the payment gateway charges (e.g., admin or vendor) when making automated payment',
+                'Decide who will bear the payment gateway charges (e.g., admin or store) when making automated payment',
                 'multivendorx'
             ),
             options: [

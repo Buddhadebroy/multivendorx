@@ -5,7 +5,7 @@ export default {
     priority: 1,
     name: __( 'General', 'multivendorx' ),
     desc: __(
-        'Controls how sellers are onboarded and what access they get.',
+        'Controls how stores are onboarded and what access they get.',
         'multivendorx'
     ),
     video: {
@@ -18,8 +18,7 @@ export default {
     },
     icon: 'adminlib-general-tab',
     submitUrl: 'settings',
-    modal: [
-
+    modal: [     
         {
             key: 'section',
             type: 'section',
@@ -29,11 +28,11 @@ export default {
             ),
         },
         {
-            key: 'seller_registration_page',
+            key: 'store_registration_page',
             type: 'select',
-            label: __( 'Seller Registration Page', 'multivendorx' ),
+            label: __( 'Store Registration Page', 'multivendorx' ),
             desc: __(
-                'Select the page where you have inserted the <code>[seller_registration]</code> shortcode. This page will be used to onboard new sellers.',
+                'Select the page where you have inserted the <code>[store_registration]</code> shortcode. This page will be used to onboard new stores.',
                 'multivendorx'
             ),
             options: appLocalizer.pages_list,
@@ -52,10 +51,10 @@ export default {
             key: 'store_url',
             type: 'text',
             desc: __(
-                'Define the custom slug for the vendor store URL. For example, in the URL: https://yourdomain.com/store/[this-text]/[vendor-name], "[this-text]" will be replaced by the slug you set here.',
+                'Define the custom slug for the store store URL. For example, in the URL: https://yourdomain.com/store/[this-text]/[store-name], "[this-text]" will be replaced by the slug you set here.',
                 'multivendorx'
             ),
-            label: __('Store Store URL', 'multivendorx'),
+            label: __('Store URL', 'multivendorx'),
         },
         {
             key: 'mvx_tinymce_api_section',
@@ -75,9 +74,9 @@ export default {
             options: [
                 {
                     key: '',
-                    label: '[mvx_vendor]',
+                    label: '[mvx_store]',
                     desc: __(
-                        'Enables you to create a seller dashboard ',
+                        'Enables you to create a store dashboard ',
                         'multivendorx'
                     ),
                 },
@@ -93,7 +92,7 @@ export default {
                     key: '',
                     label: '[store_coupons]',
                     desc: __(
-                        'Lets you view  a brief summary of the coupons created by the seller and number of times it has been used by the customers',
+                        'Lets you view  a brief summary of the coupons created by the store and number of times it has been used by the customers',
                         'multivendorx'
                     ),
                 },
@@ -101,7 +100,7 @@ export default {
                     key: '',
                     label: '[mvx_recent_products]',
                     desc: __(
-                        'Allows you to glance at the recent products added by seller',
+                        'Allows you to glance at the recent products added by store',
                         'multivendorx'
                     ),
                 },
@@ -109,7 +108,7 @@ export default {
                     key: '',
                     label: '[mvx_products]',
                     desc: __(
-                        'Displays the products added by seller',
+                        'Displays the products added by store',
                         'multivendorx'
                     ),
                 },
@@ -117,7 +116,7 @@ export default {
                     key: '',
                     label: '[mvx_featured_products]',
                     desc: __(
-                        'Exhibits featured products added by the seller',
+                        'Exhibits featured products added by the store',
                         'multivendorx'
                     ),
                 },
@@ -125,7 +124,7 @@ export default {
                     key: '',
                     label: '[mvx_sale_products]',
                     desc: __(
-                        'Allows you to see the products put on sale by a seller',
+                        'Allows you to see the products put on sale by a store',
                         'multivendorx'
                     ),
                 },
@@ -133,7 +132,7 @@ export default {
                     key: '',
                     label: '[mvx_top_rated_products]',
                     desc: __(
-                        'Displays the top rated products of the seller',
+                        'Displays the top rated products of the store',
                         'multivendorx'
                     ),
                 },
@@ -157,7 +156,7 @@ export default {
                     key: '',
                     label: '[mvx_vendorslist]',
                     desc: __(
-                        'Shows customers a list of available seller.',
+                        'Shows customers a list of available store.',
                         'multivendorx'
                     ),
                 },
