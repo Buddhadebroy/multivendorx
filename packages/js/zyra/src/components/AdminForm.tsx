@@ -131,6 +131,7 @@ interface InputField {
     | 'multi-string'
     | 'form-builder'
     | 'endpoint-editor';
+    settingDescription?: string
     desc?: string;
     placeholder?: string;
     inputLabel?: string;
@@ -1928,7 +1929,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
                     className={`form-group ${inputField.classes ? inputField.classes : ''
                         }`}
                 >
-                    {inputField.type !== 'catalog-customizer' &&
+                    {inputField.label && inputField.type !== 'catalog-customizer' &&
                         inputField.type !== 'form-customizer' && (
                             <label
                                 className="settings-form-label"
@@ -1936,9 +1937,9 @@ const AdminForm: React.FC<AdminFormProps> = ({
                                 htmlFor={inputField.key}
                             >
                                 <div className="title">{inputField.label}</div>
-                                <div className="settings-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                                <div className="settings-description">{inputField.settingDescription}</div>
                             </label>
-                        )}
+                    )}
 
                     <div className="settings-input-content">{input}</div>
                 </div>
