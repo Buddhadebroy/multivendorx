@@ -29,6 +29,28 @@ export default {
             ),
         },
         {
+                    key: 'display_lead_times',
+                    type: 'checkbox',
+                    label: __( 'Stock Status for Lead Time', 'notifima' ),
+                    class: 'woo-toggle-checkbox',
+                    desc: __(
+                        'Lead time informs customers when a product will be available again. This setting lets you choose which stock statuses will display the restock estimate.',
+                        'notifima'
+                    ),
+                    options: [
+                        {
+                            key: 'outofstock',
+                            label: __( 'Out of stock', 'notifima' ),
+                            value: 'outofstock',
+                        },
+                        {
+                            key: 'onbackorder',
+                            label: __( 'On backorder', 'notifima' ),
+                            value: 'onbackorder',
+                        },
+                    ],
+                },
+        {
             key: 'seller_registration_page',
             type: 'select',
             label: __( 'Seller Registration Page', 'multivendorx' ),

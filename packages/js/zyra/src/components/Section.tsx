@@ -17,10 +17,11 @@ const Section: React.FC< SectionProps > = ( { wrapperClass, hint, value } ) => {
                 { value && <span>{ value }</span> }
                 { hint && (
                     <p
-                        className="section-hint"
+                        className="title"
                         dangerouslySetInnerHTML={ { __html: hint } }
                     ></p>
                 ) }
+                <div className="desc">Lorem ipsum dolor sit amet.</div>
             </div>
         </>
     );
