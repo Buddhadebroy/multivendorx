@@ -1298,9 +1298,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
                         <MultiCheckBox
                             khali_dabba={appLocalizer?.khali_dabba ?? false}
                             wrapperClass={
-                                inputField.look === 'toggle'
-                                    ? ''
-                                    : 'checkbox-list-side-by-side'
+                                inputField.look === 'toggle' ? '': inputField.selectDeselect === true ? 'checkbox-list-side-by-side':'simple-checkbox'
                             }
                             descClass="settings-metabox-description"
                             description={inputField.desc}
@@ -1513,7 +1511,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
                     input = (
                         <Section
                             key={`${inputField.key}`}
-                            wrapperClass="setting-section-divider"
+                            wrapperClass="divider-section"
                             value={inputField.label}
                             hint={inputField.hint}
                         />
@@ -1524,7 +1522,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
                     input = (
                         <BlockText
                             key={inputField.blocktext}
-                            blockTextClass="settings-metabox-description-code"
+                            blockTextClass="settings-metabox-note"
                             value={String(inputField.blocktext)}
                         />
                     );

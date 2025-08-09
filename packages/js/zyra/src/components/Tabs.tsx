@@ -216,8 +216,8 @@ const Tabs: React.FC<TabsProps> = ({
             if (type === 'file') {
                 const tab = content as TabContent;
                 return tab.id === activeTab && tab.id !== 'support' ? (
-                    <div className="tab-description-header" key={tab.id}>
-                        <div className="child"><div><div className="tab-name">{tab.name}</div><div className="tab-desc">{tab.desc}</div></div></div>
+                    <div className="divider-section" key={tab.id}>
+                        <div className="title">{tab.name}</div><div className="desc">{tab.desc}</div>
                     </div>
                 ) : [];
             }
@@ -266,17 +266,15 @@ const Tabs: React.FC<TabsProps> = ({
             <div className="general-wrapper">
                 {HeaderSection && <HeaderSection />}
                 {BannerSection && <BannerSection />}
-                <div className={`middle-container-wrapper ${horizontally ? 'horizontal-tabs' : 'vertical-tabs'}`}>
-                    <div className={`${menuCol ? 'show-menu' : ''} middle-child-container`}>
-                        {menuStack.length > 1 && (
-                            <div id="current-tab-lists" className="current-tab-lists">
-                                <div className="current-tab-lists-container">{renderMenuItems(currentMenuItems)}</div>
-                            </div>
-                        )}
-                        <div className="tab-content">
-                            {getTabDescription(tabData)}
-                            {getForm(activeTab)}
+                <div className={`${menuCol ? 'show-menu' : ''} middle-child-container`}>
+                    {menuStack.length > 1 && (
+                        <div id="current-tab-lists" className="current-tab-lists">
+                            <div className="current-tab-lists-container">{renderMenuItems(currentMenuItems)}</div>
                         </div>
+                    )}
+                    <div className="tab-content">
+                        {getTabDescription(tabData)}
+                        {getForm(activeTab)}
                     </div>
                 </div>
                 <AdminFooter supportLink={supprot} />

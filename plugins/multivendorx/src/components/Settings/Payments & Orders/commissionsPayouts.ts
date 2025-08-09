@@ -12,24 +12,6 @@ export default {
     submitUrl: 'settings',
     modal: [
         {
-            key: 'revenue_sharing_mode',
-            type: 'setting-toggle',
-            label: 'Revenue Sharing Mode',
-            desc: 'Select how you want the commission to be split. If you are not sure about how to setup commissions and payment options in your marketplace, kindly read this <a href="https://multivendorx.com/doc/knowladgebase/payments/" target="_blank">article</a> before proceeding.',
-            options: [
-                {
-                    key: 'revenue_sharing_mode_admin',
-                    label: 'Admin fees',
-                    value: 'revenue_sharing_mode_admin',
-                },
-                {
-                    key: 'revenue_sharing_mode_store',
-                    label: 'Seller commissions',
-                    value: 'revenue_sharing_mode_store',
-                },
-            ],
-        },
-        {
             key: 'commission_type',
             type: 'setting-toggle',
             label: __( 'Commission Type', 'multivendorx' ),

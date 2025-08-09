@@ -70,27 +70,30 @@ const NestedComponent: React.FC< NestedComponentProps > = ( {
                                     { nestedField.label }
                                 </label>
                                 { nestedField.type === 'select' ? (
-                                    <select
-                                        value={ inputValue }
-                                        className="basic-select"
-                                        onChange={ ( e ) =>
-                                            handleFieldChange(
-                                                rowIndex,
-                                                nestedField.key,
-                                                e.target.value
-                                            )
-                                        }
-                                    >
-                                        <option value="">Select</option>
-                                        { nestedField.options?.map( ( opt ) => (
-                                            <option
-                                                key={ opt.value }
-                                                value={ opt.value }
-                                            >
-                                                { opt.label }
-                                            </option>
-                                        ) ) }
-                                    </select>
+                                    // <select
+                                    //     value={ inputValue }
+                                    //     className="basic-select"
+                                    //     onChange={ ( e ) =>
+                                    //         handleFieldChange(
+                                    //             rowIndex,
+                                    //             nestedField.key,
+                                    //             e.target.value
+                                    //         )
+                                    //     }
+                                    // >
+                                    //     <option value="">Select</option>
+                                    //     { nestedField.options?.map( ( opt ) => (
+                                    //         <option
+                                    //             key={ opt.value }
+                                    //             value={ opt.value }
+                                    //         >
+                                    //             { opt.label }
+                                    //         </option>
+                                    //     ) ) }
+                                    // </select>
+                                    <div>
+                                        
+                                    </div>
                                 ) : (
                                     <input
                                         type="number"
