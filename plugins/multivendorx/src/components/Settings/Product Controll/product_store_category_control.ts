@@ -193,51 +193,14 @@ export default {
             ),
         },
         {
-            key: 'sku_generator_simple',
+            key: 'sku_generator',
             type: 'select',
             label: __(
-                'SKU Management for Simple & Parent Products',
+                'SKU Management for Products',
                 'multivendorx'
             ),
             desc: __(
                 'Choose how SKUs for simple, external, or parent products are generated:',
-                'multivendorx'
-            ),
-            options: [
-                {
-                    key: 'choose_options',
-                    label: __( 'Choose options', 'multivendorx' ),
-                    value: 'choose_options',
-                },
-                {
-                    key: 'never',
-                    label: __( 'Never (let me set them)', 'multivendorx' ),
-                    value: 'never',
-                },
-                {
-                    key: 'slugs',
-                    label: __(
-                        'Using the product slug (name)',
-                        'multivendorx'
-                    ),
-                    value: 'slugs',
-                },
-                {
-                    key: 'ids',
-                    label: __( 'Using the product ID)', 'multivendorx' ),
-                    value: 'ids',
-                },
-            ],
-        },
-        {
-            key: 'sku_generator_variation',
-            type: 'select',
-            label: __(
-                'SKU Management for Product Variations',
-                'multivendorx'
-            ),
-            desc: __(
-                'Define how SKUs for product variations will be generated:',
                 'multivendorx'
             ),
             options: [

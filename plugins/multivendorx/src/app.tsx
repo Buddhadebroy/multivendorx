@@ -14,8 +14,8 @@ const Route = () => {
     const currentTab = new URLSearchParams( useLocation().hash );
     return (
         <>
-            { currentTab.get( 'tab' ) === 'marketplace' && (
-                <Settings id={ 'marketplace' } />
+            { currentTab.get( 'tab' ) === 'settings' && (
+                <Settings id={ 'settings' } />
             ) }
 
             {currentTab.get('tab') === 'modules' && <Modules />}

@@ -11,8 +11,6 @@ export default {
         {
             key: 'role_access_table',
             type: 'multi-checkbox-table',
-            label: __('Role Access Control', 'mvx-pro'),
-            desc: __('Define which permissions each role should have.', 'mvx-pro'),
             moduleEnabled: 'role_manager',
 
             columns: [
