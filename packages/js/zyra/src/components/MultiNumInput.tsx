@@ -66,7 +66,7 @@ const MultiNumInput: React.FC< MultiNumInputProps > = ( {
                                 </div>
                                 <input
                                     id={ `${ idPrefix }-${ option.key }` }
-                                    className={ inputClass }
+                                    className={`${inputClass} basic-input`}
                                     type={ option.type }
                                     name={ option.name }
                                     value={ selectedValue }

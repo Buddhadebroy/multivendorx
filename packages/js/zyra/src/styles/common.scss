@@ -83,7 +83,7 @@ a {
 
 .btn-red {
   background: #fde8e4;
-    color: #f06b4f;
+  color: #f06b4f;
 }
 
 .btn-light-blue {
@@ -98,7 +98,8 @@ a {
 .btn-reject {
   background-color: #e5e5e5;
 }
-.btn-green{
+
+.btn-green {
   background: #d9f5f0;
   color: #06be9f;
 }
@@ -953,7 +954,7 @@ input:checked::before {
   // }
 
   input:checked+label {
-    border: $border-theme-medius;
+    border: $border-theme-medium;
     border-color: $theme-color;
     background: $theme-background-color;
 
@@ -1077,11 +1078,52 @@ input:checked::before {
 
 .settings-input-content {
   position: relative;
-  width: 50%;
+  width: 60%;
 
   // input:focus {
   //   box-shadow: none;
   // }
+
+  // commission style start
+  .settings-basic-child-wrap {
+    display: flex;
+    gap: 2rem;
+
+    .settings-basic-input-child-class {
+      width: 18%;
+
+      .setting-form-input {
+        background: $theme-background-color;
+        padding: 0.313rem;
+        align-items: center;
+        gap: 0.5rem;
+
+        div {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .settings-basic-input-child-class:first-child {
+      position: relative;
+
+      &::after {
+        content: "+";
+        font-size: 1.8rem;
+        right: -1.5rem;
+        position: absolute;
+        top: 0;
+        font-weight: 500;
+      }
+
+      .setting-form-input {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+  // commission style end
 }
 
 .select-deselect-trigger {
@@ -1149,7 +1191,6 @@ input:checked::before {
 }
 
 .checkbox-list-side-by-side {
-  width: 40%;
 
   .checkbox-list-header {
     display: flex;
@@ -1190,6 +1231,7 @@ input:checked::before {
     padding: 0.5rem;
     width: 100%;
     padding: 0.5rem;
+    width: 47%;
   }
 
   .toggle-checkbox-header:has(input:checked) {
@@ -1215,7 +1257,7 @@ input:checked::before {
 
 // multi select start
 // .settings-from-multi-select {
-  
+
 //   &:first-child {
 //     &:nth-child(3) {
 //       &:first-child {
@@ -1251,15 +1293,21 @@ input:checked::before {
     margin: 0;
   }
 }
-.settings-from-multi-select > :first-child > :nth-child(3) > :first-child {
+
+.settings-from-multi-select> :first-child> :nth-child(3)> :first-child {
   padding: 0 0.313rem;
+
   > :first-child {
-      margin: 0; 
-      > :first-child {
-        margin: 0;
-      }
+    margin: 0;
+
+    > :first-child {
+      margin: 0;
+    }
   }
-  > :first-child { margin: 0; }
+
+  > :first-child {
+    margin: 0;
+  }
 }
 
 // multi select end
