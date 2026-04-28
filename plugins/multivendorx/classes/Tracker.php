@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
  * @author 		MultiVendorX
  */
 class Tracker {
+    const PLUGIN_SLUG = 'dc-woocommerce-multi-vendor';
     public function __construct() {
         add_filter( 'plugin_action_links_' . MultiVendorX()->plugin_base, array($this, 'deactivate_action_links' ));
         add_action( 'admin_print_footer_scripts-plugins.php', array($this, 'deactivate_reasons_form_script' ));
@@ -23,28 +24,28 @@ class Tracker {
     }
 
     public function deactivate_mvx_this_plugin() {
-        /**
-         * Check tracking is allowed or not.
-         */
-        $allow_tracking = $this->is_tracking_allowed();
-
-        if ( ! $allow_tracking ) {
+        if (!$this->is_tracking_allowed()) {
             return;
         }
-        $body                     = $this->get_data();
-        $body['status']           = 'Deactivated';
+
+        $body = $this->get_data();
+        $body['status'] = 'Deactivated';
         $body['deactivated_date'] = time();
 
-        // Check deactivation reason and add for insights data.
-        if ( false !== get_option( 'multivendorx_deactivation_reason_' . 'dc-woocommerce-multi-vendor' ) ) {
-            $body['deactivation_reason'] = get_option( 'multivendorx_deactivation_reason_' . 'dc-woocommerce-multi-vendor' );
+        $reason  = get_option('multivendorx_deactivation_reason_' . self::PLUGIN_SLUG);
+        $details = get_option('multivendorx_deactivation_details_' . self::PLUGIN_SLUG);
+
+        if ($reason) {
+            $body['deactivation_reason'] = $reason;
         }
-        if ( false !== get_option( 'multivendorx_deactivation_details_' . 'dc-woocommerce-multi-vendor' ) ) {
-            $body['deactivation_details'] = get_option( 'multivendorx_deactivation_details_' . 'dc-woocommerce-multi-vendor' );
+        if ($details) {
+            $body['deactivation_details'] = $details;
         }
-        $this->send_data( $body );
-        delete_option( 'multivendorx_deactivation_reason_' . 'dc-woocommerce-multi-vendor' );
-        delete_option( 'multivendorx_deactivation_details_' . 'dc-woocommerce-multi-vendor' );
+
+        $this->send_data($body);
+
+        delete_option('multivendorx_deactivation_reason_' . self::PLUGIN_SLUG);
+        delete_option('multivendorx_deactivation_details_' . self::PLUGIN_SLUG);
     }
 
     /**
@@ -56,28 +57,17 @@ class Tracker {
         // The multivendorx_plugin_action_block_notice option is an array of plugins that are being tracked
         $allow_tracking = get_option( 'multivendorx_plugin_action_block_notice' );
         // If this plugin is in the array, then tracking is allowed
-        if ( $allow_tracking && $allow_tracking == 'yes' ) {
-            return true;
-        }
-        return false;
+        return $allow_tracking === 'yes';
     }
 
     public function deactivate_action_links( $links ) {
         $links['settings'] = '<a href="' . admin_url( 'admin.php?page=multivendorx#&tab=settings&subtab=overview' ) . '">' . __( 'Settings', 'multivendorx' ) . '</a>';
 
-        if ( isset( $links['deactivate'] ) ) {
-            $deactivation_link = $links['deactivate'];
-            /**
-             * Change the default deactivate button link.
-             */
-            $deactivation_link   = str_replace( '<a ', '<div class="multivendor-xs-goodbye-form-wrapper-' . esc_attr( 'dc-woocommerce-multi-vendor' ) . '"><div class="multivendor-xs-goodbye-form-bg"></div><span class="multivendor-xs-goodbye-form" id="multivendor-xs-goodbye-form"></span></div><a onclick="javascript:event.preventDefault();" id="multivendor-xs-goodbye-link-' . esc_attr( 'dc-woocommerce-multi-vendor' ) . '" ', $deactivation_link );
-            $links['deactivate'] = $deactivation_link;
-        }
-        $links['write_review'] = '<a href="https://wordpress.org/support/plugin/dc-woocommerce-multi-vendor/reviews/#new-post">' . __('Write a Review', 'multivendorx') . '</a>';
-        if (apply_filters('is_mvx_pro_plugin_inactive', true)) {
-            $links['go_pro'] = '<a href="https://multivendorx.com/pricing/" class="mvx-pro-plugin">' . __('Get MultiVendorX Pro', 'multivendorx') . '</a>';
+        if (isset($links['deactivate'])) {
+            $links['deactivate'] = $this->wrap_deactivate_link($links['deactivate']);
         }
 
+        $links['write_review'] = '<a href="https://wordpress.org/support/plugin/dc-woocommerce-multi-vendor/reviews/#new-post">' . __('Write a Review', 'multivendorx') . '</a>';
         if ( ! Utill::is_khali_dabba() ) {
             $links['go_pro'] = '<a href="' . MULTIVENDORX_PRO_SHOP_URL . '" class="multivendorx-pro-plugin" target="_blank" style="font-weight: 700;background: linear-gradient(110deg, rgb(63, 20, 115) 0%, 25%, rgb(175 59 116) 50%, 75%, rgb(219 75 84) 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">' . __( 'Upgrade to Pro', 'multivendorx' ) . '</a>';
         }
@@ -85,101 +75,204 @@ class Tracker {
         return $links;
     }
 
-    public function deactivate_reasons_form_script() {
-        $form              = $this->deactivation_reasons();
-        $html              = '<div class="multivendor-xs-goodbye-form-head"><strong>' . esc_html( $form['heading'] ) . '</strong></div>';
-        $html             .= '<div class="multivendor-xs-goodbye-form-body"><p class="multivendor-xs-goodbye-form-caption">' . esc_html( $form['body-upper'] ) . '</p>';
-        $html             .= '<div class="support-card"><a href="http://multivendorx.com/support-forum/" target="_blank" class="card-item"><div><svg style="width: 38px; fill: #522c81" class="svg-icon" viewBox="0 0 20 20"><path d="M15.573,11.624c0.568-0.478,0.947-1.219,0.947-2.019c0-1.37-1.108-2.569-2.371-2.569s-2.371,1.2-2.371,2.569c0,0.8,0.379,1.542,0.946,2.019c-0.253,0.089-0.496,0.2-0.728,0.332c-0.743-0.898-1.745-1.573-2.891-1.911c0.877-0.61,1.486-1.666,1.486-2.812c0-1.79-1.479-3.359-3.162-3.359S4.269,5.443,4.269,7.233c0,1.146,0.608,2.202,1.486,2.812c-2.454,0.725-4.252,2.998-4.252,5.685c0,0.218,0.178,0.396,0.395,0.396h16.203c0.218,0,0.396-0.178,0.396-0.396C18.497,13.831,17.273,12.216,15.573,11.624 M12.568,9.605c0-0.822,0.689-1.779,1.581-1.779s1.58,0.957,1.58,1.779s-0.688,1.779-1.58,1.779S12.568,10.427,12.568,9.605 M5.06,7.233c0-1.213,1.014-2.569,2.371-2.569c1.358,0,2.371,1.355,2.371,2.569S8.789,9.802,7.431,9.802C6.073,9.802,5.06,8.447,5.06,7.233 M2.309,15.335c0.202-2.649,2.423-4.742,5.122-4.742s4.921,2.093,5.122,4.742H2.309z M13.346,15.335c-0.067-0.997-0.382-1.928-0.882-2.732c0.502-0.271,1.075-0.429,1.686-0.429c1.828,0,3.338,1.385,3.535,3.161H13.346z"></path></svg></div><div>Contact us over Support Forum.</div></a><a href="https://www.facebook.com/groups/226246620006065" target="_blank" class="card-item"><div><svg style="width: 35px;" class="svg-icon" viewBox="0 0 20 20"><path fill="#522c81" d="M10,0.5c-5.247,0-9.5,4.253-9.5,9.5c0,5.247,4.253,9.5,9.5,9.5c5.247,0,9.5-4.253,9.5-9.5C19.5,4.753,15.247,0.5,10,0.5 M10,18.637c-4.77,0-8.636-3.867-8.636-8.637S5.23,1.364,10,1.364S18.637,5.23,18.637,10S14.77,18.637,10,18.637 M10.858,7.949c0-0.349,0.036-0.536,0.573-0.536h0.719v-1.3H11c-1.38,0-1.866,0.65-1.866,1.743v0.845h-0.86V10h0.86v3.887h1.723V10h1.149l0.152-1.299h-1.302L10.858,7.949z"></path></svg></div><div>Get help from MultiVendorX Facebook community.</div></a><a href="https://calendly.com/contact-hkdq/30min" target="_blank" class="card-item"><div><svg xmlns="http://www.w3.org/2000/svg" style="width: 35px; fill: #522c81" viewBox="0 0 24 24"><path d="M21.384,17.752a2.108,2.108,0,0,1-.522,3.359,7.543,7.543,0,0,1-5.476.642C10.5,20.523,3.477,13.5,2.247,8.614a7.543,7.543,0,0,1,.642-5.476,2.108,2.108,0,0,1,3.359-.522L8.333,4.7a2.094,2.094,0,0,1,.445,2.328A3.877,3.877,0,0,1,8,8.2c-2.384,2.384,5.417,10.185,7.8,7.8a3.877,3.877,0,0,1,1.173-.781,2.092,2.092,0,0,1,2.328.445Z"/></svg></div><div>Book a free 15-min call with us.</div></a></div>';
-        $html             .= '<div class="multivendor-xs-goodbye-form-body"><p class="multivendor-xs-goodbye-form-caption">' . esc_html( $form['body-bottom'] ) . '</p>';
-        if ( is_array( $form['options'] ) ) {
-            $html .= '<div id="multivendor-xs-goodbye-options" class="multivendor-xs-goodbye-options"><ul>';
-            foreach ( $form['options'] as $option ) {
-                if ( is_array( $option ) ) {
-                    $id    = strtolower( str_replace( ' ', '_', esc_attr( $option['label'] ) ) );
-                    $id    = $id . '_' . 'dc-woocommerce-multi-vendor';
-                    $html .= '<li class="has-goodbye-extra">';
-                    $html .= '<input type="radio" name="multivendor-xs-' . esc_attr( 'dc-woocommerce-multi-vendor' ) . '-goodbye-options" id="' . esc_attr( $id ) . '" value="' . esc_attr( $option['label'] ) . '">';
-                    $html .= '<div><label for="' . esc_attr( $id ) . '">' . esc_attr( $option['label'] ) . '</label>';
-                    if ( isset( $option['extra_field'] ) && ! isset( $option['type'] ) ) {
-                        $html .= '<input type="text" style="display: none" name="' . esc_attr( $id ) . '" id="' . str_replace( ' ', '', esc_attr( $option['extra_field'] ) ) . '" placeholder="' . esc_attr( $option['extra_field'] ) . '">';
-                    }
-                    if ( isset( $option['extra_field'] ) && isset( $option['type'] ) ) {
-                        $html .= '<' . $option['type'] . ' style="display: none" type="text" name="' . esc_attr( $id ) . '" id="' . str_replace( ' ', '', esc_attr( $option['extra_field'] ) ) . '" placeholder="' . esc_attr( $option['extra_field'] ) . '"></' . $option['type'] . '>';
-                    }
-                    $html .= '</div></li>';
-                } else {
-                    $id    = strtolower( str_replace( ' ', '_', esc_attr( $option ) ) );
-                    $id    = $id . '_' . 'dc-woocommerce-multi-vendor';
-                    $html .= '<li><input type="radio" name="multivendor-xs-' . esc_attr( 'dc-woocommerce-multi-vendor' ) . '-goodbye-options" id="' . esc_attr( $id ) . '" value="' . esc_attr( $option ) . '"> <label for="' . esc_attr( $id ) . '">' . esc_attr( $option ) . '</label></li>';
-                }
-            }
-            $html .= '</ul></div><!-- .multivendor-xs-' . esc_attr( 'dc-woocommerce-multi-vendor' ) . '-goodbye-options -->';
-            $html .= '<h6 class="mvx-collecting-area">' . __( 'We collect non-sensitive diagnostic data and plugin usage information along with your feedback. This will help us to offer you a better and improved product.', 'multivendorx' ) . '</h6>';
-        }
-        $html .= '</div><!-- .multivendor-xs-goodbye-form-body -->';
-        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'multivendorx' ) . '</p>';
+    private function wrap_deactivate_link($link) {
+        $wrapper = '<div class="multivendor-xs-goodbye-form-wrapper-' . self::PLUGIN_SLUG . '">
+                        <div class="multivendor-xs-goodbye-form-bg"></div>
+                        <span class="multivendor-xs-goodbye-form" id="multivendor-xs-goodbye-form"></span>
+                    </div>';
 
+        return str_replace(
+            '<a ',
+            $wrapper . '<a onclick="event.preventDefault();" id="multivendor-xs-goodbye-link-' . self::PLUGIN_SLUG . '" ',
+            $link
+        );
+    }
+
+    public function deactivate_reasons_form_script() {
+        $slug       = 'dc-woocommerce-multi-vendor';
+        $form       = $this->deactivation_reasons();
+        $nonce      = wp_create_nonce( 'multivendorx_deactivation_nonce' );
+
+        ob_start();
+        ?>
+        <div class="multivendor-xs-goodbye-form-head">
+            <strong><?php echo esc_html( $form['heading'] ); ?></strong>
+        </div>
+
+        <div class="multivendor-xs-goodbye-form-body">
+            <p class="multivendor-xs-goodbye-form-caption">
+                <?php echo esc_html( $form['body-upper'] ); ?>
+            </p>
+
+            <!-- Support Cards -->
+            <div class="support-card">
+                <a href="http://multivendorx.com/support-forum/" target="_blank" rel="noopener noreferrer" class="card-item">
+                    <div>
+                        <svg style="width:38px;fill:#522c81" class="svg-icon" viewBox="0 0 20 20" aria-hidden="true">
+                            <path d="M15.573,11.624c0.568-0.478,0.947-1.219,0.947-2.019c0-1.37-1.108-2.569-2.371-2.569s-2.371,1.2-2.371,2.569c0,0.8,0.379,1.542,0.946,2.019c-0.253,0.089-0.496,0.2-0.728,0.332c-0.743-0.898-1.745-1.573-2.891-1.911c0.877-0.61,1.486-1.666,1.486-2.812c0-1.79-1.479-3.359-3.162-3.359S4.269,5.443,4.269,7.233c0,1.146,0.608,2.202,1.486,2.812c-2.454,0.725-4.252,2.998-4.252,5.685c0,0.218,0.178,0.396,0.395,0.396h16.203c0.218,0,0.396-0.178,0.396-0.396C18.497,13.831,17.273,12.216,15.573,11.624 M12.568,9.605c0-0.822,0.689-1.779,1.581-1.779s1.58,0.957,1.58,1.779s-0.688,1.779-1.58,1.779S12.568,10.427,12.568,9.605 M5.06,7.233c0-1.213,1.014-2.569,2.371-2.569c1.358,0,2.371,1.355,2.371,2.569S8.789,9.802,7.431,9.802C6.073,9.802,5.06,8.447,5.06,7.233 M2.309,15.335c0.202-2.649,2.423-4.742,5.122-4.742s4.921,2.093,5.122,4.742H2.309z M13.346,15.335c-0.067-0.997-0.382-1.928-0.882-2.732c0.502-0.271,1.075-0.429,1.686-0.429c1.828,0,3.338,1.385,3.535,3.161H13.346z"></path>
+                        </svg>
+                    </div>
+                    <div><?php esc_html_e( 'Contact us over Support Forum.', 'multivendorx' ); ?></div>
+                </a>
+
+                <a href="https://www.facebook.com/groups/226246620006065" target="_blank" rel="noopener noreferrer" class="card-item">
+                    <div>
+                        <svg style="width:35px" class="svg-icon" viewBox="0 0 20 20" aria-hidden="true">
+                            <path fill="#522c81" d="M10,0.5c-5.247,0-9.5,4.253-9.5,9.5c0,5.247,4.253,9.5,9.5,9.5c5.247,0,9.5-4.253,9.5-9.5C19.5,4.753,15.247,0.5,10,0.5 M10,18.637c-4.77,0-8.636-3.867-8.636-8.637S5.23,1.364,10,1.364S18.637,5.23,18.637,10S14.77,18.637,10,18.637 M10.858,7.949c0-0.349,0.036-0.536,0.573-0.536h0.719v-1.3H11c-1.38,0-1.866,0.65-1.866,1.743v0.845h-0.86V10h0.86v3.887h1.723V10h1.149l0.152-1.299h-1.302L10.858,7.949z"></path>
+                        </svg>
+                    </div>
+                    <div><?php esc_html_e( 'Get help from MultiVendorX Facebook community.', 'multivendorx' ); ?></div>
+                </a>
+
+                <a href="https://calendly.com/contact-hkdq/30min" target="_blank" rel="noopener noreferrer" class="card-item">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width:35px;fill:#522c81" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M21.384,17.752a2.108,2.108,0,0,1-.522,3.359,7.543,7.543,0,0,1-5.476.642C10.5,20.523,3.477,13.5,2.247,8.614a7.543,7.543,0,0,1,.642-5.476,2.108,2.108,0,0,1,3.359-.522L8.333,4.7a2.094,2.094,0,0,1,.445,2.328A3.877,3.877,0,0,1,8,8.2c-2.384,2.384,5.417,10.185,7.8,7.8a3.877,3.877,0,0,1,1.173-.781,2.092,2.092,0,0,1,2.328.445Z"/>
+                        </svg>
+                    </div>
+                    <div><?php esc_html_e( 'Book a free 15-min call with us.', 'multivendorx' ); ?></div>
+                </a>
+            </div>
+
+            <p class="multivendor-xs-goodbye-form-caption">
+                <?php echo esc_html( $form['body-bottom'] ); ?>
+            </p>
+
+            <?php if ( ! empty( $form['options'] ) && is_array( $form['options'] ) ) : ?>
+                <div id="multivendor-xs-goodbye-options" class="multivendor-xs-goodbye-options">
+                    <ul>
+                        <?php foreach ( $form['options'] as $option ) :
+                            $label    = is_array( $option ) ? $option['label'] : $option;
+                            $id       = sanitize_title( $label ) . '_' . $slug;
+                            $id_attr  = esc_attr( $id );
+                            $has_extra = is_array( $option ) && ! empty( $option['extra_field'] );
+                            $type     = $has_extra ? ( $option['type'] ?? 'input' ) : '';
+                            // Only allow safe input types
+                            $allowed_types = [ 'input', 'textarea' ];
+                            $type = in_array( $type, $allowed_types, true ) ? $type : 'input';
+                        ?>
+                            <li class="<?php echo $has_extra ? 'has-goodbye-extra' : ''; ?>">
+                                <input
+                                    type="radio"
+                                    name="multivendor-xs-dc-woocommerce-multi-vendor-goodbye-options"
+                                    id="<?php echo $id_attr; ?>"
+                                    value="<?php echo esc_attr( $label ); ?>"
+                                >
+                                <label for="<?php echo $id_attr; ?>">
+                                    <?php echo esc_html( $label ); ?>
+                                </label>
+
+                                <?php if ( $has_extra ) :
+                                    $field_id          = esc_attr( str_replace( ' ', '', $option['extra_field'] ) );
+                                    $field_placeholder = esc_attr( $option['extra_field'] );
+                                ?>
+                                    <?php if ( $type === 'textarea' ) : ?>
+                                        <textarea
+                                            style="display:none"
+                                            name="<?php echo $id_attr; ?>"
+                                            id="<?php echo $field_id; ?>"
+                                            placeholder="<?php echo $field_placeholder; ?>"
+                                        ></textarea>
+                                    <?php else : ?>
+                                        <input
+                                            type="text"
+                                            style="display:none"
+                                            name="<?php echo $id_attr; ?>"
+                                            id="<?php echo $field_id; ?>"
+                                            placeholder="<?php echo $field_placeholder; ?>"
+                                        >
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+
+                <h6 class="mvx-collecting-area">
+                    <?php esc_html_e( 'We collect non-sensitive diagnostic data and plugin usage information along with your feedback.', 'multivendorx' ); ?>
+                </h6>
+            <?php endif; ?>
+        </div>
+
+        <p class="deactivating-spinner" style="display:none">
+            <span class="spinner"></span> <?php esc_html_e( 'Submitting form', 'multivendorx' ); ?>
+        </p>
+        <?php
+
+        // Safely encode HTML for embedding in JS — eliminates XSS risk entirely
+        $html       = ob_get_clean();
+        $html_json  = wp_json_encode( $html );
+        $footer_html = wp_json_encode(
+            '<div class="multivendor-xs-goodbye-form-footer">'
+            . '<div class="multivendor-xs-goodbye-form-buttons">'
+            . '<a class="multivendor-xs-submit-btn" id="multivendor-xs-deactivate-url-' . esc_attr( $slug ) . '" href="#">'
+            . esc_html__( 'Skip & Deactivate', 'multivendor-x' )
+            . '</a></div></div>'
+        );
         ?>
         <script type="text/javascript">
-            jQuery(document).ready(function($){
-                $("#multivendor-xs-goodbye-link-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?>").on("click",function(){
-                    // We'll send the user to this deactivation link when they've completed or dismissed the form
-                    var url = document.getElementById("multivendor-xs-goodbye-link-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?>");
-                    $('body').toggleClass('multivendor-xs-form-active-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?>');
-                    $(".multivendor-xs-goodbye-form-wrapper-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?> #multivendor-xs-goodbye-form").fadeIn();
-                    $(".multivendor-xs-goodbye-form-wrapper-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?> #multivendor-xs-goodbye-form").html( '<?php echo $html; ?>' + '<div class="multivendor-xs-goodbye-form-footer"><div class="multivendor-xs-goodbye-form-buttons"><a class="multivendor-xs-submit-btn" href="'+url+'"><?php esc_html_e( 'Skip & Deactivate', 'multivendor-x' ); ?></a></div></div>');
-                    $('#multivendor-xs-submit-form-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?>').on('click', function(e){
-                        // As soon as we click, the body of the form should disappear
-                        $("#multivendor-xs-goodbye-form-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?> .multivendor-xs-goodbye-form-body").fadeOut();
-                        $("#multivendor-xs-goodbye-form-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?> .multivendor-xs-goodbye-form-footer").fadeOut();
-                        // Fade in spinner
-                        $("#multivendor-xs-goodbye-form-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?> .deactivating-spinner").fadeIn();
-                        e.preventDefault();
-                        var checkedInput = $("input[name='multivendor-xs-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?>-goodbye-options']:checked"),
-                            checkedInputVal, details;
-                        if( checkedInput.length > 0 ) {
-                            checkedInputVal = checkedInput.val();
-                            details = $('input[name="'+ checkedInput[0].id +'"], textarea[name="'+ checkedInput[0].id +'"]').val();
-                        }
+        jQuery(document).ready(function ($) {
+            var slug        = <?php echo wp_json_encode( $slug ); ?>;
+            var nonce       = <?php echo wp_json_encode( $nonce ); ?>;
+            var formHtml    = <?php echo $html_json; ?>;
+            var footerHtml  = <?php echo $footer_html; ?>;
+            var $triggerLink = $('#multivendor-xs-goodbye-link-' + slug);
+            var $formWrapper = $('.multivendor-xs-goodbye-form-wrapper-' + slug);
+            var $form        = $formWrapper.find('#multivendor-xs-goodbye-form');
 
-                        if( typeof details === 'undefined' ) {
-                            details = '';
-                        }
-                        if( typeof checkedInputVal === 'undefined' ) {
-                            checkedInputVal = 'No Reason';
-                        }
+            $triggerLink.on('click', function (e) {
+                e.preventDefault();
+                var deactivateUrl = $(this).attr('href');
+                $('body').toggleClass('multivendor-xs-form-active-' + slug);
+                $form.html(formHtml + footerHtml).fadeIn();
+                $form.find('#multivendor-xs-deactivate-url-' + slug).attr('href', deactivateUrl);
 
-                        var data = {
-                            'action': 'deactivation_form_<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?>',
-                            'values': checkedInputVal,
-                            'details': details,
-                            'security': "<?php echo wp_create_nonce( 'multivendorx_deactivation_nonce' ); ?>",
-                            'dataType': "json"
-                        }
+                $('#multivendor-xs-submit-form-' + slug).on('click', function (e) {
+                    e.preventDefault();
+                    $form.find('.multivendor-xs-goodbye-form-body').fadeOut();
+                    $form.find('.multivendor-xs-goodbye-form-footer').fadeOut();
+                    $form.find('.deactivating-spinner').fadeIn();
+                    var $checked  = $('input[name="multivendor-xs-' + slug + '-goodbye-options"]:checked');
+                    var reason    = $checked.length ? $checked.val()  : 'No Reason';
+                    var details   = '';
 
-                        $.post(
-                            ajaxurl,
-                            data,
-                            function(response){
-                                // Redirect to original deactivation URL
-                                window.location.href = url;
-                            }
-                        );
-                    });
-                    $('#multivendor-xs-goodbye-options > ul ').on('click', 'li label, li > input', function( e ){
-                        var parent = $(this).parents('li');
-                        parent.siblings().find('label').next('input, textarea').css('display', 'none');
-                        parent.find('label').next('input, textarea').css('display', 'block');
-                    });
-                    // If we click outside the form, the form will close
-                    $('.multivendor-xs-goodbye-form-bg').on('click',function(){
-                        $("#multivendor-xs-goodbye-form").fadeOut();
-                        $('body').removeClass('multivendor-xs-form-active-<?php echo esc_attr( 'dc-woocommerce-multi-vendor' ); ?>');
-                    });
+                    if ( $checked.length ) {
+                        var inputName = $checked[0].id;
+                        details = $('input[name="' + inputName + '"], textarea[name="' + inputName + '"]').val() || '';
+                    }
+
+                    $.post(
+                        ajaxurl,
+                        {
+                            action   : 'deactivation_form_' + slug,
+                            values   : reason,
+                            details  : details,
+                            security : nonce,
+                            dataType : 'json'
+                        },
+                        function () {
+                            window.location.href = deactivateUrl;
+                        }
+                    );
+                });
+                
+                $('#multivendor-xs-goodbye-options > ul').on(
+                    'click',
+                    'li label, li > input[type="radio"]',
+                    function () {
+                        var $li = $(this).closest('li');
+                        $li.siblings().find('input:not([type="radio"]), textarea').hide();
+                        $li.find('input:not([type="radio"]), textarea').show();
+                    }
+                );
+
+                $('.multivendor-xs-goodbye-form-bg').on('click', function () {
+                    $form.fadeOut();
+                    $('body').removeClass('multivendor-xs-form-active-' + slug);
                 });
             });
+        });
         </script>
-
         <?php
     }
 
@@ -208,14 +301,11 @@ class Tracker {
 
     public function deactivate_reasons_form_submit() {
         check_ajax_referer( 'multivendorx_deactivation_nonce', 'security' );
-        if ( isset( $_POST['values'] ) ) {
-            $values = sanitize_text_field( $_POST['values'] );
-            update_option( 'multivendorx_deactivation_reason_' . 'dc-woocommerce-multi-vendor', $values, 'no' );
-        }
-        if ( isset( $_POST['details'] ) ) {
-            $details = sanitize_text_field( $_POST['details'] );
-            update_option( 'multivendorx_deactivation_details_' . 'dc-woocommerce-multi-vendor', $details, 'no' );
-        }
+        $values  = sanitize_text_field( wp_unslash( filter_input(INPUT_POST, 'values') ?? '' ) );
+        $details = sanitize_text_field( wp_unslash( filter_input(INPUT_POST, 'details') ?? '' ) );
+
+        update_option( 'multivendorx_deactivation_reason_' . self::PLUGIN_SLUG, $values, 'no' );
+        update_option( 'multivendorx_deactivation_details_' . self::PLUGIN_SLUG, $details, 'no' );
         echo 'success';
         //deactivation mail sent
         $current_user_id = get_current_user_id();
@@ -270,15 +360,6 @@ class Tracker {
         }
         $body['active_plugins']   = serialize($active_plugins);
         $body['inactive_plugins'] = serialize($plugins);
-        // pro details added
-        $body['pro_version'] = defined('MUILIVENDORX_PRO_PLUGIN_VERSION') ? MUILIVENDORX_PRO_PLUGIN_VERSION : '';
-        $pro_key_details = get_option('wc_am_client_143434', true) ? get_option('wc_am_client_143434', true) : array();
-        $pro_key_status  = get_option('wc_am_client_143434_activated', true) ? get_option('wc_am_client_143434_activated', true) : array();
-        if (!empty($pro_key_details)) {
-            $body['api_key'] = isset($pro_key_details['wc_am_client_143434_api_key']) ? $pro_key_details['wc_am_client_143434_api_key'] : '';
-            $body['product_id'] = isset($pro_key_details['wc_am_client_143434_product_id']) ? $pro_key_details['wc_am_client_143434_product_id'] : '';
-            $body[' pro_status'] = $pro_key_status ? $pro_key_status : '';
-        }
         
         /**
          * Text Direction.
@@ -337,7 +418,6 @@ class Tracker {
          */
         $site_id_key       = "multivendorx_dc-woocommerce-multi-vendor_site_id";
         $site_id           = get_option( $site_id_key, false );
-        $failed_data       = [];
         $site_url          = get_bloginfo( 'url' );
         $original_site_url = get_option( "multivendorx_dc-woocommerce-multi-vendor_original_url", false );
         if ( $original_site_url === false ) {
@@ -355,9 +435,6 @@ class Tracker {
                     $body['country'] = isset( $ip_data->country ) ? $ip_data->country : 'NOT SET';
                 }
             }
-            if ($body['country'] == 'NOT SET') {
-                //$body['country']    =  get_option('woocommerce_default_country');
-            }
 
             $body['plugin_slug'] = 'dc-woocommerce-multi-vendor';
             $body['url']         = $site_url;
@@ -370,8 +447,6 @@ class Tracker {
                     update_option( "multivendorx_dc-woocommerce-multi-vendor_original_url", $site_url, 'no' );
                     update_option( "multivendorx_dc-woocommerce-multi-vendor_{$retrieved_body['siteId']}", $body, 'no' );
                 }
-            } else {
-                $failed_data = $body;
             }
         }
 
