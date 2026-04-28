@@ -19,11 +19,11 @@ class Tracker {
         /**
          * Deactivation Hook
          */
-        register_deactivation_hook( MultiVendorX()->plugin_path . 'dc_product_vendor.php', array( $this, 'deactivate_mvx_this_plugin' ) );
+        register_deactivation_hook( MultiVendorX()->plugin_path . 'dc_product_vendor.php', array( $this, 'deactivate_multivendorx_plugin' ) );
         add_action( 'admin_print_styles-plugins.php', array( $this, 'deactivate_reasons_form_style' ) );
     }
 
-    public function deactivate_mvx_this_plugin() {
+    public function deactivate_multivendorx_plugin() {
         if (!$this->is_tracking_allowed()) {
             return;
         }
@@ -188,7 +188,7 @@ class Tracker {
                     </ul>
                 </div>
 
-                <h6 class="mvx-collecting-area">
+                <h6 class="multivendorx-collecting-area">
                     <?php esc_html_e( 'We collect non-sensitive diagnostic data and plugin usage information along with your feedback.', 'multivendorx' ); ?>
                 </h6>
             <?php endif; ?>
@@ -554,7 +554,7 @@ class Tracker {
                 font-size: 0.945rem;
                 text-align: center;
             }
-            .mvx-collecting-area {
+            .multivendorx-collecting-area {
                 font-weight: 500;
                 background: #eee;
                 padding: 1.5rem;
@@ -656,17 +656,6 @@ class Tracker {
 
             .multivendor-xs-goodbye-form-wrapper-dc-woocommerce-multi-vendor .test {}
 
-            a.mvx-pro-plugin {
-                font-weight: 700;
-                background: linear-gradient(110deg, rgb(63, 20, 115) 0%, 25%, rgb(175 59 116) 50%, 75%, rgb(219 75 84) 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-            a.mvx-pro-plugin:hover {
-                background: #3f1473;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
             @media screen and (max-width: 48.384rem) {
                 .multivendor-xs-goodbye-form-wrapper-dc-woocommerce-multi-vendor .multivendor-xs-goodbye-form-footer>.multivendor-xs-goodbye-form-buttons {
                     justify-content: center;
