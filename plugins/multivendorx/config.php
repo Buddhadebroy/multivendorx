@@ -14,3 +14,5 @@ define( 'MULTIVENDORX_PLUGIN_VERSION', '5.0.2' );
 define( 'MULTIVENDORX_PRO_SHOP_URL', 'https://multivendorx.com/pricing/' );
 
 define( 'MULTIVENDORX_PLUGIN_SLUG', 'multivendorx' );
+
+define( 'MULTIVENDORX_REVIEW_URL', 'https://wordpress.org/support/plugin/dc-woocommerce-multi-vendor/reviews/#new-post' );

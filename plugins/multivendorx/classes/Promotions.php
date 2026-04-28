@@ -38,10 +38,10 @@ class Promotions {
                 break;
 
             case 'multivendorx_wp_billing_phone_notice':
-                add_user_meta($user_id, 'multivendorx_wp_billing_phone_notice', 'true', true);
+                update_user_meta($user_id, 'multivendorx_wp_billing_phone_notice', 'true', true);
                 break;
         }
-        wp_die();
+        wp_send_json_success();
     }
 
     public function review_admin_notice() {
@@ -51,50 +51,14 @@ class Promotions {
             return;
         }
         ?>
-        <div class="multivendorx_wp_review_request notice notice-info is-dismissible">
-            <h3 style="margin: 10px 0;"><?php esc_html_e('MultiVendorX', 'multivendorx'); ?></h3>
-            <p><?php esc_html_e('Hey, We would like to thank you for using our plugin. We would appreciate it if you could take a moment to drop a quick review that will inspire us to keep going.', 'multivendorx'); ?></p>
-            <p>
-                <a class="button button-secondary" data-type="later"><?php esc_html_e('Remind me later', 'multivendorx'); ?></a>
-                <a class="button button-primary" data-type="add_review"><?php esc_html_e('Review now', 'multivendorx'); ?></a>
-            </p>
-        </div>
-
-        <script type="text/javascript">
-        (function ($) {
-            "use strict";
-
-            let data_obj = {
-                action: 'multivendorx_admin_notice_action',
-                multivendorx_admin_notice_action_type: ''
-            };
-
-            $(document)
-                .on('click', '.multivendorx_wp_review_request a.button', function (e) {
-                    e.preventDefault();
-                    let type = $(this).data('type');
-
-                    if (type === 'add_review') {
-                        window.open('https://wordpress.org/support/plugin/dc-woocommerce-multi-vendor/reviews/#new-post');
-                    }
-
-                    $(this).closest('.multivendorx_wp_review_request').hide();
-                    data_obj.multivendorx_admin_notice_action_type = type;
-                    $.post(ajaxurl, data_obj);
-                })
-                .on('click', '.multivendorx_wp_review_request .notice-dismiss', function () {
-                    $(this).closest('.multivendorx_wp_review_request').hide();
-                    data_obj.multivendorx_admin_notice_action_type = 'review_closed';
-                    $.post(ajaxurl, data_obj);
-                })
-                .on('click', '.multivendorx_wp_billing_phone_notice .notice-dismiss', function () {
-                    $(this).closest('.multivendorx_wp_billing_phone_notice').hide();
-                    data_obj.multivendorx_admin_notice_action_type = 'multivendorx_wp_billing_phone_notice';
-                    $.post(ajaxurl, data_obj);
-                });
-
-        })(jQuery);
-        </script>
+        <div class="notice notice-info is-dismissible multivendorx-review-notice">
+			<h3><?php esc_html_e( 'MultiVendorX', 'multivendorx' ); ?></h3>
+			<p><?php esc_html_e( 'We appreciate you using MultiVendorX. If it has helped your business, please consider leaving a quick review.', 'multivendorx' ); ?></p>
+			<p>
+				<a href="#" class="button button-secondary" data-action="later"><?php esc_html_e( 'Remind me later', 'multivendorx' ); ?></a>
+				<a href="<?php echo esc_url( MULTIVENDORX_REVIEW_URL ); ?>" target="_blank" rel="noopener noreferrer" class="button button-primary" data-action="add_review"><?php esc_html_e( 'Review now', 'multivendorx' ); ?></a>
+			</p>
+		</div>
         <?php
     }
 
@@ -103,47 +67,32 @@ class Promotions {
             return;
         }
 
-        $notice_options = [
-            'consent_button_text' => __('What we collect.', 'multivendorx'),
-            'yes'                 => __('Sure, I\'d like to help', 'multivendorx'),
-            'no'                  => __('No Thanks.', 'multivendorx'),
-            'notice'              => __('Want to help make <strong>MultiVendorX</strong> even more awesome? You can get a <strong>10% discount coupon</strong> for Premium extensions if you allow us to track the usage.', 'multivendorx'),
-            'extra_notice'        => __('We collect non-sensitive diagnostic data and plugin usage information. Your site URL, WordPress & PHP version, plugins & themes and email address to send you the discount coupon.', 'multivendorx'),
-        ];
-
-        $url_yes = add_query_arg([
+        $yes_url = add_query_arg([
             'plugin'        => 'dc-woocommerce-multi-vendor',
             'plugin_action' => 'yes',
         ]);
 
-        $url_no = add_query_arg([
+        $no_url = add_query_arg([
             'plugin'        => 'dc-woocommerce-multi-vendor',
             'plugin_action' => 'no',
         ]);
 
         ?>
-        <div class="notice notice-success">
-            <p>
-                <?php
-                echo wp_kses_post($notice_options['notice']); ?>
-                <a href="#" class="multivenddorxn-dc-woocommerce-multi-vendor-collect">
-                    <?php echo esc_html($notice_options['consent_button_text']); ?>
-                </a>
-            </p>
+        <div class="notice notice-success multivendorx-tracking-notice">
+			<p>
+				<?php echo wp_kses_post( __( 'Want to help make <strong>MultiVendorX</strong> even better? Allow anonymous usage tracking and receive a <strong>10% discount coupon</strong> for premium extensions.', 'multivendorx' ) ); ?>
+				<a href="#" class="multivendorx-tracking-toggle"><?php esc_html_e( 'What we collect.', 'multivendorx' ); ?></a>
+			</p>
 
-            <div class="multivenddorxn-data" style="display:none;">
-                <p><?php echo wp_kses_post($notice_options['extra_notice']); ?></p>
-            </div>
+			<div class="multivendorx-tracking-details" style="display:none;">
+				<p><?php echo wp_kses_post( __( 'We collect non-sensitive diagnostic and usage data, including your site URL, WordPress and PHP versions, active plugins and themes, and your email address to send the discount coupon.', 'multivendorx' ) ); ?></p>
+			</div>
 
-            <p>
-                <a href="<?php echo esc_url($url_yes); ?>" class="button-primary">
-                    <?php echo esc_html($notice_options['yes']); ?>
-                </a>
-                <a href="<?php echo esc_url($url_no); ?>" class="button-secondary">
-                    <?php echo esc_html($notice_options['no']); ?>
-                </a>
-            </p>
-        </div>
+			<p>
+				<a href="<?php echo esc_url( $yes_url ); ?>" class="button button-primary"><?php esc_html_e( 'Sure, I\'d like to help', 'multivendorx' ); ?></a>
+				<a href="<?php echo esc_url( $no_url ); ?>" class="button button-secondary"><?php esc_html_e( 'No Thanks', 'multivendorx' ); ?></a>
+			</p>
+		</div>
         <?php
 
         $plugin_action = filter_input(INPUT_GET, 'plugin_action', FILTER_SANITIZE_STRING);
@@ -167,29 +116,64 @@ class Promotions {
         }
     }
 
-    public function create_coupon_for_discount( $data = array(), $args = array() ) {
-        if ( empty( $data ) ) {
-            return;
-        }
-        $args = wp_parse_args( $args, array(
-            'method'      => 'POST',
-            'timeout'     => 30,
-            'redirection' => 5,
-            'httpversion' => '1.1',
-            'blocking'    => true,
-            'body'        => $data,
-            'user-agent'  => 'PUT/1.0.0; ' . get_bloginfo( 'url' ),
-            )
-        );
-        $endpoint = 'https://multivendorx.com/wp-json/mvx_thirdparty/v1/coupon_create_for_pro';
-        $request = wp_remote_post( esc_url( $endpoint ), $args );
-        if ( is_wp_error( $request ) || ( isset( $request['response'], $request['response']['code'] ) && $request['response']['code'] != 200 ) ) {
-            return new \WP_Error( 500, 'Something went wrong.' );
-        }
-        return $request;
-    }
+    public function create_coupon_for_discount( $data = array() ) {
+		if ( empty( $data ) ) {
+			return new \WP_Error( 'missing_data', __( 'Coupon data is required.', 'multivendorx' ) );
+		}
+
+		$response = wp_remote_post(
+			'https://multivendorx.com/wp-json/mvx_thirdparty/v1/coupon_create_for_pro',
+			array(
+				'timeout'    => 30,
+				'headers'    => array(
+					'User-Agent' => 'MultiVendorX/' . ( defined( 'MULTIVENDORX_VERSION' ) ? MULTIVENDORX_VERSION : '1.0.0' ) . '; ' . home_url(),
+				),
+				'body'       => $data,
+				'data_format' => 'body',
+			)
+		);
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+		$response_code = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $response_code ) {
+			return new \WP_Error( 'remote_request_failed', __( 'Unable to create coupon.', 'multivendorx' ) );
+		}
+		return $response;
+	}
 
     public function notice_script() {
-        echo "<script type='text/javascript'>jQuery('.multivenddorxn-" . esc_attr( 'dc-woocommerce-multi-vendor' ) . "-collect').on('click', function(e) {e.preventDefault();jQuery('.multivenddorxn-data').slideToggle('fast');});</script>";
+        ?>
+        <script>
+            jQuery( function( $ ) {
+			const ajaxData = {
+				action: 'multivendorx_admin_notice_action',
+				nonce: '<?php echo esc_js( wp_create_nonce( 'multivendorx_admin_notice' ) ); ?>'
+			};
+
+			$( document )
+				.on( 'click', '.multivendorx-review-notice .button', function( e ) {
+					e.preventDefault();
+
+					const actionType = $( this ).data( 'action' );
+					const href       = $( this ).attr( 'href' );
+
+					$.post( ajaxurl, { ...ajaxData, multivendorx_admin_notice_action_type: actionType } );
+					$( this ).closest( '.notice' ).fadeOut();
+
+					if ( href && '#' !== href ) {
+						window.open( href, '_blank', 'noopener' );
+					}
+				} )
+				.on( 'click', '.multivendorx-review-notice .notice-dismiss', function() {
+					$.post( ajaxurl, { ...ajaxData, multivendorx_admin_notice_action_type: 'review_closed' } );
+				} )
+				.on( 'click', '.multivendorx-tracking-toggle', function( e ) {
+					e.preventDefault();
+					$( '.multivendorx-tracking-details' ).slideToggle( 'fast' );
+				} );
+		} );
+		</script>
+        <?php
     }
 }

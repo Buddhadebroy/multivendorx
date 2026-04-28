@@ -56,6 +56,7 @@ final class MultiVendorX {
         $this->container['multivendorx_logs_dir'] = ( trailingslashit( wp_upload_dir( null, false )['basedir'] ) . 'mw-logs' );
         $this->container['version']               = MULTIVENDORX_PLUGIN_VERSION;
         $this->container['rest_namespace']        = 'multivendorx/v1';
+        $this->container['plugin_slug']           = 'dc-woocommerce-multi-vendor';
         $this->container['block_paths']           = array();
         $this->container['is_dev']                = defined( 'WP_ENV' ) && WP_ENV === 'development';
         $this->container['date_format']           = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );

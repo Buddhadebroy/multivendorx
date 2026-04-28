@@ -11,11 +11,11 @@ defined( 'ABSPATH' ) || exit;
  * @author 		MultiVendorX
  */
 class Tracker {
-    const PLUGIN_SLUG = 'dc-woocommerce-multi-vendor';
+    const PLUGIN_SLUG = MultiVendorX()->plugin_slug;
     public function __construct() {
         add_filter( 'plugin_action_links_' . MultiVendorX()->plugin_base, array($this, 'deactivate_action_links' ));
         add_action( 'admin_print_footer_scripts-plugins.php', array($this, 'deactivate_reasons_form_script' ));
-        add_action( 'wp_ajax_deactivation_form_' . esc_attr( 'dc-woocommerce-multi-vendor' ), array($this, 'deactivate_reasons_form_submit' ));
+        add_action( 'wp_ajax_deactivation_form_' . self::PLUGIN_SLUG, array($this, 'deactivate_reasons_form_submit' ));
         /**
          * Deactivation Hook
          */
@@ -67,7 +67,7 @@ class Tracker {
             $links['deactivate'] = $this->wrap_deactivate_link($links['deactivate']);
         }
 
-        $links['write_review'] = '<a href="https://wordpress.org/support/plugin/dc-woocommerce-multi-vendor/reviews/#new-post">' . __('Write a Review', 'multivendorx') . '</a>';
+        $links['write_review'] = '<a href="' . esc_url( MULTIVENDORX_REVIEW_URL ) . '" target="_blank">' . esc_html__( 'Write a Review', 'multivendorx' ) . '</a>';
         if ( ! Utill::is_khali_dabba() ) {
             $links['go_pro'] = '<a href="' . MULTIVENDORX_PRO_SHOP_URL . '" class="multivendorx-pro-plugin" target="_blank" style="font-weight: 700;background: linear-gradient(110deg, rgb(63, 20, 115) 0%, 25%, rgb(175 59 116) 50%, 75%, rgb(219 75 84) 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">' . __( 'Upgrade to Pro', 'multivendorx' ) . '</a>';
         }
@@ -89,7 +89,6 @@ class Tracker {
     }
 
     public function deactivate_reasons_form_script() {
-        $slug       = 'dc-woocommerce-multi-vendor';
         $form       = $this->deactivation_reasons();
         $nonce      = wp_create_nonce( 'multivendorx_deactivation_nonce' );
 
@@ -143,7 +142,7 @@ class Tracker {
                     <ul>
                         <?php foreach ( $form['options'] as $option ) :
                             $label    = is_array( $option ) ? $option['label'] : $option;
-                            $id       = sanitize_title( $label ) . '_' . $slug;
+                            $id       = sanitize_title( $label ) . '_' . self::PLUGIN_SLUG;
                             $id_attr  = esc_attr( $id );
                             $has_extra = is_array( $option ) && ! empty( $option['extra_field'] );
                             $type     = $has_extra ? ( $option['type'] ?? 'input' ) : '';
@@ -205,14 +204,14 @@ class Tracker {
         $footer_html = wp_json_encode(
             '<div class="multivendor-xs-goodbye-form-footer">'
             . '<div class="multivendor-xs-goodbye-form-buttons">'
-            . '<a class="multivendor-xs-submit-btn" id="multivendor-xs-deactivate-url-' . esc_attr( $slug ) . '" href="#">'
+            . '<a class="multivendor-xs-submit-btn" id="multivendor-xs-deactivate-url-' . self::PLUGIN_SLUG . '" href="#">'
             . esc_html__( 'Skip & Deactivate', 'multivendor-x' )
             . '</a></div></div>'
         );
         ?>
         <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            var slug        = <?php echo wp_json_encode( $slug ); ?>;
+            var slug        = <?php echo wp_json_encode( self::PLUGIN_SLUG ); ?>;
             var nonce       = <?php echo wp_json_encode( $nonce ); ?>;
             var formHtml    = <?php echo $html_json; ?>;
             var footerHtml  = <?php echo $footer_html; ?>;
@@ -296,7 +295,7 @@ class Tracker {
                 'type'        => 'textarea',
             ],
         );
-        return apply_filters( 'multivendorx_form_text_' . 'dc-woocommerce-multi-vendor', $form );
+        return apply_filters( 'multivendorx_form_text_' . self::PLUGIN_SLUG, $form );
     }
 
     public function deactivate_reasons_form_submit() {
@@ -317,7 +316,7 @@ class Tracker {
 
     public function get_data() {
         $body = array(
-            'plugin_slug'   => sanitize_text_field( 'dc-woocommerce-multi-vendor' ),
+            'plugin_slug'   => self::PLUGIN_SLUG,
             'url'           => get_bloginfo( 'url' ),
             'site_name'     => get_bloginfo( 'name' ),
             'site_version'  => get_bloginfo( 'version' ),
@@ -436,7 +435,7 @@ class Tracker {
                 }
             }
 
-            $body['plugin_slug'] = 'dc-woocommerce-multi-vendor';
+            $body['plugin_slug'] = self::PLUGIN_SLUG;
             $body['url']         = $site_url;
 
             $request = $this->remote_post( $body );
