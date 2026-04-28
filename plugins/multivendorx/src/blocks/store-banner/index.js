@@ -42,8 +42,6 @@ const LuxeDisplay = [
     ['multivendorx/store-description', {}],
     ['core/spacer', { height: '1.25rem' }],
     ['multivendorx/follow-store', { align: 'right' }],
-    ['multivendorx-pro/live-chat', { align: 'right' }],
-    ['multivendorx-pro/store-support', { align: 'right' }]
 ];
 
 // Signature View Template 
@@ -92,8 +90,6 @@ const SignatureView = [
             ],
             ['multivendorx/store-description', { align: 'center' }],
             ['multivendorx/follow-store', { align: 'right' }],
-            ['multivendorx-pro/live-chat', { align: 'right' }],
-            ['multivendorx-pro/store-support', { align: 'right' }]
         ],
     ],
 ];
@@ -202,8 +198,6 @@ const DynamicShowcase = [
                 },
                 [
                     ['multivendorx/follow-store', { align: 'right' }],
-                    ['multivendorx-pro/live-chat', { align: 'right' }],
-                    ['multivendorx-pro/store-support', { align: 'right' }]
                 ],
             ],
         ],
@@ -237,8 +231,6 @@ const ALLOWED_BLOCKS = [
     'multivendorx/store-address',
     'multivendorx/store-social-icons',
     'multivendorx/follow-store',
-    'multivendorx-pro/live-chat',
-    'multivendorx-pro/store-support',
     'multivendorx/store-logo',
 ];
 
