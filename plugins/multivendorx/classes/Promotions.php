@@ -17,7 +17,7 @@ class Promotions {
     private string $text_domain;
     public function __construct() {
         $this->plugin_version = MULTIVENDORX_PLUGIN_VERSION;
-        $this->pro_plugin_version = MULTIVENDORX_PRO_PLUGIN_VERSION;
+        $this->pro_plugin_version = defined( 'MULTIVENDORX_PRO_PLUGIN_VERSION' ) ?? '';
         $this->text_domain = MULTIVENDORX_PLUGIN_TEXTDOMAIN;
         $this->review_url = 'https://wordpress.org/support/plugin/'. MultiVendorX()->plugin_slug .'/reviews/#new-post';
         add_action( 'admin_notices', array($this, 'seek_site_information' ) );
@@ -132,7 +132,7 @@ class Promotions {
 			array(
 				'timeout'    => 30,
 				'headers'    => array(
-					'User-Agent' => 'MultiVendorX/' . $this->plugin_version ?? '1.0.0' ) . '; ' . home_url(),
+					'User-Agent' => 'MultiVendorX/' . $this->plugin_version ?? '1.0.0' . '; ' . home_url(),
 				),
 				'body'       => $data,
 				'data_format' => 'body',
