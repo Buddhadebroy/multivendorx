@@ -27,11 +27,10 @@ class Tracker {
          * Check tracking is allowed or not.
          */
         $allow_tracking = $this->is_tracking_allowed();
-        file_put_contents( plugin_dir_path(__FILE__) . "/error.log", date("d/m/Y H:i:s", time()) . ":tracking:  : " . var_export($allow_tracking, true) . "\n", FILE_APPEND);
 
-        // if ( ! $allow_tracking ) {
-        //     return;
-        // }
+        if ( ! $allow_tracking ) {
+            return;
+        }
         $body                     = $this->get_data();
         $body['status']           = 'Deactivated';
         $body['deactivated_date'] = time();
