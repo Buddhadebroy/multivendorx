@@ -63,7 +63,6 @@ final class MultiVendorX {
         register_activation_hook( $file, array( $this, 'activate' ) );
         register_deactivation_hook( $file, array( $this, 'deactivate' ) );
 
-        add_filter( 'plugin_action_links_' . plugin_basename( $file ), array( &$this, 'multivendorx_settings' ) );
         add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
         add_action( 'woocommerce_loaded', array( $this, 'init_plugin' ) );
         add_action( 'plugins_loaded', array( $this, 'is_woocommerce_loaded' ) );
@@ -176,6 +175,8 @@ final class MultiVendorX {
         $this->container['notifications']   = new Notifications\Notifications();
         $this->container['widgets']         = new Widgets();
         $this->container['pattern']         = new Pattern();
+        $this->container['tracker']         = new Tracker();
+        $this->container['promotions']      = new Promotions();
         $this->container['migration']       = new Migration\Cron();
 
         $this->initialize_multivendorx_log();
@@ -309,24 +310,6 @@ final class MultiVendorX {
     public function multivendorx_dismiss_free_pro_notice() {
         update_option('multivendorx_dismiss_free_pro_notice', true);
         die();
-    }
-
-    /**
-     * Set the stoct Manager settings in plugin activation page.
-     *
-     * @param  mixed $links all links.
-     * @return array
-     */
-    public static function multivendorx_settings( $links ) {
-        $plugin_links = array(
-            '<a href="' . admin_url( 'admin.php?page=multivendorx#&tab=settings&subtab=overview' ) . '">' . __( 'Settings', 'multivendorx' ) . '</a>',
-        );
-
-        if ( ! Utill::is_khali_dabba() ) {
-            $links['go_pro'] = '<a href="' . MULTIVENDORX_PRO_SHOP_URL . '" class="multivendorx-pro-plugin" target="_blank" style="font-weight: 700;background: linear-gradient(110deg, rgb(63, 20, 115) 0%, 25%, rgb(175 59 116) 50%, 75%, rgb(219 75 84) 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">' . __( 'Upgrade to Pro', 'multivendorx' ) . '</a>';
-        }
-
-        return array_merge( $plugin_links, $links );
     }
 
     /**
