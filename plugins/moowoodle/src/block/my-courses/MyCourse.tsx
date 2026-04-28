@@ -159,7 +159,7 @@ const MyCourse: React.FC = () => {
 
     return (
         <div className="moowoodle-my-courses woocommerce-js">
-            <table className="woocommerce table shop_table">
+            <table className="moowoodle-table shop_table shop_table_responsive my_account_orders">
                 <thead>
                     <tr>
                         <th className="woocommerce-orders-table__header">{ __( 'Username', 'moowoodle' ) }</th>
