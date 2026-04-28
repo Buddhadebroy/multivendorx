@@ -11,11 +11,12 @@ defined( 'ABSPATH' ) || exit;
  * @author 		MultiVendorX
  */
 class Tracker {
-    const PLUGIN_SLUG = MultiVendorX()->plugin_slug;
+    private $plugin_slug;
     public function __construct() {
+        $this->plugin_slug = MultiVendorX()->plugin_slug;
         add_filter( 'plugin_action_links_' . MultiVendorX()->plugin_base, array($this, 'deactivate_action_links' ));
         add_action( 'admin_print_footer_scripts-plugins.php', array($this, 'deactivate_reasons_form_script' ));
-        add_action( 'wp_ajax_deactivation_form_' . self::PLUGIN_SLUG, array($this, 'deactivate_reasons_form_submit' ));
+        add_action( 'wp_ajax_deactivation_form_' . $this->plugin_slug, array($this, 'deactivate_reasons_form_submit' ));
         /**
          * Deactivation Hook
          */
@@ -32,8 +33,8 @@ class Tracker {
         $body['status'] = 'Deactivated';
         $body['deactivated_date'] = time();
 
-        $reason  = get_option('multivendorx_deactivation_reason_' . self::PLUGIN_SLUG);
-        $details = get_option('multivendorx_deactivation_details_' . self::PLUGIN_SLUG);
+        $reason  = get_option('multivendorx_deactivation_reason_' . $this->plugin_slug);
+        $details = get_option('multivendorx_deactivation_details_' . $this->plugin_slug);
 
         if ($reason) {
             $body['deactivation_reason'] = $reason;
@@ -44,8 +45,8 @@ class Tracker {
 
         $this->send_data($body);
 
-        delete_option('multivendorx_deactivation_reason_' . self::PLUGIN_SLUG);
-        delete_option('multivendorx_deactivation_details_' . self::PLUGIN_SLUG);
+        delete_option('multivendorx_deactivation_reason_' . $this->plugin_slug);
+        delete_option('multivendorx_deactivation_details_' . $this->plugin_slug);
     }
 
     /**
@@ -76,14 +77,14 @@ class Tracker {
     }
 
     private function wrap_deactivate_link($link) {
-        $wrapper = '<div class="multivendor-xs-goodbye-form-wrapper-' . self::PLUGIN_SLUG . '">
+        $wrapper = '<div class="multivendor-xs-goodbye-form-wrapper-' . $this->plugin_slug . '">
                         <div class="multivendor-xs-goodbye-form-bg"></div>
                         <span class="multivendor-xs-goodbye-form" id="multivendor-xs-goodbye-form"></span>
                     </div>';
 
         return str_replace(
             '<a ',
-            $wrapper . '<a onclick="event.preventDefault();" id="multivendor-xs-goodbye-link-' . self::PLUGIN_SLUG . '" ',
+            $wrapper . '<a onclick="event.preventDefault();" id="multivendor-xs-goodbye-link-' . $this->plugin_slug . '" ',
             $link
         );
     }
@@ -142,7 +143,7 @@ class Tracker {
                     <ul>
                         <?php foreach ( $form['options'] as $option ) :
                             $label    = is_array( $option ) ? $option['label'] : $option;
-                            $id       = sanitize_title( $label ) . '_' . self::PLUGIN_SLUG;
+                            $id       = sanitize_title( $label ) . '_' . $this->plugin_slug;
                             $id_attr  = esc_attr( $id );
                             $has_extra = is_array( $option ) && ! empty( $option['extra_field'] );
                             $type     = $has_extra ? ( $option['type'] ?? 'input' ) : '';
@@ -204,14 +205,14 @@ class Tracker {
         $footer_html = wp_json_encode(
             '<div class="multivendor-xs-goodbye-form-footer">'
             . '<div class="multivendor-xs-goodbye-form-buttons">'
-            . '<a class="multivendor-xs-submit-btn" id="multivendor-xs-deactivate-url-' . self::PLUGIN_SLUG . '" href="#">'
+            . '<a class="multivendor-xs-submit-btn" id="multivendor-xs-deactivate-url-' . $this->plugin_slug . '" href="#">'
             . esc_html__( 'Skip & Deactivate', 'multivendor-x' )
             . '</a></div></div>'
         );
         ?>
         <script type="text/javascript">
         jQuery(document).ready(function ($) {
-            var slug        = <?php echo wp_json_encode( self::PLUGIN_SLUG ); ?>;
+            var slug        = <?php echo wp_json_encode( $this->plugin_slug ); ?>;
             var nonce       = <?php echo wp_json_encode( $nonce ); ?>;
             var formHtml    = <?php echo $html_json; ?>;
             var footerHtml  = <?php echo $footer_html; ?>;
@@ -295,7 +296,7 @@ class Tracker {
                 'type'        => 'textarea',
             ],
         );
-        return apply_filters( 'multivendorx_form_text_' . self::PLUGIN_SLUG, $form );
+        return apply_filters( 'multivendorx_form_text_' . $this->plugin_slug, $form );
     }
 
     public function deactivate_reasons_form_submit() {
@@ -303,8 +304,8 @@ class Tracker {
         $values  = sanitize_text_field( wp_unslash( filter_input(INPUT_POST, 'values') ?? '' ) );
         $details = sanitize_text_field( wp_unslash( filter_input(INPUT_POST, 'details') ?? '' ) );
 
-        update_option( 'multivendorx_deactivation_reason_' . self::PLUGIN_SLUG, $values, 'no' );
-        update_option( 'multivendorx_deactivation_details_' . self::PLUGIN_SLUG, $details, 'no' );
+        update_option( 'multivendorx_deactivation_reason_' . $this->plugin_slug, $values, 'no' );
+        update_option( 'multivendorx_deactivation_details_' . $this->plugin_slug, $details, 'no' );
         echo 'success';
         //deactivation mail sent
         $current_user_id = get_current_user_id();
@@ -316,7 +317,7 @@ class Tracker {
 
     public function get_data() {
         $body = array(
-            'plugin_slug'   => self::PLUGIN_SLUG,
+            'plugin_slug'   => $this->plugin_slug,
             'url'           => get_bloginfo( 'url' ),
             'site_name'     => get_bloginfo( 'name' ),
             'site_version'  => get_bloginfo( 'version' ),
@@ -435,7 +436,7 @@ class Tracker {
                 }
             }
 
-            $body['plugin_slug'] = self::PLUGIN_SLUG;
+            $body['plugin_slug'] = $this->plugin_slug;
             $body['url']         = $site_url;
 
             $request = $this->remote_post( $body );
