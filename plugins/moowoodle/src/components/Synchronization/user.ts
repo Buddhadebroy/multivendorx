@@ -2,7 +2,75 @@
 import { __ } from '@wordpress/i18n';
 import wordpressLogo from '@/assets/images/wordPress-to-moodle.png';
 import moodleLogo from '@/assets/images/moodle-to-wordpress.png';
-
+const nestedFields = [
+    {
+        key: 'wordPress_user_mapping',
+        type: 'select',
+        label: __('Open Router Model', 'multivendorx'),
+        desc: __(
+            'Choose your preferred AI model from OpenRouter.',
+            'multivendorx'
+        ),
+        options: [
+            {
+                key: 'openai/gpt-4o-mini',
+                label: 'First name',
+                value: 'openai/gpt-4o-mini',
+            },
+            {
+                key: 'last_name',
+                label: 'Last name',
+                value: 'last_name',
+            },
+            {
+                key: 'user_name',
+                label: 'User name',
+                value: 'user_name',
+            },
+            {
+                key: 'password',
+                label: 'Password',
+                value: 'password',
+            },
+        ],
+        afterElement: {
+            type: 'preposttext',
+            textType: 'post',
+            postText: '⇌',
+        },
+    },
+    {
+        key: 'moodle_user_mapping',
+        type: 'select',
+        label: __('Moodle User Mapping', 'multivendorx'),
+        desc: __(
+            'Choose your preferred AI model from OpenRouter.',
+            'multivendorx'
+        ),
+        options: [
+            {
+                key: 'openai/gpt-4o-mini',
+                label: 'First name',
+                value: 'openai/gpt-4o-mini',
+            },
+            {
+                key: 'last_name',
+                label: 'Last name',
+                value: 'last_name',
+            },
+            {
+                key: 'user_name',
+                label: 'User name',
+                value: 'user_name',
+            },
+            {
+                key: 'password',
+                label: 'Password',
+                value: 'password',
+            },
+        ],
+    },
+];
 export default {
     id: 'synchronize-user',
     priority: 20,
@@ -90,34 +158,15 @@ export default {
         },
         {
             key: 'user_sync_options',
-            type: 'dropdown-mapping',
+            type: 'nested',
+            label: __('Profile information mapping', 'multivendorx'),
+            rowClass: 'single-line',
+            single: true,
             desc: __(
                 "Define the user profile information mapping between WordPress and Moodle. Add multiple rows above to define all the profile data you wish to map. Any remaining profile field will be excluded from the synchronization process.<br>User will be created based on their e-mail id, hence email id can't be mapped.",
                 'moowoodle'
             ),
-            label: __('Profile information mapping', 'moowoodle'),
-            selectDeselect: true,
-            syncFieldsMap: {
-                wordpress: {
-                    heading: 'WordPress',
-                    fields: {
-                        firstname: 'First name',
-                        lastname: 'Last name',
-                        username: 'User name',
-                        password: 'Password',
-                    },
-                },
-                moodle: {
-                    heading: 'Moodle',
-                    fields: {
-                        firstname: 'First name',
-                        lastname: 'Last name',
-                        username: 'User name',
-                        password: 'Password',
-                    },
-                },
-            },
-            proSetting: true,
+            nestedFields,
         },
         {
             key: 'realtime_user_sync',

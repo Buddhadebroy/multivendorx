@@ -10,6 +10,8 @@ import { searchIndex, SearchItem } from './searchIndex';
 import Brand from './assets/images/brand.png';
 import { __ } from '@wordpress/i18n';
 import { AdminHeader, Notice } from 'zyra';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import HelpSupport from './components/HelpSupport/HelpSupport';
 
 const Route = () => {
     const currentTab = new URLSearchParams( useLocation().hash );
@@ -25,6 +27,9 @@ const Route = () => {
             { currentTab.get( 'tab' ) === 'courses' && <Courses /> }
             { currentTab.get( 'tab' ) === 'enrolments' && <Enrollment /> }
             { currentTab.get( 'tab' ) === 'cohorts' && <Cohort /> }
+            { currentTab.get( 'tab' ) === 'dashboard' && <AdminDashboard /> }
+            { currentTab.get( 'tab' ) === 'help-support' && <HelpSupport /> }
+
         </>
     );
 };

@@ -47,19 +47,6 @@ export default {
                 },
             ],
         },
-        // {
-        //     key: 'sync_cohort_btn',
-        //     type: 'do-action-btn',
-        //     label: 'On-Demand Cohort',
-        //     settingDescription:
-        //         'All cohorts are immediately fetched from Moodle and updated in WordPress. This action runs independently of the scheduled synchronization settings.',
-        //     interval: 2500,
-        //     apilink: 'synchronization',
-        //     parameter: 'cohort',
-        //     proSetting: true,
-        //     value: 'Synchronize cohort now!',
-        //     desc: "Initiate the immediate synchronization of all cohort from Moodle to WordPress.<br><span class='highlighted-part'><br>With the 'Cohort & product synchronization' option, you have the ability to specify whether you want to create new products, update existing products.</span>",
-        // },
         {
             key: 'sync_cohort_btn',
             label: 'On-demand course',

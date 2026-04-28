@@ -63,10 +63,13 @@ export default {
             ],
         },
         {
-            key: 'separator_content',
-            type: 'section',
-            label: '',
-        },
+			key: 'section',
+			type: 'section',
+			title: __(
+				'Lorem Ipsum is simply dummy text of',
+				'moowoodle'
+			),
+		},
         {
             key: 'product_sync_option',
             type: 'checkbox',
@@ -100,11 +103,14 @@ export default {
                 },
             ],
         },
-        {
-            key: 'separator_content',
-            type: 'section',
-            label: '',
-        },
+         {
+			key: 'section',
+			type: 'section',
+			title: __(
+				'Lorem Ipsum is simply dummy text of',
+				'moowoodle'
+			),
+		},
         // {
         //     key: 'sync_course_btn',
         //     label: 'On-demand course ',
