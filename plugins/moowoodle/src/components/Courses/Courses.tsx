@@ -150,7 +150,6 @@ const Course: React.FC = () => {
     const headers = {
         course_name: {
             label: __('Course', 'moowoodle'),
-            type: 'custom',
             render: (row: CourseRow) => (
                 <InfoItem
                     title={row.course_name}
@@ -173,7 +172,6 @@ const Course: React.FC = () => {
         },
         products: {
             label: __('Product', 'moowoodle'),
-            type: 'custom',
             render: (row: CourseRow) => (
                 <>
                     {row.products && Object.keys(row.products).length
@@ -198,7 +196,6 @@ const Course: React.FC = () => {
         },
         enroled_user: {
             label: __('Enrolled users', 'moowoodle'),
-            type: 'custom',
             render: (row: CourseRow) => (
                 <div className="action-section">
                     <div>{row.enroled_user || 0}</div>
