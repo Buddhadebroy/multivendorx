@@ -53,6 +53,10 @@ class Admin {
 
 			// Array contain moowoodle submenu.
 			$submenus = array(
+				'dashboard'         => array(
+					'name'   => __( 'Dashboard', 'moowoodle' ),
+					'subtab' => '',
+				),
 				'courses'         => array(
 					'name'   => __( 'Courses', 'moowoodle' ),
 					'subtab' => '',
@@ -72,6 +76,10 @@ class Admin {
 				'settings'        => array(
 					'name'   => __( 'Settings', 'moowoodle' ),
 					'subtab' => 'general',
+				),
+				'help-support'        => array(
+					'name'     => __( 'Help & Support', 'moowoodle' ),
+					'subtab'   => '',
 				),
 			);
 
@@ -140,7 +148,7 @@ class Admin {
      * @return void
      */
 	public static function create_settings_page() {
-        echo '<div id="admin-main-wrapper"></div>';
+        echo '<div id="admin-main-wrapper" class="admin-main-wrapper"></div>';
     }
 
 	/**

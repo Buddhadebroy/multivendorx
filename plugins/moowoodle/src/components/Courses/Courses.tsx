@@ -12,7 +12,6 @@ import {
     QueryProps,
     InfoItem,
 } from 'zyra';
-import defaultImage from '../../assets/images/moowoodle-product-default.png';
 
 interface CourseRow {
     id?: number;
