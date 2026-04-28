@@ -15,11 +15,13 @@ class Promotions {
     private string $plugin_version;
     private string $pro_plugin_version;
     private string $text_domain;
+    private string $api_url;
     public function __construct() {
         $this->plugin_version = MULTIVENDORX_PLUGIN_VERSION;
         $this->pro_plugin_version = defined( 'MULTIVENDORX_PRO_PLUGIN_VERSION' ) ?? '';
         $this->text_domain = MULTIVENDORX_PLUGIN_TEXTDOMAIN;
         $this->review_url = 'https://wordpress.org/support/plugin/'. MultiVendorX()->plugin_slug .'/reviews/#new-post';
+        $this->api_url = 'https://multivendorx.com/wp-json/mvx_thirdparty/v1/coupon_create_for_pro';
         add_action( 'admin_notices', array($this, 'seek_site_information' ) );
         add_action( 'admin_notices', array($this, 'seek_product_review'));
         add_action( 'admin_notices', array( $this, 'free_pro_admin_notice' ) );
@@ -128,7 +130,7 @@ class Promotions {
 		}
 
 		$response = wp_remote_post(
-			'https://multivendorx.com/wp-json/mvx_thirdparty/v1/coupon_create_for_pro',
+			$this->api_url,
 			array(
 				'timeout'    => 30,
 				'headers'    => array(

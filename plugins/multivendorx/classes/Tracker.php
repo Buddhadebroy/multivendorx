@@ -17,11 +17,25 @@ class Tracker {
     private string $slug;
     private string $review_url;
     private string $text_domain;
+    private string $support_url;
+    private string $facebook_url;
+    private string $calendy_url;
+    private string $pro_shop_url;
+    private string $plugin_version;
+    private string $settings_url;
+    private string $api_url;
 
     public function __construct() {
         $this->slug = MultiVendorX()->plugin_slug;
         $this->text_domain = MULTIVENDORX_PLUGIN_TEXTDOMAIN;
+        $this->plugin_version = MULTIVENDORX_PLUGIN_VERSION;
+        $this->pro_shop_url = MULTIVENDORX_PRO_SHOP_URL;
         $this->review_url = 'https://wordpress.org/support/plugin/'. MultiVendorX()->plugin_slug .'/reviews/#new-post';
+        $this->support_url = "https://multivendorx.com/support-forum/";
+        $this->facebook_url = "https://www.facebook.com/groups/226246620006065";
+        $this->calendy_url = "https://calendly.com/contact-hkdq/30min";
+        $this->settings_url = admin_url( 'admin.php?page=multivendorx#&tab=settings&subtab=overview' );
+        $this->api_url = 'https://multivendorx.com/wp-json/mvx_thirdparty/v1/users_database_update';
 
         add_filter( 'plugin_action_links_' . MultiVendorX()->plugin_base, [ $this, 'deactivate_action_links' ] );
         add_action( 'admin_print_footer_scripts-plugins.php', [ $this, 'print_deactivation_form' ] );
@@ -35,7 +49,7 @@ class Tracker {
     }
 
     public function deactivate_action_links( array $links ): array {
-        $links['settings'] = '<a href="' . esc_url( admin_url( 'admin.php?page=multivendorx#&tab=settings&subtab=overview' ) ) . '">'
+        $links['settings'] = '<a href="' . esc_url( $this->settings_url ) . '">'
             . esc_html__( 'Settings', $this->text_domain ) . '</a>';
 
         if ( isset( $links['deactivate'] ) ) {
@@ -46,7 +60,7 @@ class Tracker {
             . esc_html__( 'Write a Review', $this->text_domain ) . '</a>';
 
         if ( ! Utill::is_khali_dabba() ) {
-            $links['go_pro'] = '<a href="' . esc_url( MULTIVENDORX_PRO_SHOP_URL ) . '" target="_blank" rel="noopener noreferrer" style="font-weight:700;background:linear-gradient(110deg,rgb(63,20,115) 0%,25%,rgb(175,59,116) 50%,75%,rgb(219,75,84) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">'
+            $links['go_pro'] = '<a href="' . esc_url( $this->pro_shop_url ) . '" target="_blank" rel="noopener noreferrer" style="font-weight:700;background:linear-gradient(110deg,rgb(63,20,115) 0%,25%,rgb(175,59,116) 50%,75%,rgb(219,75,84) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">'
                 . esc_html__( 'Upgrade to Pro', $this->text_domain ) . '</a>';
         }
 
@@ -101,15 +115,15 @@ class Tracker {
                 <p><?php echo esc_html( $form['subtitle'] ); ?></p>
 
                 <div class="support-cards">
-                    <a href="https://multivendorx.com/support-forum/" target="_blank" rel="noopener noreferrer" class="card">
+                    <a href="<?php echo esc_url( $this->support_url ); ?>" target="_blank" rel="noopener noreferrer" class="card">
                         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M15.573,11.624c0.568-0.478,0.947-1.219,0.947-2.019c0-1.37-1.108-2.569-2.371-2.569s-2.371,1.2-2.371,2.569c0,0.8,0.379,1.542,0.946,2.019c-0.253,0.089-0.496,0.2-0.728,0.332c-0.743-0.898-1.745-1.573-2.891-1.911c0.877-0.61,1.486-1.666,1.486-2.812c0-1.79-1.479-3.359-3.162-3.359S4.269,5.443,4.269,7.233c0,1.146,0.608,2.202,1.486,2.812c-2.454,0.725-4.252,2.998-4.252,5.685c0,0.218,0.178,0.396,0.395,0.396h16.203c0.218,0,0.396-0.178,0.396-0.396C18.497,13.831,17.273,12.216,15.573,11.624 M12.568,9.605c0-0.822,0.689-1.779,1.581-1.779s1.58,0.957,1.58,1.779s-0.688,1.779-1.58,1.779S12.568,10.427,12.568,9.605 M5.06,7.233c0-1.213,1.014-2.569,2.371-2.569c1.358,0,2.371,1.355,2.371,2.569S8.789,9.802,7.431,9.802C6.073,9.802,5.06,8.447,5.06,7.233 M2.309,15.335c0.202-2.649,2.423-4.742,5.122-4.742s4.921,2.093,5.122,4.742H2.309z M13.346,15.335c-0.067-0.997-0.382-1.928-0.882-2.732c0.502-0.271,1.075-0.429,1.686-0.429c1.828,0,3.338,1.385,3.535,3.161H13.346z"/></svg>
                         <span><?php esc_html_e( 'Support Forum', $this->text_domain ); ?></span>
                     </a>
-                    <a href="https://www.facebook.com/groups/226246620006065" target="_blank" rel="noopener noreferrer" class="card">
+                    <a href="<?php echo esc_url($this->facebook_url); ?>" target="_blank" rel="noopener noreferrer" class="card">
                         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10,0.5c-5.247,0-9.5,4.253-9.5,9.5c0,5.247,4.253,9.5,9.5,9.5c5.247,0,9.5-4.253,9.5-9.5C19.5,4.753,15.247,0.5,10,0.5 M10,18.637c-4.77,0-8.636-3.867-8.636-8.637S5.23,1.364,10,1.364S18.637,5.23,18.637,10S14.77,18.637,10,18.637 M10.858,7.949c0-0.349,0.036-0.536,0.573-0.536h0.719v-1.3H11c-1.38,0-1.866,0.65-1.866,1.743v0.845h-0.86V10h0.86v3.887h1.723V10h1.149l0.152-1.299h-1.302L10.858,7.949z"/></svg>
                         <span><?php esc_html_e( 'Facebook Group', $this->text_domain ); ?></span>
                     </a>
-                    <a href="https://calendly.com/contact-hkdq/30min" target="_blank" rel="noopener noreferrer" class="card">
+                    <a href="<?php echo esc_url($this->calendy_url); ?>" target="_blank" rel="noopener noreferrer" class="card">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.384,17.752a2.108,2.108,0,0,1-.522,3.359,7.543,7.543,0,0,1-5.476.642C10.5,20.523,3.477,13.5,2.247,8.614a7.543,7.543,0,0,1,.642-5.476,2.108,2.108,0,0,1,3.359-.522L8.333,4.7a2.094,2.094,0,0,1,.445,2.328A3.877,3.877,0,0,1,8,8.2c-2.384,2.384,5.417,10.185,7.8,7.8a3.877,3.877,0,0,1,1.173-.781,2.092,2.092,0,0,1,2.328.445Z"/></svg>
                         <span><?php esc_html_e( 'Book a Call', $this->text_domain ); ?></span>
                     </a>
@@ -271,7 +285,7 @@ class Tracker {
 
         return [
             'plugin_slug'      => $this->slug,
-            'plugin_version'   => MULTIVENDORX_PLUGIN_VERSION,
+            'plugin_version'   => $this->plugin_version,
             'url'              => get_bloginfo( 'url' ),
             'site_name'        => get_bloginfo( 'name' ),
             'site_version'     => get_bloginfo( 'version' ),
@@ -324,7 +338,7 @@ class Tracker {
         $body['plugin_slug'] = $slug;
         $body['url']         = $site_url;
 
-        $response = wp_remote_post( 'https://multivendorx.com/wp-json/mvx_thirdparty/v1/users_database_update', [
+        $response = wp_remote_post( $this->api_url, [
             'method'      => 'POST',
             'timeout'     => 30,
             'httpversion' => '1.1',
