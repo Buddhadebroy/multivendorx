@@ -34,51 +34,32 @@ export default {
 			options: appLocalizer.facilitators_list,
 		},
 		{
-			key: 'facilitator_permissions',
+			key: 'facilitator',
 			type: 'checkbox',
 			label: __('Facilitator permissions', 'multivendorx'),
 			settingDescription: __(
 				'Define what financial and commission-related capabilities are available to facilitators.',
 				'multivendorx'
 			),
-
 			options: [
 				{
-					key: 'view_earnings',
-					label: __('View earnings', 'multivendorx'),
-					desc: __(
-						'Allow facilitators to view their total earnings from assigned stores.',
-						'multivendorx'
-					),
-					value: 'view_earnings',
-				},
-				{
-					key: 'request_withdrawal',
+					key: 'facilitator_edit_withdrawl_request',
 					label: __('Request withdrawal', 'multivendorx'),
 					desc: __(
 						'Allow facilitators to request payout of their earnings.',
 						'multivendorx'
 					),
-					value: 'request_withdrawal',
+					value: 'facilitator_edit_withdrawl_request',
 				},
 				{
-					key: 'commission_history',
-					label: __('Commission history', 'multivendorx'),
-					desc: __(
-						'Allow facilitators to access a detailed history of commissions earned.',
-						'multivendorx'
-					),
-					value: 'commission_history',
-				},
-				{
-					key: 'view_transactions',
+					key: 'facilitator_view_transactions',
 					label: __('View transactions', 'multivendorx'),
 					desc: __(
 						'Allow facilitators to view all transaction records related to their earnings.',
 						'multivendorx'
 					),
-					value: 'view_transactions',
-				},
+					value: 'facilitator_view_transactions',
+				}
 			],
 			selectDeselect: true,
 		}
