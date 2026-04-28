@@ -247,6 +247,7 @@ const AllCoupon: React.FC = () => {
 			.then(() => {
 				doRefreshTableData({});
 				setAddCoupon(false);
+				fetchCouponStatusCounts();
 				setFormData({
 					title: '',
 					content: '',
@@ -614,7 +615,7 @@ const AllCoupon: React.FC = () => {
 
 	useEffect(() => {
 		fetchCouponStatusCounts();
-	}, [handleSave]);
+	}, []);
 
 	const bulkActions = [{ label: 'Delete', value: 'delete' }];
 
