@@ -17,20 +17,24 @@ class Promotions {
     private string $text_domain;
     private string $api_url;
     public function __construct() {
-        $this->plugin_version = MULTIVENDORX_PLUGIN_VERSION;
-        $this->pro_plugin_version = defined( 'MULTIVENDORX_PRO_PLUGIN_VERSION' ) ?? '';
-        $this->text_domain = MULTIVENDORX_PLUGIN_TEXTDOMAIN;
-        $this->review_url = 'https://wordpress.org/support/plugin/'. MultiVendorX()->plugin_slug .'/reviews/#new-post';
+        $this->plugin_version     = MULTIVENDORX_PLUGIN_VERSION;
+        $this->pro_plugin_version = defined('MULTIVENDORX_PRO_PLUGIN_VERSION') ? MULTIVENDORX_PRO_PLUGIN_VERSION : '';
+        $this->text_domain        = MULTIVENDORX_PLUGIN_TEXTDOMAIN;
+        $this->review_url         = sprintf(
+            'https://wordpress.org/support/plugin/%s/reviews/#new-post',
+            MultiVendorX()->plugin_slug
+        );
         $this->api_url = 'https://multivendorx.com/wp-json/mvx_thirdparty/v1/coupon_create_for_pro';
         add_action( 'admin_notices', array($this, 'seek_site_information' ) );
         add_action( 'admin_notices', array($this, 'seek_product_review'));
         add_action( 'admin_notices', array( $this, 'free_pro_admin_notice' ) );
         add_action( 'wp_ajax_admin_notice_action', array($this, 'admin_notice_action'), 10);
+        add_action( 'wp_ajax_dismiss_free_pro_notice', array($this, 'dismiss_free_pro_notice') );
         add_action( 'admin_print_footer_scripts', array($this, 'notice_script' ) );
-        add_action('wp_ajax_dismiss_free_pro_notice', array($this, 'dismiss_free_pro_notice'));
     }
 
     public function admin_notice_action() {
+        check_ajax_referer('admin_notice', 'nonce');
         $action_type = filter_input(INPUT_POST, 'admin_notice_action_type', FILTER_SANITIZE_STRING);
         $user_id     = get_current_user_id();
         if (!$action_type) {
@@ -42,7 +46,7 @@ class Promotions {
                 break;
 
             case 'add_review':
-                add_user_meta($user_id, 'wp_review_request', 'true', true);
+                update_user_meta($user_id, 'wp_review_request', 'true', true);
                 break;
 
             case 'review_closed':
@@ -153,35 +157,50 @@ class Promotions {
     public function notice_script() {
         ?>
         <script>
-            jQuery( function( $ ) {
-			const ajaxData = {
-				action: 'admin_notice_action',
-				nonce: '<?php echo esc_js( wp_create_nonce( 'admin_notice' ) ); ?>'
-			};
+            jQuery(function ($) {
+                const ajaxData = {
+                    action: 'admin_notice_action',
+                    nonce: '<?php echo esc_js(wp_create_nonce('admin_notice')); ?>'
+                };
 
-			$( document )
-				.on( 'click', '.review-notice .button', function( e ) {
-					e.preventDefault();
+                $(document)
+                    .on('click', '.review-notice .button', function (e) {
+                        e.preventDefault();
 
-					const actionType = $( this ).data( 'action' );
-					const href       = $( this ).attr( 'href' );
+                        const actionType = $(this).data('action');
+                        const href = $(this).attr('href');
 
-					$.post( ajaxurl, { ...ajaxData, admin_notice_action_type: actionType } );
-					$( this ).closest( '.notice' ).fadeOut();
+                        $.post(ajaxurl, {
+                            ...ajaxData,
+                            admin_notice_action_type: actionType
+                        });
 
-					if ( href && '#' !== href ) {
-						window.open( href, '_blank', 'noopener' );
-					}
-				} )
-				.on( 'click', '.review-notice .notice-dismiss', function() {
-					$.post( ajaxurl, { ...ajaxData, admin_notice_action_type: 'review_closed' } );
-				} )
-				.on( 'click', '.tracking-toggle', function( e ) {
-					e.preventDefault();
-					$( '.tracking-details' ).slideToggle( 'fast' );
-				} );
-		} );
-		</script>
+                        $(this).closest('.notice').fadeOut();
+
+                        if (href && href !== '#') {
+                            window.open(href, '_blank', 'noopener');
+                        }
+                    })
+                    .on('click', '.review-notice .notice-dismiss', function () {
+                        $.post(ajaxurl, {
+                            ...ajaxData,
+                            admin_notice_action_type: 'review_closed'
+                        });
+                    })
+                    .on('click', '.tracking-toggle', function (e) {
+                        e.preventDefault();
+                        $('.tracking-details').slideToggle('fast');
+                    })
+
+                    // Free pro notice dismiss
+                    .on('click', '.free-pro-notice .notice-dismiss', function () {
+                        $.post(ajaxurl, {
+                            action: 'dismiss_free_pro_notice'
+                        });
+                    });
+
+            });
+        </script>
         <?php
     }
 
@@ -207,14 +226,6 @@ class Promotions {
                     </a>
                 </p>
             </div>
-
-            <script>
-            jQuery(document).on('click', '.free-pro-notice .notice-dismiss', function () {
-                jQuery.post(ajaxurl, {
-                    action: 'dismiss_free_pro_notice',
-                });
-            });
-            </script>
             <?php
         }
     }
