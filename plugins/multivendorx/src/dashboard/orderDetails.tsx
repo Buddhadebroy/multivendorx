@@ -337,9 +337,9 @@ const OrderDetails: React.FC = () => {
 				...shipmentData,
 				order_id: orderId,
 			},
-		}).then(() => { });
+		});
 	};
-	const handleRefunReject = (orderId: number) => {
+	const handleRefundReject = (orderId: number) => {
 		// Add order note
 		axios({
 			method: 'POST',
@@ -611,7 +611,7 @@ const OrderDetails: React.FC = () => {
 				message={refundError}
 				type="error"
 				displayPosition="float"
-				title={__('Great!', 'multivendorx')}
+				title={__('Error!', 'multivendorx')}
 			/>
 			{!appLocalizer.edit_order_capability ? (
 				<ComponentStatusView
@@ -971,13 +971,10 @@ const OrderDetails: React.FC = () => {
 											<div className="refund-header">
 												<div className="details">
 													<div className="title">
-														{formatDate(
-															orderData.date_modified
-														)}
 														#{orderData.id}
 													</div>
 													<div className="desc">
-														{__("Order ID:", 'multivendorx')}
+														{__("Order ID", 'multivendorx')}
 													</div>
 												</div>
 												<div className="details">
@@ -987,7 +984,7 @@ const OrderDetails: React.FC = () => {
 														)}
 													</div>
 													<div className="desc">
-														{__("Date", 'multivendorx')}
+														{__("Refund requested", 'multivendorx')}
 													</div>
 												</div>
 												<div className="details">
@@ -1020,7 +1017,7 @@ const OrderDetails: React.FC = () => {
 															.toFixed(2)}
 													</div>
 													<div className="desc">
-														{__("Price", 'multivendorx')}
+														{__("Requested amount", 'multivendorx')}
 													</div>
 												</div>
 											</div>
@@ -1064,7 +1061,7 @@ const OrderDetails: React.FC = () => {
 											)?.value.length > 0 && (
 													<div className="refund-images-wrapper">
 														<div className="title">
-															{__("Customer's Reason", 'multivendorx')}
+															{__("Supporting images", 'multivendorx')}
 														</div>
 														<div className="images">
 															{orderData.meta_data
@@ -1150,7 +1147,7 @@ const OrderDetails: React.FC = () => {
 																'multivendorx'
 															),
 															onClick: () =>
-																handleRefunReject(
+																handleRefundReject(
 																	orderData.id
 																),
 														},

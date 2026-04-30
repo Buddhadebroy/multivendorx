@@ -14,12 +14,10 @@ class Promotions {
     private string $review_url;
     private string $plugin_version;
     private string $pro_plugin_version;
-    private string $text_domain;
     private string $api_url;
     public function __construct() {
         $this->plugin_version     = MULTIVENDORX_PLUGIN_VERSION;
         $this->pro_plugin_version = defined('MULTIVENDORX_PRO_PLUGIN_VERSION') ? MULTIVENDORX_PRO_PLUGIN_VERSION : '';
-        $this->text_domain        = MULTIVENDORX_PLUGIN_TEXTDOMAIN;
         $this->review_url         = sprintf(
             'https://wordpress.org/support/plugin/%s/reviews/#new-post',
             MultiVendorX()->plugin_slug
@@ -64,11 +62,11 @@ class Promotions {
         }
         ?>
         <div class="notice notice-info is-dismissible review-notice">
-			<h3><?php esc_html_e( 'MultiVendorX', $this->text_domain ); ?></h3>
-			<p><?php esc_html_e( 'We appreciate you using MultiVendorX. If it has helped your business, please consider leaving a quick review.', $this->text_domain ); ?></p>
+			<h3><?php echo esc_html( 'MultiVendorX' ); ?></h3>
+			<p><?php esc_html_e( 'We appreciate you using MultiVendorX. If it has helped your business, please consider leaving a quick review.', 'multivendorx' ); ?></p>
 			<p>
-				<a href="#" class="button button-secondary" data-action="later"><?php esc_html_e( 'Remind me later', $this->text_domain ); ?></a>
-				<a href="<?php echo esc_url( $this->review_url ); ?>" target="_blank" rel="noopener noreferrer" class="button button-primary" data-action="add_review"><?php esc_html_e( 'Review now', $this->text_domain ); ?></a>
+				<a href="#" class="button button-secondary" data-action="later"><?php esc_html_e( 'Remind me later', 'multivendorx' ); ?></a>
+				<a href="<?php echo esc_url( $this->review_url ); ?>" target="_blank" rel="noopener noreferrer" class="button button-primary" data-action="add_review"><?php esc_html_e( 'Review now', 'multivendorx' ); ?></a>
 			</p>
 		</div>
         <?php
@@ -92,17 +90,17 @@ class Promotions {
         ?>
         <div class="notice notice-success">
 			<p>
-				<?php echo wp_kses_post( __( 'Want to help make <strong>MultiVendorX</strong> even better? Allow anonymous usage tracking and receive a <strong>10% discount coupon</strong> for premium extensions.', $this->text_domain ) ); ?>
-				<a href="#" class="tracking-toggle"><?php esc_html_e( 'What we collect.', $this->text_domain ); ?></a>
+				<?php echo wp_kses_post( __( 'Want to help make <strong>MultiVendorX</strong> even better? Allow anonymous usage tracking and receive a <strong>10% discount coupon</strong> for premium extensions.', 'multivendorx' ) ); ?>
+				<a href="#" class="tracking-toggle"><?php esc_html_e( 'What we collect.', 'multivendorx' ); ?></a>
 			</p>
 
 			<div class="tracking-details" style="display:none;">
-				<p><?php echo wp_kses_post( __( 'We collect non-sensitive diagnostic and usage data, including your site URL, WordPress and PHP versions, active plugins and themes, and your email address to send the discount coupon.', $this->text_domain ) ); ?></p>
+				<p><?php echo wp_kses_post( __( 'We collect non-sensitive diagnostic and usage data, including your site URL, WordPress and PHP versions, active plugins and themes, and your email address to send the discount coupon.', 'multivendorx' ) ); ?></p>
 			</div>
 
 			<p>
-				<a href="<?php echo esc_url( $yes_url ); ?>" class="button button-primary"><?php esc_html_e( 'Sure, I\'d like to help', $this->text_domain ); ?></a>
-				<a href="<?php echo esc_url( $no_url ); ?>" class="button button-secondary"><?php esc_html_e( 'No Thanks', $this->text_domain ); ?></a>
+				<a href="<?php echo esc_url( $yes_url ); ?>" class="button button-primary"><?php esc_html_e( 'Sure, I\'d like to help', 'multivendorx' ); ?></a>
+				<a href="<?php echo esc_url( $no_url ); ?>" class="button button-secondary"><?php esc_html_e( 'No Thanks', 'multivendorx' ); ?></a>
 			</p>
 		</div>
         <?php
@@ -130,7 +128,7 @@ class Promotions {
 
     public function create_coupon_for_discount( $data = array() ) {
 		if ( empty( $data ) ) {
-			return new \WP_Error( 'missing_data', __( 'Coupon data is required.', $this->text_domain ) );
+			return new \WP_Error( 'missing_data', __( 'Coupon data is required.', 'multivendorx' ) );
 		}
 
 		$response = wp_remote_post(
@@ -149,7 +147,7 @@ class Promotions {
 		}
 		$response_code = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $response_code ) {
-			return new \WP_Error( 'remote_request_failed', __( 'Unable to create coupon.', $this->text_domain ) );
+			return new \WP_Error( 'remote_request_failed', __( 'Unable to create coupon.', 'multivendorx' ) );
 		}
 		return $response;
 	}
@@ -217,12 +215,12 @@ class Promotions {
             ?>
             <div class="notice notice-error is-dismissible free-pro-notice">
                 <p>
-                    <strong><?php echo esc_html__( 'MultivendorX Update Required', $this->text_domain ); ?></strong><br>
-                    <?php echo esc_html__( 'To ensure all the feature compatibility and accessibility, MultiVendorX Pro minimum v2.0.0 is required.', $this->text_domain ); ?>
+                    <strong><?php echo esc_html__( 'MultivendorX Update Required', 'multivendorx' ); ?></strong><br>
+                    <?php echo esc_html__( 'To ensure all the feature compatibility and accessibility, MultiVendorX Pro minimum v2.0.0 is required.', 'multivendorx' ); ?>
                 </p>
                 <p>
                     <a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button button-primary">
-                        <?php echo esc_html__( 'Update Now', $this->text_domain ); ?>
+                        <?php echo esc_html__( 'Update Now', 'multivendorx' ); ?>
                     </a>
                 </p>
             </div>
