@@ -984,7 +984,7 @@ const OrderDetails: React.FC = () => {
 														)}
 													</div>
 													<div className="desc">
-														{__("Refund Requested", 'multivendorx')}
+														{__("Refund requested", 'multivendorx')}
 													</div>
 												</div>
 												<div className="details">
@@ -1017,7 +1017,7 @@ const OrderDetails: React.FC = () => {
 															.toFixed(2)}
 													</div>
 													<div className="desc">
-														{__("Requested Amount", 'multivendorx')}
+														{__("Requested amount", 'multivendorx')}
 													</div>
 												</div>
 											</div>
@@ -1061,7 +1061,7 @@ const OrderDetails: React.FC = () => {
 											)?.value.length > 0 && (
 													<div className="refund-images-wrapper">
 														<div className="title">
-															{__("Supporting Images", 'multivendorx')}
+															{__("Supporting images", 'multivendorx')}
 														</div>
 														<div className="images">
 															{orderData.meta_data
@@ -1094,7 +1094,7 @@ const OrderDetails: React.FC = () => {
 											{/* Customer Reason */}
 											<div className="reason additional">
 												<div className="title">
-													{__("Additional Details", 'multivendorx')}
+													{__("Additional details", 'multivendorx')}
 												</div>
 												<div className="desc">
 													{
