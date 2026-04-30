@@ -250,7 +250,7 @@ Ans. Obviously, you can! Join in on our [GitHub repository](https://github.com/m
 * Added     - Display of store social media links in the store banner.
 * Added     - Some CSS fixes.
 * Fixed     - Store list page accessible to non-logged-in users.
-* Fixed     - Migration issues from version 4.2.42 to 5.0.0.
+* Fixed     - Migration issues from version 4.2.42 to 5.0.x.
 * Updated   - Language file.
 
 = 5.0.2 - 2026-04-28 =
