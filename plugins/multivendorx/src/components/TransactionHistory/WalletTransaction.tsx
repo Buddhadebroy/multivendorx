@@ -652,7 +652,7 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 										type="info"
 										displayPosition="inline-notice"
 										title={__(
-											'No pending earning in clearence',
+											'No pending earning in clearance',
 											'multivendorx'
 										)}
 									/>
@@ -674,7 +674,7 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 
 				<PopupUI
 					open={requestWithdrawal}
-					onClose={() => setRequestWithdrawal(null)}
+					onClose={() => setRequestWithdrawal(false)}
 					width={28.125}
 					height="75%"
 					header={{

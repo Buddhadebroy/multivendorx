@@ -238,7 +238,7 @@ Ans. Obviously, you can! Join in on our [GitHub repository](https://github.com/m
 8. Customers.
 9. Review.
 10. Announcement.
-11. Knowladgebase.
+11. Knowledgebase.
 12. Report.
 13. Store Add product.
 14. Store list.

@@ -337,7 +337,7 @@ const OrderDetails: React.FC = () => {
 				...shipmentData,
 				order_id: orderId,
 			},
-		}).then(() => { });
+		});
 	};
 	const handleRefunReject = (orderId: number) => {
 		// Add order note
@@ -611,7 +611,7 @@ const OrderDetails: React.FC = () => {
 				message={refundError}
 				type="error"
 				displayPosition="float"
-				title={__('Great!', 'multivendorx')}
+				title={__('Error!', 'multivendorx')}
 			/>
 			{!appLocalizer.edit_order_capability ? (
 				<ComponentStatusView
