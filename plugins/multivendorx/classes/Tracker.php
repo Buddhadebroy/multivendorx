@@ -60,7 +60,7 @@ class Tracker {
             . esc_html__( 'Write a Review', $this->text_domain ) . '</a>';
 
         if ( ! Utill::is_khali_dabba() ) {
-            $links['go_pro'] = '<a href="' . esc_url( $this->pro_shop_url ) . '" target="_blank" rel="noopener noreferrer" style="font-weight:700;background:linear-gradient(110deg,rgb(63,20,115) 0%,25%,rgb(175,59,116) 50%,75%,rgb(219,75,84) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">'
+            $links['go_pro'] = '<a href="' . esc_url( $this->pro_shop_url ) . '" target="_blank" rel="noopener noreferrer">'
                 . esc_html__( 'Upgrade to Pro', $this->text_domain ) . '</a>';
         }
 
@@ -69,7 +69,7 @@ class Tracker {
 
     private function wrap_deactivate_link( string $link ): string {
         $slug = esc_attr( $this->slug );
-        $modal = '<div class="modal-wrap" id="modal-' . $slug . '" style="display:none">'
+        $modal = '<div class="modal-wrap" id="modal-' . $slug . '">'
                .     '<div class="modal-bg"></div>'
                .     '<div class="modal-box" id="modal-box-' . $slug . '"></div>'
                . '</div>';
@@ -108,22 +108,22 @@ class Tracker {
         <!-- Deactivation Modal -->
         <script type="text/html" id="form-template-<?php echo esc_attr( $slug ); ?>">
             <div class="form-head">
-                <strong><?php echo esc_html( $form['heading'] ); ?></strong>
+                <?php echo esc_html( $form['heading'] ); ?>
             </div>
 
             <div class="form-body">
                 <p><?php echo esc_html( $form['subtitle'] ); ?></p>
 
                 <div class="support-cards">
-                    <a href="<?php echo esc_url( $this->support_url ); ?>" target="_blank" rel="noopener noreferrer" class="card">
+                    <a href="<?php echo esc_url( $this->support_url ); ?>" target="_blank" rel="noopener noreferrer" class="support-card">
                         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M15.573,11.624c0.568-0.478,0.947-1.219,0.947-2.019c0-1.37-1.108-2.569-2.371-2.569s-2.371,1.2-2.371,2.569c0,0.8,0.379,1.542,0.946,2.019c-0.253,0.089-0.496,0.2-0.728,0.332c-0.743-0.898-1.745-1.573-2.891-1.911c0.877-0.61,1.486-1.666,1.486-2.812c0-1.79-1.479-3.359-3.162-3.359S4.269,5.443,4.269,7.233c0,1.146,0.608,2.202,1.486,2.812c-2.454,0.725-4.252,2.998-4.252,5.685c0,0.218,0.178,0.396,0.395,0.396h16.203c0.218,0,0.396-0.178,0.396-0.396C18.497,13.831,17.273,12.216,15.573,11.624 M12.568,9.605c0-0.822,0.689-1.779,1.581-1.779s1.58,0.957,1.58,1.779s-0.688,1.779-1.58,1.779S12.568,10.427,12.568,9.605 M5.06,7.233c0-1.213,1.014-2.569,2.371-2.569c1.358,0,2.371,1.355,2.371,2.569S8.789,9.802,7.431,9.802C6.073,9.802,5.06,8.447,5.06,7.233 M2.309,15.335c0.202-2.649,2.423-4.742,5.122-4.742s4.921,2.093,5.122,4.742H2.309z M13.346,15.335c-0.067-0.997-0.382-1.928-0.882-2.732c0.502-0.271,1.075-0.429,1.686-0.429c1.828,0,3.338,1.385,3.535,3.161H13.346z"/></svg>
                         <span><?php esc_html_e( 'Support Forum', $this->text_domain ); ?></span>
                     </a>
-                    <a href="<?php echo esc_url($this->facebook_url); ?>" target="_blank" rel="noopener noreferrer" class="card">
+                    <a href="<?php echo esc_url($this->facebook_url); ?>" target="_blank" rel="noopener noreferrer" class="support-card">
                         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10,0.5c-5.247,0-9.5,4.253-9.5,9.5c0,5.247,4.253,9.5,9.5,9.5c5.247,0,9.5-4.253,9.5-9.5C19.5,4.753,15.247,0.5,10,0.5 M10,18.637c-4.77,0-8.636-3.867-8.636-8.637S5.23,1.364,10,1.364S18.637,5.23,18.637,10S14.77,18.637,10,18.637 M10.858,7.949c0-0.349,0.036-0.536,0.573-0.536h0.719v-1.3H11c-1.38,0-1.866,0.65-1.866,1.743v0.845h-0.86V10h0.86v3.887h1.723V10h1.149l0.152-1.299h-1.302L10.858,7.949z"/></svg>
                         <span><?php esc_html_e( 'Facebook Group', $this->text_domain ); ?></span>
                     </a>
-                    <a href="<?php echo esc_url($this->calendy_url); ?>" target="_blank" rel="noopener noreferrer" class="card">
+                    <a href="<?php echo esc_url($this->calendy_url); ?>" target="_blank" rel="noopener noreferrer" class="support-card">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.384,17.752a2.108,2.108,0,0,1-.522,3.359,7.543,7.543,0,0,1-5.476.642C10.5,20.523,3.477,13.5,2.247,8.614a7.543,7.543,0,0,1,.642-5.476,2.108,2.108,0,0,1,3.359-.522L8.333,4.7a2.094,2.094,0,0,1,.445,2.328A3.877,3.877,0,0,1,8,8.2c-2.384,2.384,5.417,10.185,7.8,7.8a3.877,3.877,0,0,1,1.173-.781,2.092,2.092,0,0,1,2.328.445Z"/></svg>
                         <span><?php esc_html_e( 'Book a Call', $this->text_domain ); ?></span>
                     </a>
@@ -143,23 +143,23 @@ class Tracker {
                             <label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $label ); ?></label>
                             <?php if ( $has_extra ) : ?>
                                 <?php if ( $is_textarea ) : ?>
-                                    <textarea class="extra-field" style="display:none" placeholder="<?php echo esc_attr( $option['extra_field'] ); ?>"></textarea>
+                                    <textarea class="extra-field" placeholder="<?php echo esc_attr( $option['extra_field'] ); ?>"></textarea>
                                 <?php else : ?>
-                                    <input type="text" class="extra-field" style="display:none" placeholder="<?php echo esc_attr( $option['extra_field'] ); ?>">
+                                    <input type="text" class="extra-field" placeholder="<?php echo esc_attr( $option['extra_field'] ); ?>">
                                 <?php endif; ?>
                             <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
 
-                <p class="data-notice">
+                <div class="data-notice">
                     <?php esc_html_e( 'We collect non-sensitive diagnostic data and plugin usage information along with your feedback.', $this->text_domain ); ?>
-                </p>
+                </div>
             </div>
 
             <div class="form-footer">
-                <a class="button button-skip" href="#"><?php esc_html_e( 'Skip & Deactivate', $this->text_domain ); ?></a>
-                <button type="button" class="button button-submit"><?php esc_html_e( 'Submit & Deactivate', $this->text_domain ); ?></button>
+                <a class="footer-button button-skip" href="#"><?php esc_html_e( 'Skip & Deactivate', $this->text_domain ); ?></a>
+                <button type="button" class="footer-button button-submit"><?php esc_html_e( 'Submit & Deactivate', $this->text_domain ); ?></button>
             </div>
         </script>
 
@@ -176,6 +176,8 @@ class Tracker {
 
             // Populate box once
             $box.html( template );
+            $box.find( '.extra-field' ).hide();
+            $modal.hide();
 
             var deactivateUrl = '';
 
@@ -200,7 +202,7 @@ class Tracker {
                 var details  = $checked.closest( 'li' ).find( '.extra-field' ).val() || '';
 
                 $box.find( '.form-body, .form-footer' ).hide();
-                $box.find( '.form-head' ).after( '<p style="padding:2rem;text-align:center"><span class="spinner is-active" style="float:none"></span> <?php esc_html_e( 'Submitting…', $this->text_domain ); ?></p>' );
+                $box.find( '.form-head' ).after( '<p><span class="spinner is-active"></span> <?php esc_html_e( 'Submitting…', $this->text_domain ); ?></p>' );
 
                 $.post( ajaxUrl, {
                     action   : 'deactivation_form_' + slug,
@@ -373,7 +375,7 @@ class Tracker {
         }
         .modal-box {
             position: relative; z-index: 1;
-            width: 32rem; max-width: 90vw; max-height: 85vh;
+            width: 35%; max-width: 90vw; max-height: 85vh;
             background: #fff; border-radius: .375rem;
             overflow-y: auto;
             box-shadow: 0 .5rem 2rem rgba(0,0,0,.25);
@@ -381,25 +383,31 @@ class Tracker {
 
         .form-head {
             padding: 1.25rem; text-align: center;
-            border-bottom: 1px solid #eee; font-size: 1rem; color: #333;
+            border-bottom: 0.063rem solid #eee; font-size: 1.625rem; color: #333;
+            font-weight: 600;
         }
 
         .form-body { padding: 1.25rem; color: #444; }
         .form-body p { margin: 0 0 1rem; font-size: .9rem; line-height: 1.5; }
 
         .support-cards {
-            display: flex; gap: .75rem; flex-wrap: wrap;
+            display: flex; gap: .75rem;
             margin-bottom: 1.25rem;
         }
-        .card {
+        .support-card {
             flex: 1 0 6rem; padding: 1rem .75rem;
-            border: 1px solid rgba(82,44,129,.35); border-radius: .25rem;
+            border: 0.063rem solid #dbdbdb; border-radius: .25rem;
             display: flex; flex-direction: column; align-items: center; gap: .5rem;
-            text-decoration: none; color: #522c81; font-size: .8rem; text-align: center;
+            text-decoration: none; color: #5007aa; font-size: .8rem; text-align: center;
             transition: background .2s;
         }
-        .card:hover { background: #f5f0fb; }
-        .card svg { width: 2rem; height: 2rem; fill: #522c81; }
+        .support-card  span{
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .support-card:hover { background: #f5f0fb; }
+        .support-card:hover span{ color: #5007aa; }
+        .support-card svg { width: 2rem; height: 2rem; fill: #5007aa; }
 
         /* ── Reasons list ── */
         .deactivation-reasons { margin: 0 0 1rem; padding: 0; list-style: none; }
@@ -408,37 +416,41 @@ class Tracker {
         .deactivation-reasons .extra-field {
             display: block; margin-top: .5rem; margin-left: 1.4rem;
             width: calc(100% - 1.4rem); padding: .4rem .5rem;
-            border: 1px solid #ccc; border-radius: .25rem; font-size: .875rem;
+            border: 0.063rem solid #ccc; border-radius: .25rem; font-size: .875rem;
         }
         .deactivation-reasons textarea.extra-field { height: 5rem; resize: vertical; }
 
         .data-notice {
-            background: #f5f5f5; border: 1px solid #ddd;
-            border-radius: .25rem; padding: 1rem;
-            font-size: .8rem; text-align: center; color: #666;
+            border: .063rem solid #5007aa;
+            border-radius: .25rem;
+            box-sizing: border-box;
+            display: flex;
+            gap: .5rem;
+            padding: .5rem .8rem;
+            background: #ece2f9f1;
+            color: #5007aa;
+            font-size: 0.813rem;
+            font-weight: 500;
         }
 
         .form-footer {
             display: flex; justify-content: flex-end; align-items: center; gap: .75rem;
             padding: 1rem 1.25rem;
-            border-top: 1px solid #eee;
+            border-top: 0.063rem solid #eee;
             position: sticky; bottom: 0; background: #fff;
         }
-        .button {
+        .footer-button {
             padding: .6rem 1.2rem; border-radius: .25rem;
             font-size: .875rem; font-weight: 500; cursor: pointer;
             text-decoration: none; border: none; display: inline-block;
         }
         .button-skip {
-            background: #f0f0f0; color: #555;
+            background: #fff3f1; color: #ef9587;
         }
         .button-skip:hover { background: #e0e0e0; color: #333; }
         .button-submit {
-            background: linear-gradient(-28deg, #db4b54, #af3b74, #3f1473);
+            background: #5007aa;
             color: #fff;
-        }
-        .button-submit:hover {
-            background: linear-gradient(110deg, #db4b54, #af3b74, #3f1473);
         }
         </style>
         <?php

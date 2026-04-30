@@ -337,7 +337,7 @@ const OrderDetails: React.FC = () => {
 				...shipmentData,
 				order_id: orderId,
 			},
-		}).then(() => {});
+		}).then(() => { });
 	};
 	const handleRefunReject = (orderId: number) => {
 		// Add order note
@@ -878,20 +878,20 @@ const OrderDetails: React.FC = () => {
 													{modules.includes(
 														'store-shipping'
 													) && (
-														<tr>
-															<td>
-																{__(
-																	'Shipping:',
-																	'multivendorx'
-																)}
-															</td>
-															<td>
-																{formatCurrency(
-																	orderData?.shipping_total
-																)}
-															</td>
-														</tr>
-													)}
+															<tr>
+																<td>
+																	{__(
+																		'Shipping:',
+																		'multivendorx'
+																	)}
+																</td>
+																<td>
+																	{formatCurrency(
+																		orderData?.shipping_total
+																	)}
+																</td>
+															</tr>
+														)}
 
 													<tr>
 														<td>
@@ -935,23 +935,63 @@ const OrderDetails: React.FC = () => {
 											'Refund Request - Action Required',
 											'multivendorx'
 										)}
+										action={
+											<>
+												<ButtonInputUI
+													buttons={[
+														{
+															icon: 'refund',
+															text: __(
+																'Refund Accepted',
+																'multivendorx'
+															),
+															color: 'green',
+															onClick: () =>
+																handleStatusChange(
+																	'refund-accepted'
+																),
+														},
+														{
+															icon: 'save',
+															text: __(
+																'Reject',
+																'multivendorx'
+															),
+															color: 'red',
+															onClick: () =>
+																setPopupOpen(true),
+														},
+													]}
+												/>
+											</>
+										}
 									>
 										<div className="refund-request-wrapper">
 											{/* Header */}
 											<div className="refund-header">
 												<div className="details">
 													<div className="title">
+														{formatDate(
+															orderData.date_modified
+														)}
 														#{orderData.id}
 													</div>
 													<div className="desc">
+														{__("Order ID:", 'multivendorx')}
+													</div>
+												</div>
+												<div className="details">
+													<div className="title">
 														{formatDate(
 															orderData.date_modified
 														)}
 													</div>
+													<div className="desc">
+														{__("Date", 'multivendorx')}
+													</div>
 												</div>
-												<div className="price-wrapper">
-													{/* Total refund amount for requested items */}
-													<div className="price">
+												<div className="details">
+													<div className="title">
 														$
 														{orderData.line_items
 															.filter((item) =>
@@ -978,6 +1018,9 @@ const OrderDetails: React.FC = () => {
 																0
 															)
 															.toFixed(2)}
+													</div>
+													<div className="desc">
+														{__("Price", 'multivendorx')}
 													</div>
 												</div>
 											</div>
@@ -1019,62 +1062,42 @@ const OrderDetails: React.FC = () => {
 													meta.key ===
 													'multivendorx_customer_refund_product_imgs'
 											)?.value.length > 0 && (
-												<div className="refund-images-wrapper">
-													<div className="title">
-														Customer Uploaded Images
-													</div>
-													<div className="images">
-														{orderData.meta_data
-															.find(
-																(meta) =>
-																	meta.key ===
-																	'multivendorx_customer_refund_product_imgs'
-															)
-															?.value.map(
-																(
-																	imgUrl,
-																	index
-																) => (
-																	<img
-																		key={
-																			index
-																		}
-																		src={
-																			imgUrl
-																		}
-																		alt={`Refund Proof ${index + 1}`}
-																		className="refund-image"
-																		style={{
-																			maxWidth:
-																				'100px',
-																			marginRight:
-																				'10px',
-																			marginTop:
-																				'10px',
-																		}}
-																	/>
+													<div className="refund-images-wrapper">
+														<div className="title">
+															{__("Customer's Reason", 'multivendorx')}
+														</div>
+														<div className="images">
+															{orderData.meta_data
+																.find(
+																	(meta) =>
+																		meta.key ===
+																		'multivendorx_customer_refund_product_imgs'
 																)
-															)}
+																?.value.map(
+																	(
+																		imgUrl,
+																		index
+																	) => (
+																		<img
+																			key={
+																				index
+																			}
+																			src={
+																				imgUrl
+																			}
+																			alt={`Refund Proof ${index + 1}`}
+																			className="refund-image"
+																		/>
+																	)
+																)}
+														</div>
 													</div>
-												</div>
-											)}
+												)}
 
 											{/* Customer Reason */}
-											<div className="reason">
+											<div className="reason additional">
 												<div className="title">
-													Customer's Reason
-												</div>
-												<div className="desc">
-													{
-														orderData.meta_data.find(
-															(meta) =>
-																meta.key ===
-																'multivendorx_customer_refund_reason'
-														)?.value
-													}
-												</div>
-												<div className="title">
-													Additional details
+													{__("Additional details", 'multivendorx')}
 												</div>
 												<div className="desc">
 													{
@@ -1086,32 +1109,21 @@ const OrderDetails: React.FC = () => {
 													}
 												</div>
 											</div>
+											<div className="reason red">
+												<div className="title">
+													{__("Customer's Reason", 'multivendorx')}
+												</div>
+												<div className="desc">
+													{
+														orderData.meta_data.find(
+															(meta) =>
+																meta.key ===
+																'multivendorx_customer_refund_reason'
+														)?.value
+													}
+												</div>
+											</div>
 										</div>
-										<ButtonInputUI
-											buttons={[
-												{
-													icon: 'external-link',
-													text: __(
-														'Refund Accepted',
-														'multivendorx'
-													),
-													color: 'yellow-bg',
-													onClick: () =>
-														handleStatusChange(
-															'refund-accepted'
-														),
-												},
-												{
-													icon: 'save',
-													text: __(
-														'Reject',
-														'multivendorx'
-													),
-													onClick: () =>
-														setPopupOpen(true),
-												},
-											]}
-										/>
 										<PopupUI
 											open={popupOpen}
 											onClose={() => setPopupOpen(false)}
@@ -1187,24 +1199,24 @@ const OrderDetails: React.FC = () => {
 													modules.includes(
 														'privacy'
 													) &&
-													customer_information_access.length >
+														customer_information_access.length >
 														0 &&
-													customer_information_access.includes(
-														'name'
-													)
+														customer_information_access.includes(
+															'name'
+														)
 														? orderData?.billing
-																?.first_name ||
+															?.first_name ||
 															orderData?.billing
 																?.last_name
 															? `${orderData?.billing?.first_name ?? ''} ${orderData?.billing?.last_name ?? ''}`
 															: __(
-																	'Guest Customer',
-																	'multivendorx'
-																)
-														: __(
-																'Customer',
+																'Guest Customer',
 																'multivendorx'
 															)
+														: __(
+															'Customer',
+															'multivendorx'
+														)
 												}
 												avatar={{
 													image: customerData?.avatar_url,
@@ -1217,7 +1229,7 @@ const OrderDetails: React.FC = () => {
 														),
 														value:
 															orderData?.customer_id &&
-															orderData.customer_id !==
+																orderData.customer_id !==
 																0
 																? `#${orderData.customer_id}`
 																: '—',
@@ -1225,50 +1237,50 @@ const OrderDetails: React.FC = () => {
 													...(modules.includes(
 														'privacy'
 													) &&
-													customer_information_access.length >
+														customer_information_access.length >
 														0 &&
-													customer_information_access.includes(
-														'email_address'
-													) &&
-													orderData?.billing?.email
+														customer_information_access.includes(
+															'email_address'
+														) &&
+														orderData?.billing?.email
 														? [
-																{
-																	value: (
-																		<>
-																			<i className="adminfont-mail" />{' '}
-																			{
-																				orderData
-																					.billing
-																					.email
-																			}
-																		</>
-																	),
-																},
-															]
+															{
+																value: (
+																	<>
+																		<i className="adminfont-mail" />{' '}
+																		{
+																			orderData
+																				.billing
+																				.email
+																		}
+																	</>
+																),
+															},
+														]
 														: []),
 													...(modules.includes(
 														'privacy'
 													) &&
-													customer_information_access.length >
+														customer_information_access.length >
 														0 &&
-													customer_information_access.includes(
-														'phone_number'
-													) &&
-													orderData?.billing?.phone
+														customer_information_access.includes(
+															'phone_number'
+														) &&
+														orderData?.billing?.phone
 														? [
-																{
-																	value: (
-																		<>
-																			<i className="adminfont-phone" />{' '}
-																			{
-																				orderData
-																					.billing
-																					.phone
-																			}
-																		</>
-																	),
-																},
-															]
+															{
+																value: (
+																	<>
+																		<i className="adminfont-phone" />{' '}
+																		{
+																			orderData
+																				.billing
+																				.phone
+																		}
+																	</>
+																),
+															},
+														]
 														: []),
 												]}
 											/>
@@ -1291,19 +1303,19 @@ const OrderDetails: React.FC = () => {
 													<div className="details">
 														{orderData?.billing
 															?.address_1 ||
-														orderData?.billing
-															?.city ||
-														orderData?.billing
-															?.postcode ||
-														orderData?.billing
-															?.country ? (
+															orderData?.billing
+																?.city ||
+															orderData?.billing
+																?.postcode ||
+															orderData?.billing
+																?.country ? (
 															<div className="address">
 																{orderData
 																	.billing
 																	.first_name ||
-																orderData
-																	.billing
-																	.last_name ? (
+																	orderData
+																		.billing
+																		.last_name ? (
 																	<>
 																		{
 																			orderData
@@ -1320,83 +1332,83 @@ const OrderDetails: React.FC = () => {
 																{orderData
 																	.billing
 																	.company && (
-																	<>
-																		{' '}
-																		,{' '}
-																		{
-																			orderData
-																				.billing
-																				.company
-																		}{' '}
-																	</>
-																)}
+																		<>
+																			{' '}
+																			,{' '}
+																			{
+																				orderData
+																					.billing
+																					.company
+																			}{' '}
+																		</>
+																	)}
 																{orderData
 																	.billing
 																	.address_1 && (
-																	<>
-																		{' '}
-																		,{' '}
-																		{
-																			orderData
-																				.billing
-																				.address_1
-																		}{' '}
-																	</>
-																)}
+																		<>
+																			{' '}
+																			,{' '}
+																			{
+																				orderData
+																					.billing
+																					.address_1
+																			}{' '}
+																		</>
+																	)}
 																{orderData
 																	.billing
 																	.address_2 && (
-																	<>
-																		{' '}
-																		,{' '}
-																		{
-																			orderData
-																				.billing
-																				.address_2
-																		}{' '}
-																	</>
-																)}
+																		<>
+																			{' '}
+																			,{' '}
+																			{
+																				orderData
+																					.billing
+																					.address_2
+																			}{' '}
+																		</>
+																	)}
 																{orderData
 																	.billing
 																	.city && (
-																	<>
-																		{
-																			orderData
+																		<>
+																			{
+																				orderData
+																					.billing
+																					.city
+																			}
+																			{orderData
 																				.billing
-																				.city
-																		}
-																		{orderData
-																			.billing
-																			.state
-																			? `, ${orderData.billing.state}`
-																			: ''}
-																	</>
-																)}
+																				.state
+																				? `, ${orderData.billing.state}`
+																				: ''}
+																		</>
+																	)}
 																{orderData
 																	.billing
 																	.postcode && (
-																	<>
-																		,{' '}
-																		{
-																			orderData
-																				.billing
-																				.postcode
-																		}{' '}
-																	</>
-																)}
+																		<>
+																			,{' '}
+																			{
+																				orderData
+																					.billing
+																					.postcode
+																			}{' '}
+																		</>
+																	)}
 																{orderData
 																	.billing
 																	.country && (
-																	<>
-																		{' '}
-																		,{' '}
-																		{
-																			orderData
-																				.billing
-																				.country
-																		}
-																	</>
-																)}
+																		<>
+																			{' '}
+																			,{' '}
+																			{
+																				orderData
+																					.billing
+																					.country
+																			}
+																		</>
+																	)}
 															</div>
 														) : (
 															<div className="address">
@@ -1543,15 +1555,15 @@ const OrderDetails: React.FC = () => {
 												icon: 'plus',
 												text:
 													shipmentData.tracking_url !==
-													''
+														''
 														? __(
-																'Update Shipment',
-																'multivendorx'
-															)
+															'Update Shipment',
+															'multivendorx'
+														)
 														: __(
-																'Create Shipment',
-																'multivendorx'
-															),
+															'Create Shipment',
+															'multivendorx'
+														),
 												onClick: saveShipmentToOrder,
 											},
 										],
@@ -1575,7 +1587,7 @@ const OrderDetails: React.FC = () => {
 										)}
 									>
 										{orderData?.order_notes &&
-										orderData.order_notes.length > 0 ? (
+											orderData.order_notes.length > 0 ? (
 											<ItemListUI
 												className="notification-wrapper"
 												items={

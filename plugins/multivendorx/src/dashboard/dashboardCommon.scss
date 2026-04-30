@@ -363,11 +363,13 @@ body.dark {
         background: $background-white !important;
         /*overwrite zyra style*/
     }
-    .tab-name{
-        .adminfont-setting{
+
+    .tab-name {
+        .adminfont-setting {
             color: #fff;
         }
     }
+
     .site-name {
         color: #fff !important;
     }
@@ -1377,19 +1379,18 @@ body.dark {
 
 // view order page Refund Request section start
 .refund-request-wrapper {
-    padding: 1rem;
-    border-radius: $border-light-small;
-    border: $border-light-small;
+    // padding: 1rem;
+    // border-radius: $border-light-small;
+    // border: $border-light-small;
 
     .refund-header {
         display: flex;
         justify-content: space-between;
 
-        .price {
-            font-size: 1.85rem;
-            color: $theme-color;
+        .title {
+            font-size: 1.25rem;
+            margin-bottom: 0.313rem;
             line-height: 1;
-            font-weight: 500;
         }
     }
 
@@ -1402,11 +1403,23 @@ body.dark {
         padding: 1rem;
         background: $theme-background-color;
         border-radius: $border-radius-small;
+        margin: 0.5rem 0;
 
         .title {
             color: $theme-color;
             padding-bottom: 0.45rem;
         }
+        &.red .title{
+            color: #f7a79a;
+        }
+    }
+
+}
+
+.refund-images-wrapper {
+    .images img {
+        width: 4rem;
+        margin-right: 0.625rem;
     }
 }
 

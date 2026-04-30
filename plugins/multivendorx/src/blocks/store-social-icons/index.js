@@ -323,7 +323,7 @@ registerBlockType('multivendorx/store-social-icons', {
 						</a>
 					</li>
 					{/* PinterestIcon Icon */}
-					<li className="wp-social-link wp-social-link-linkedin  wp-block-social-link">
+					<li className="wp-social-link wp-social-link-linkedin  wp-block-social-link ">
 						<a
 							href="#"
 							className="wp-block-social-link-anchor"
