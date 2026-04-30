@@ -120,7 +120,7 @@ class Admin {
      * @return void
      */
     public function menu_page_callback() {
-        echo '<div id="admin-main-wrapper"></div>';
+        echo '<div id="admin-main-wrapper" class="admin-main-wrapper"></div>';
     }
 
     /**

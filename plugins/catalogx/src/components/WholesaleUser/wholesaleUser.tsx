@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
-import ShowPopup from '../Popup/Popup';
+import ShowProPopup from '../Popup/Popup';
 import './wholesaleUser.scss';
-import { AdminBreadcrumbs } from 'zyra';
+import { __ } from '@wordpress/i18n';
+import { AdminBreadcrumbs, PopupUI } from 'zyra';
 
 const WholesaleUser = () => {
-    const [ openDialog, setOpenDialog ] = useState( false );
+    const [openPopup, setopenPopup] = useState(false);
 
     return (
         <>
@@ -41,6 +42,31 @@ const WholesaleUser = () => {
                     } }
                 ></div>
             </div>
+            {openPopup && (
+                <PopupUI
+                    position="lightbox"
+                    open={openPopup}
+                    onClose={() => setopenPopup(false)}
+                    width={31.25}
+                    height="auto"
+                >
+                    <ShowProPopup />
+                </PopupUI>
+            )}
+            <NavigatorHeader
+                headerIcon="cohort"
+                headerDescription={__(
+                    'Cohort information is presented with associated products and student enrollments to support administrative actions.',
+                    'moowoodle'
+                )}
+                headerTitle={__('Cohorts', 'moowoodle')}
+            />
+            <div
+                className="cohort-img image-wrapper"
+                onClick={() => {
+                    setopenPopup(true);
+                }}
+            ></div>
         </>
     );
 };

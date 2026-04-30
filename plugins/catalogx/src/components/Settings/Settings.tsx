@@ -18,12 +18,14 @@ import {
     SettingProvider,
     useSetting,
     type SettingContextType,
+    SettingsNavigator,
+    RenderComponent,
 } from 'zyra';
 import ShowPopup from '../Popup/Popup';
 import { useLocation, Link } from 'react-router-dom';
 
 // Types
-type SettingItem = Record< string, any >;
+type SettingItem = Record<string, any>;
 
 interface SettingsProps {
     id: string;
@@ -36,7 +38,7 @@ interface Products {
 
 const supportLink = [
     {
-        title: __( 'Get in touch with Support', 'catalogx' ),
+        title: __('Get in touch with Support', 'catalogx'),
         icon: 'adminlib-mail',
         description: __(
             'Reach out to the support team for assistance or guidance.',
@@ -45,7 +47,7 @@ const supportLink = [
         link: 'https://catalogx.com/support/?utm_source=wpadmin&utm_medium=pluginsettings&utm_campaign=catalogx',
     },
     {
-        title: __( 'Explore Documentation', 'catalogx' ),
+        title: __('Explore Documentation', 'catalogx'),
         icon: 'adminlib-submission-message',
         description: __(
             'Understand the plugin and its settings.',
@@ -54,21 +56,21 @@ const supportLink = [
         link: 'https://catalogx.com/docs/?utm_source=wpadmin&utm_medium=pluginsettings&utm_campaign=catalogx',
     },
     {
-        title: __( 'Contribute Here', 'catalogx' ),
+        title: __('Contribute Here', 'catalogx'),
         icon: 'adminlib-support',
-        description: __( 'To participate in product enhancement.', 'catalogx' ),
+        description: __('To participate in product enhancement.', 'catalogx'),
         link: 'https://github.com/multivendorx/catalogx/issues',
     },
 ];
 
-const Settings: React.FC< SettingsProps > = () => {
+const Settings: React.FC<SettingsProps> = () => {
     const settingsArray: SettingItem[] = getAvailableSettings(
         getTemplateData(),
         []
     );
-    const location = new URLSearchParams( useLocation().hash.substring( 1 ) );
+    const location = new URLSearchParams(useLocation().hash.substring(1));
     // Render the dynamic form
-    const GetForm = ( currentTab: string | null ): JSX.Element | null => {
+    const GetForm = (currentTab: string | null): JSX.Element | null => {
         const {
             setting,
             settingName,
@@ -77,58 +79,56 @@ const Settings: React.FC< SettingsProps > = () => {
         }: SettingContextType = useSetting();
         const { modules } = useModules();
 
-        if ( ! currentTab ) return null;
-        const settingModal = getSettingById( settingsArray as any, currentTab );
+        if (!currentTab) return null;
+        const settingModal = getSettingById(settingsArray as any, currentTab);
 
         // Ensure settings context is initialized
-        if ( settingName !== currentTab ) {
+        if (settingName !== currentTab) {
             setSetting(
                 currentTab,
-                appLocalizer.settings_databases_value[ currentTab ] || {}
+                appLocalizer.settings_databases_value[currentTab] || {}
             );
         }
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        useEffect( () => {
-            if ( settingName === currentTab ) {
-                appLocalizer.settings_databases_value[ settingName ] = setting;
+        useEffect(() => {
+            if (settingName === currentTab) {
+                appLocalizer.settings_databases_value[settingName] = setting;
             }
-        }, [ setting, settingName, currentTab ] );
+        }, [setting, settingName, currentTab]);
 
         return (
             <>
-                { settingName === currentTab ? (
-                    <AdminForm
-                        settings={ settingModal as SettingContent }
-                        proSetting={ appLocalizer.settings_databases_value }
-                        setting={ setting }
-                        updateSetting={ updateSetting }
-                        appLocalizer={ appLocalizer }
-                        modules={ modules }
-                        Popup={ ShowPopup }
-                    />
+                {settingName === currentTab ? (
+                   <RenderComponent
+						settings={settingModal}
+						proSetting={appLocalizer.settings_databases_value}
+						setting={setting}
+						updateSetting={updateSetting}
+						appLocalizer={appLocalizer}
+						modules={modules}
+						// Popup={ShowProPopup}
+					/>
                 ) : (
-                    // <>Hii There</>
                     <>Loading...</>
-                ) }
+                )}
             </>
         );
     };
 
     return (
         <SettingProvider>
-            <Tabs
-                tabData={ settingsArray as any }
-                currentTab={ location.get( 'subtab' ) as string }
-                getForm={ GetForm }
-                prepareUrl={ ( subTab: string ) =>
-                    `?page=catalogx#&tab=settings&subtab=${ subTab }`
+            <SettingsNavigator
+                settingContent={settingsArray}
+                currentSetting={location.get('subtab') as string}
+                getForm={GetForm}
+                prepareUrl={(subTab: string) =>
+                    `?page=catalogx#&tab=settings&subtab=${subTab}`
                 }
-                appLocalizer={ appLocalizer }
-                brandImg={ Brand }
-                smallbrandImg={ BrandSmall }
-                supprot={ supportLink }
-                Link={ Link }
+                appLocalizer={appLocalizer}
+                Link={Link}
+                settingName={'Settings'}
+                className="admin-settings"
             />
         </SettingProvider>
     );
