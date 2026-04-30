@@ -9,9 +9,12 @@ import WholesaleUser from './components/WholesaleUser/wholesaleUser';
 import Rules from './components/Rules/Rules';
 import gif from './assets/images/product-page-builder.gif';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import { AdminHeader, Notice, initializeModules } from 'zyra';
+import { AdminHeader, GuidedTourProvider, Notice, initializeModules } from 'zyra';
 import { __ } from '@wordpress/i18n';
 import Brand from './assets/images/Brand.png';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import HelpSupport from './components/HelpSupport/HelpSupport';
+import { getTourSteps } from './components/Tour/Tours';
 
 const disableBody = ( target: any ) => disableBodyScroll( target );
 const enableBody = ( target: any ) => enableBodyScroll( target );
@@ -25,6 +28,7 @@ const Route = () => {
     const currentTab = new URLSearchParams( useLocation().hash );
     return (
         <>
+            { currentTab.get( 'tab' ) === 'dashboard' && ( <AdminDashboard /> ) }
             { currentTab.get( 'tab' ) === 'settings' && (
                 <Settings id={ 'settings' } />
             ) }
@@ -39,6 +43,7 @@ const Route = () => {
                 <EnquiryMessages />
             ) }
             { currentTab.get( 'tab' ) === 'rules' && <Rules /> }
+            { currentTab.get( 'tab' ) === 'help-support' && ( <HelpSupport /> ) }
         </>
     );
 };
@@ -134,6 +139,10 @@ const App = () => {
                     gif={ gif }
                 />
             </TourProvider> */}
+            <GuidedTourProvider
+				appLocalizer={appLocalizer}
+				steps={getTourSteps(appLocalizer)}
+			/>
             <Route />
         </>
     );

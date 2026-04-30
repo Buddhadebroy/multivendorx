@@ -22,7 +22,7 @@ const PluginModules = () => {
                     appLocalizer={appLocalizer}
                     apiLink="modules"
                     proPopupContent={ShowProPopup}
-                    pluginName="multivendorx"
+                    pluginName="catalogx"
                 />
             </Container>
         </>

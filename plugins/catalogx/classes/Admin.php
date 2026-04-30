@@ -49,6 +49,10 @@ class Admin {
         );
 
         $submenus = array(
+            'dashboard' => array(
+                'name'   => __( 'Dashboard', 'catalogx' ),
+                'subtab' => '',
+            ),
             'enquiry-messages' => array(
                 'name'   => __( 'Enquiry Messages', 'catalogx' ),
                 'subtab' => '',
@@ -72,6 +76,10 @@ class Admin {
             'modules'          => array(
                 'name'   => __( 'Modules', 'catalogx' ),
                 'subtab' => '',
+            ),
+            'help-support'        => array(
+                'name'     => __( 'Help & Support', 'moowoodle' ),
+                'subtab'   => '',
             ),
         );
 
