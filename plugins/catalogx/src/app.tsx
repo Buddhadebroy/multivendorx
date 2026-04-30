@@ -8,9 +8,8 @@ import EnquiryMessages from './components/EnquiryMessages/enquiryMessages';
 import WholesaleUser from './components/WholesaleUser/wholesaleUser';
 import Rules from './components/Rules/Rules';
 import gif from './assets/images/product-page-builder.gif';
-import { TourProvider } from '@reactour/tour';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import { AdminHeader, Banner, Notice, Tour, initializeModules } from 'zyra';
+import { AdminHeader, Notice, initializeModules } from 'zyra';
 import { __ } from '@wordpress/i18n';
 import Brand from './assets/images/Brand.png';
 
@@ -33,13 +32,13 @@ const Route = () => {
             { currentTab.get( 'tab' ) === 'quote-requests' && (
                 <QuoteRequests />
             ) }
-            { currentTab.get( 'tab' ) === 'wholesale-users' && (
+            {/* { currentTab.get( 'tab' ) === 'wholesale-users' && (
                 <WholesaleUser />
             ) }
             { currentTab.get( 'tab' ) === 'enquiry-messages' && (
                 <EnquiryMessages />
             ) }
-            { currentTab.get( 'tab' ) === 'rules' && <Rules /> }
+            { currentTab.get( 'tab' ) === 'rules' && <Rules /> } */}
         </>
     );
 };

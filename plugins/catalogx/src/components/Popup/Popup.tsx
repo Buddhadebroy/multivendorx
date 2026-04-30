@@ -22,78 +22,86 @@ interface PopupProps {
 const proPopupContent = {
 	messages: [
 		{
-            icon: 'bulk-course-sync',
-            text: __( 'Bulk Course Sync', 'moowoodle' ),
-            des: __(
-                'Sync multiple Moodle™ courses to WordPress with one click.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'classroom-enrollment',
-            text: __( 'Cohort Enrollment', 'moowoodle' ),
-            des: __(
-                'Sell and enroll entire Moodle™ cohorts via WooCommerce.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'cohort',
-            text: __( 'Group Enrollment', 'moowoodle' ),
-            des: __(
-                'Map course variations to Moodle™ groups for targeted enrollment.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'global-community',
-            text: __( 'Classroom Enrollment', 'moowoodle' ),
-            des: __(
-                'Buy multiple seats and assign them to students or teams.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'gift-a-course',
-            text: __( 'Gift a Course', 'moowoodle' ),
-            des: __(
-                'Let customers purchase and gift courses to others.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'single-sign-On',
-            text: __( 'Single Sign-On (SSO)', 'moowoodle' ),
-            des: __(
-                'Access Moodle™ and WordPress with one login.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'single-sign-on',
-            text: __( 'Smart Course Sync', 'moowoodle' ),
-            des: __(
-                'Keep course details updated between Moodle™ and WordPress.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'subscription-courses',
-            text: __( 'Subscription Courses', 'moowoodle' ),
-            des: __(
-                'Offer courses with recurring subscription plans.',
-                'moowoodle'
-            ),
-        },
-        {
-            icon: 'user-network-icon',
-            text: __( 'Unified Access', 'moowoodle' ),
-            des: __(
-                'Give learners one dashboard for all their courses.',
-                'moowoodle'
-            ),
-        },
-    ],
+			icon: 'personalized-pricing',
+			text: __('Send custom quotes', 'catalogx'),
+			des: __(
+				'Create personalized pricing and quotation responses for customers.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'multiple-products exclusive-forms',
+			text: __('Multi-product enquiry cart', 'catalogx'),
+			des: __(
+				'Allow customers to enquire about multiple products in a single request.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'add-file-uploads',
+			text: __('File uploads & custom enquiry fields', 'catalogx'),
+			des: __(
+				'Collect additional files and custom information through enquiry forms.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'different-users',
+			text: __('Role-based pricing', 'catalogx'),
+			des: __(
+				'Show different pricing options based on user roles and customer types.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'discounts',
+			text: __('Category-based discounts', 'catalogx'),
+			des: __(
+				'Apply discounts automatically to selected product categories.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'wholesale-order',
+			text: __('Wholesale order forms', 'catalogx'),
+			des: __(
+				'Enable streamlined bulk and wholesale ordering workflows.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'out-of-stock',
+			text: __('Enquiry for hidden/out-of-stock products', 'catalogx'),
+			des: __(
+				'Allow customers to send enquiries for unavailable or hidden products.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'shortcode',
+			text: __('Enquiry button via shortcode', 'catalogx'),
+			des: __(
+				'Add enquiry buttons anywhere on your website using shortcodes.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'emails',
+			text: __('Auto-send branded enquiry emails', 'catalogx'),
+			des: __(
+				'Automatically send customized branded emails for customer enquiries.',
+				'catalogx'
+			),
+		},
+		{
+			icon: 'dashboard',
+			text: __('Track all enquiries in one dashboard', 'catalogx'),
+			des: __(
+				'Manage and monitor all customer enquiries from a centralized dashboard.',
+				'catalogx'
+			),
+		},
+	],
 	btnLink: [
 		{
 			site: 'one',
@@ -115,7 +123,7 @@ const proPopupContent = {
 
 const ShowProPopup: React.FC<PopupProps> = (props) => {
 	const [selectedBtn, setSelectedBtn] = useState(proPopupContent.btnLink[0]);
-	
+
 	return (
 		<>
 			{props.confirmMode ? (

@@ -1,6 +1,4 @@
 /* global appLocalizer */
-import Brand from '../../assets/images/Brand.png';
-import BrandSmall from '../../assets/images/Brand-small.png';
 import React, { useEffect, JSX } from 'react';
 import { __ } from '@wordpress/i18n';
 
@@ -10,10 +8,6 @@ import { getTemplateData } from '../../services/templateService';
 import {
     getAvailableSettings,
     getSettingById,
-    SettingContent,
-    AdminForm,
-    Banner,
-    Tabs,
     useModules,
     SettingProvider,
     useSetting,
@@ -21,20 +15,14 @@ import {
     SettingsNavigator,
     RenderComponent,
 } from 'zyra';
-import ShowPopup from '../Popup/Popup';
-import { useLocation, Link } from 'react-router-dom';
 import ShowProPopup from '../Popup/Popup';
+import { useLocation, Link } from 'react-router-dom';
 
 // Types
 type SettingItem = Record<string, any>;
 
 interface SettingsProps {
     id: string;
-}
-
-interface Products {
-    title: string;
-    description: string;
 }
 
 const supportLink = [
