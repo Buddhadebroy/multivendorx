@@ -628,6 +628,8 @@ class Stores extends \WP_REST_Controller {
                     Utill::USER_SETTINGS_KEYS['active_store'],
                     $store_id
                 );
+
+                do_action('multivendorx_after_store_registration_complete', $current_user->ID, $store_id);
             }
 
             if ( ! empty( $store_data['store_owners'] ) ) {
