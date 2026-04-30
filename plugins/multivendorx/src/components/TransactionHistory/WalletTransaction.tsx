@@ -521,10 +521,10 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 									)}
 									{walletLoading ? (
 										<Skeleton width={15.625} />
-									) : wallet?.thresold > 0 ? (
+									) : wallet?.threshold > 0 ? (
 										<b>
 											{formatCurrency(
-												wallet.thresold
+												wallet.threshold
 											)}{' '}
 										</b>
 									) : (

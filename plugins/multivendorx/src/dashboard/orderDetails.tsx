@@ -971,9 +971,6 @@ const OrderDetails: React.FC = () => {
 											<div className="refund-header">
 												<div className="details">
 													<div className="title">
-														{formatDate(
-															orderData.date_modified
-														)}
 														#{orderData.id}
 													</div>
 													<div className="desc">
@@ -987,7 +984,7 @@ const OrderDetails: React.FC = () => {
 														)}
 													</div>
 													<div className="desc">
-														{__("Date", 'multivendorx')}
+														{__("Refund Requested", 'multivendorx')}
 													</div>
 												</div>
 												<div className="details">
@@ -1020,7 +1017,7 @@ const OrderDetails: React.FC = () => {
 															.toFixed(2)}
 													</div>
 													<div className="desc">
-														{__("Price", 'multivendorx')}
+														{__("Requested Amount", 'multivendorx')}
 													</div>
 												</div>
 											</div>
@@ -1064,7 +1061,7 @@ const OrderDetails: React.FC = () => {
 											)?.value.length > 0 && (
 													<div className="refund-images-wrapper">
 														<div className="title">
-															{__("Customer's Reason", 'multivendorx')}
+															{__("Supporting Images", 'multivendorx')}
 														</div>
 														<div className="images">
 															{orderData.meta_data
@@ -1097,7 +1094,7 @@ const OrderDetails: React.FC = () => {
 											{/* Customer Reason */}
 											<div className="reason additional">
 												<div className="title">
-													{__("Additional details", 'multivendorx')}
+													{__("Additional Details", 'multivendorx')}
 												</div>
 												<div className="desc">
 													{
