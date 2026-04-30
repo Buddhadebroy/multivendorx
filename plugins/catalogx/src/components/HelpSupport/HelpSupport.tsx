@@ -31,78 +31,60 @@ const HelpSupport: React.FC = () => {
 	];
 	const supportItems = [
 		{
-			icon: 'facebook-fill',
-			name: __('Facebook community', 'catalogx'),
+			icon: 'mail',
+			name: __('Get in touch with Support', 'catalogx'),
 			description: __(
-				'Connect with other store owners, share tips, and get quick solutions.',
+				'Reach out to the support team for assistance or guidance.',
 				'catalogx'
 			),
-			link: 'https://www.facebook.com/groups/226246620006065/',
+			link: 'https://catalogx.com/support/?utm_source=wpadmin&utm_medium=pluginsettings&utm_campaign=catalogx',
 		},
 		{
-			icon: 'wordpress',
-			name: __('WordPress support forum', 'catalogx'),
+			icon: 'submission-message',
+			name: __('Explore Documentation', 'catalogx'),
 			description: __(
-				'Ask questions and get expert guidance from the WordPress community.',
+				'Understand the plugin and its settings.',
 				'catalogx'
 			),
-			link: 'https://wordpress.org/support/plugin/dc-woocommerce-multi-vendor/',
+			link: 'https://catalogx.com/docs/?utm_source=wpadmin&utm_medium=pluginsettings&utm_campaign=catalogx',
 		},
 		{
-			icon: 'forum',
-			name: __('Our forum', 'catalogx'),
+			icon: 'support',
+			name: __('Contribute Here', 'catalogx'),
 			description: __(
-				'Discuss catalogx features, report issues, and collaborate with other users.',
+				'To participate in product enhancement.',
 				'catalogx'
 			),
-			link: 'https://catalogx.com/support-forum/',
-		},
-		{
-			icon: 'live-chat',
-			name: __('Live chat', 'catalogx'),
-			description: __(
-				'Get real-time support from our team for setup, troubleshooting, and guidance.',
-				'catalogx'
-			),
-			link: 'https://tawk.to/chat/5d2eebf19b94cd38bbe7c9ad/1fsg8cq8n',
+			link: 'https://github.com/multivendorx/catalogx/issues',
 		},
 	];
 	const DocumentationItems = [
 		{
-			icon: 'document',
-			name: __('Official documentation', 'catalogx'),
+			icon: 'mail',
+			name: __('Get in touch with Support', 'catalogx'),
 			description: __(
-				'Step-by-step guides for every catalogx feature.',
+				'Reach out to the support team for assistance or guidance.',
 				'catalogx'
 			),
-			link: 'https://catalogx.com/docs/knowledgebase/',
+			link: 'https://catalogx.com/support/?utm_source=wpadmin&utm_medium=pluginsettings&utm_campaign=catalogx',
 		},
 		{
-			icon: 'youtube',
-			name: __('YouTube tutorials', 'catalogx'),
+			icon: 'submission-message',
+			name: __('Explore Documentation', 'catalogx'),
 			description: __(
-				'Watch videos on marketplace setup, store management, payments, and more.',
+				'Understand the plugin and its settings.',
 				'catalogx'
 			),
-			link: 'https://www.youtube.com/@catalogx/videos',
+			link: 'https://catalogx.com/docs/?utm_source=wpadmin&utm_medium=pluginsettings&utm_campaign=catalogx',
 		},
 		{
-			icon: 'faq',
-			name: __('FAQs', 'catalogx'),
+			icon: 'support',
+			name: __('Contribute Here', 'catalogx'),
 			description: __(
-				'Quick answers to the most common questions about features and troubleshooting.',
+				'To participate in product enhancement.',
 				'catalogx'
 			),
-			link: 'https://catalogx.com/docs/faqs/',
-		},
-		{
-			icon: 'coding',
-			name: __('Coding support', 'catalogx'),
-			description: __(
-				'Professional help for customizations, integrations, and technical issues.',
-				'catalogx'
-			),
-			link: 'https://discord.com/channels/1376811097134469191/1376811102020829258',
+			link: 'https://github.com/multivendorx/catalogx/issues',
 		},
 	];
 	return (

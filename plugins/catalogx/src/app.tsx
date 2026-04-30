@@ -127,18 +127,6 @@ const App = () => {
 				// pro={appLocalizer.pro_data.version}
 				// utilityList={utilityList}
 			/>
-            {/* <TourProvider
-                steps={ [] }
-                afterOpen={ disableBody }
-                beforeClose={ enableBody }
-                disableDotsNavigation={ true }
-                showNavigation={ false }
-            >
-                <Tour
-                    appLocalizer={ ( window as any ).appLocalizer }
-                    gif={ gif }
-                />
-            </TourProvider> */}
             <GuidedTourProvider
 				appLocalizer={appLocalizer}
 				steps={getTourSteps(appLocalizer)}
