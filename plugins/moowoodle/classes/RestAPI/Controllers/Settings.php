@@ -26,13 +26,6 @@ class Settings extends \WP_REST_Controller {
 	protected $rest_base = 'settings';
 
     /**
-	 * Route base.
-	 *
-	 * @var string
-	 */
-	protected $modules_base = 'modules';
-
-    /**
      * Register the routes for settings.
      */
     public function register_routes() {
