@@ -4,12 +4,12 @@ import { __, sprintf } from '@wordpress/i18n';
 export default {
     id: 'display',
     priority: 20,
-    name: __( 'Shop Central', 'moowoodle' ),
-    desc: __(
+    headerTitle: __( 'Shop Central', 'moowoodle' ),
+    headerDescription: __(
         'Efficient course information handling for customers.',
         'moowoodle'
     ),
-    icon: 'adminlib-cart',
+    headerIcon: 'cart',
     submitUrl: 'settings',
     modal: [
         {
@@ -36,6 +36,7 @@ export default {
                 "'<b>My Course</b>' menu will appear beneath the selected menu on the WooCommerce 'My Account' page of customer dashboard.",
                 'moowoodle'
             ),
+            size: 25,
             label: __( "Endpoint menu position - 'My Course'", 'moowoodle' ),
             options: Object.entries( appLocalizer.accountmenu ).map(
                 ( [ key, label ], index ) => {

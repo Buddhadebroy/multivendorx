@@ -891,6 +891,9 @@ class MVX {
             $vendor_id           = get_term_meta( $commission_vendor, '_vendor_user_id', true );
             $store_id            = get_user_meta( $vendor_id, Utill::USER_SETTINGS_KEYS['active_store'], true );
             $order               = wc_get_order( $commission_order_id );
+            if ( !$order ) {
+                continue;
+            }
 
 			$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $table_name,
@@ -1036,6 +1039,9 @@ class MVX {
             $entry_type = $is_credit ? 'Cr' : 'Dr';
             $amount     = $is_credit ? (float) $row['credit'] : (float) $row['debit'];
             $order      = wc_get_order( $row['order_id'] );
+            if ( !$order ) {
+                continue;
+            }
 
 			$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $new_ledger_table,

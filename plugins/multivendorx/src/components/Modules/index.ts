@@ -377,6 +377,14 @@ export default {
 			],
 			category: 'shipping_management',
 		},
+		// {
+		// 	id: 'printful',
+		// 	name: __('Printful', 'multivendorx'),
+		// 	desc: 'Automated product syncing, order fulfillment, and shipping are enabled for all stores via Printful.',			
+		// 	settingsLink: `${appLocalizer.admin_dashboard_url}#&tab=settings&subtab=printful`,
+		// 	proModule: true,			
+		// 	category: 'shipping_management',
+		// },
 		{
 			type: 'separator',
 			id: 'customer_experience',
@@ -623,7 +631,7 @@ export default {
 			category: 'integration',
 		},
 		{
-			id: 'buddypress',
+			id: 'buddy-press',
 			name: __('BuddyPress', 'multivendorx'),
 			desc: 'Adds social networking features to stores (profiles, connections, messaging).',
 			docLink:
@@ -632,7 +640,7 @@ export default {
 			reqPluging: [
 				{
 					name: 'BuddyPress',
-					slug: 'buddypress/class-buddypress.php',
+					slug: 'buddypress/bp-loader.php',
 					link: 'https://wordpress.org/plugins/buddypress/',
 				},
 			],
@@ -708,7 +716,7 @@ export default {
 		},
 		{
 			id: 'ship-station',
-			name: __('Shipstation', 'multivendorx'),
+			name: __('ShipStation', 'multivendorx'),
 			desc: 'Integration with ShipStation for advanced shipping management and label printing.',
 			docLink: 'https://multivendorx.com/docs/knowledgebase/shipstation/',
 			proModule: true,

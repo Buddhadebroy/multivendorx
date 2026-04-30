@@ -1,15 +1,16 @@
 /* global appLocalizer */
+import { FontSizePicker } from '@wordpress/block-editor';
 import { __, sprintf } from '@wordpress/i18n';
 
 export default {
     id: 'general',
     priority: 10,
-    name: __( 'General', 'moowoodle' ),
-    desc: __(
+    headerTitle: __( 'General', 'moowoodle' ),
+    headerDescription: __(
         'Effortlessly configure and verify your WordPress-Moodle connection.',
         'moowoodle'
     ),
-    icon: 'adminlib-setting',
+    headerIcon: 'setting',
     submitUrl: 'settings',
     modal: [
         {
@@ -19,11 +20,13 @@ export default {
                 'Provide the URL of your Moodle site where the course will be hosted. Students will receive access to the course content on that site.',
                 'moowoodle'
             ),
+            size: 25,
             label: __( 'Moodle site URL', 'moowoodle' ),
         },
         {
             key: 'moodle_access_token',
             type: 'text',
+            size: 25,
             label: __( 'Moodle access token', 'moowoodle' ),
             desc: sprintf(
                 /* translators: %s: URL to Moodle token page */
@@ -36,10 +39,10 @@ export default {
         },
         {
             key: 'test_connection',
-            type: 'do-action-btn',
+            type: 'sequential-task-executor',
             apilink: 'synchronization',
             parameter: 'connection_test',
-            value: 'Start Test',
+            buttonText: 'Start Test',
             interval: 2500,
             desc: '',
             label: __( 'MooWoodle test connection', 'moowoodle' ),

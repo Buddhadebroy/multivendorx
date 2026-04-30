@@ -24,8 +24,8 @@ export default {
 			),
 			desc: __(
 				'Configure the facilitator fee structure directly from <a href="' +
-					appLocalizer.site_url +
-					'/wp-admin/admin.php?page=multivendorx#&tab=settings&subtab=commissions">this section</a>.',
+				appLocalizer.site_url +
+				'/wp-admin/admin.php?page=multivendorx#&tab=settings&subtab=commissions">this section</a>.',
 				'multivendorx'
 			),
 			moduleEnabled: 'facilitator',
@@ -33,5 +33,35 @@ export default {
 			size: '40%',
 			options: appLocalizer.facilitators_list,
 		},
+		{
+			key: 'facilitator',
+			type: 'checkbox',
+			label: __('Facilitator permissions', 'multivendorx'),
+			settingDescription: __(
+				'Define what financial and commission-related capabilities are available to facilitators.',
+				'multivendorx'
+			),
+			options: [
+				{
+					key: 'facilitator_edit_withdrawl_request',
+					label: __('Request withdrawal', 'multivendorx'),
+					desc: __(
+						'Allow facilitators to request payout of their earnings.',
+						'multivendorx'
+					),
+					value: 'facilitator_edit_withdrawl_request',
+				},
+				{
+					key: 'facilitator_view_transactions',
+					label: __('View transactions', 'multivendorx'),
+					desc: __(
+						'Allow facilitators to view all transaction records related to their earnings.',
+						'multivendorx'
+					),
+					value: 'facilitator_view_transactions',
+				}
+			],
+			selectDeselect: true,
+		}
 	],
 };

@@ -3,12 +3,12 @@ import { __ } from '@wordpress/i18n';
 export default {
     id: 'tool',
     priority: 50,
-    name: __( 'Tools', 'moowoodle' ),
-    desc: __(
+    headerTitle: __( 'Tools', 'moowoodle' ),
+    headerDescription: __(
         'Manage advanced settings for synchronization, error logging, and connection handling.',
         'moowoodle'
     ),
-    icon: 'adminlib-tools',
+    headerIcon: 'tools',
     submitUrl: 'settings',
     modal: [
         {
@@ -28,10 +28,13 @@ export default {
             look: 'toggle',
         },
         {
-            key: 'separator_content',
-            type: 'section',
-            label: '',
-        },
+			key: 'section',
+			type: 'section',
+			title: __(
+				'Lorem Ipsum is simply dummy text of',
+				'moowoodle'
+			),
+		},
         {
             key: 'moodle_timeout',
             type: 'text',
@@ -39,7 +42,7 @@ export default {
                 'When WordPress sends a request to the Moodle server for data, communication delays might exceed the default server connection timeout. You can customize the timeout parameters by adjusting them here. <br>Default: 5 seconds.',
                 'moowoodle'
             ),
-            size: '8rem',
+            size: 8,
             postInsideText: __( 'sec', 'moowoodle' ),
             label: __( 'Connection timeout', 'moowoodle' ),
             parameter: __( 'Seconds', 'moowoodle' ),
@@ -51,7 +54,7 @@ export default {
                 'Select the interval for the user synchronization process. Based on this schedule, the cron job will run to sync users between WordPress and Moodle.',
                 'moowoodle'
             ),
-            size: '8rem',
+            size: 8,
             postInsideText: __( 'min', 'moowoodle' ),
             parameter: __( 'Minutes', 'moowoodle' ),
             label: __( 'Automatic synchronization frequency', 'moowoodle' ),

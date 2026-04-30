@@ -323,7 +323,7 @@ registerBlockType('multivendorx/store-social-icons', {
 						</a>
 					</li>
 					{/* PinterestIcon Icon */}
-					<li className="wp-social-link wp-social-link-linkedin  wp-block-social-link">
+					<li className="wp-social-link wp-social-link-linkedin  wp-block-social-link ">
 						<a
 							href="#"
 							className="wp-block-social-link-anchor"
@@ -338,35 +338,29 @@ registerBlockType('multivendorx/store-social-icons', {
 	},
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-	if (!window.StoreInfo?.storeDetails) {
-		return;
-	}
+window.addEventListener('load', () => {
+	if (!window.StoreInfo?.storeDetails) return;
 
-	const { facebook, twitter, instagram, youtube, linkedin, pinterest } =
-		StoreInfo.storeDetails;
+	const links = document.querySelectorAll('.wp-block-social-link a');
 
-	const map = {
-		facebook,
-		twitter,
-		instagram,
-		youtube,
-		linkedin,
-		pinterest,
-	};
+	const map = [
+		'facebook',
+		'twitter',
+		'instagram',
+		'youtube',
+		'linkedin',
+		'pinterest'
+	];
 
-	Object.entries(map).forEach(([key, url]) => {
-		document
-			.querySelectorAll(`.multivendorx-social-${key}`)
-			.forEach((el) => {
-				if (url) {
-					el.href = url;
-					el.target = '_blank';
-					el.rel = 'noopener noreferrer';
-					el.style.display = '';
-				} else {
-					el.style.display = 'none';
-				}
-			});
+	links.forEach((el, index) => {
+		const key = map[index];
+		const url = StoreInfo.storeDetails[key];
+
+		if (url && url.trim() !== '') {
+			el.href = url;
+			el.target = '_blank';
+		} else {
+			el.closest('li').style.display = 'none';
+		}
 	});
 });

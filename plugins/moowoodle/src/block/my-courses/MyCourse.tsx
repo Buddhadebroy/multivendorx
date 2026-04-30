@@ -51,16 +51,16 @@ const MyCourse: React.FC = () => {
     const renderTableContent = () => {
         if ( loading ) {
             return (
-                <tr>
-                    <td colSpan={ 5 }>{ __( 'Loading…', 'moowoodle' ) }</td>
+                <tr className="woocommerce-orders-table__row">
+                    <td className="woocommerce-orders-table__cell" colSpan={ 5 }>{ __( 'Loading…', 'moowoodle' ) }</td>
                 </tr>
             );
         }
 
         if ( error ) {
             return (
-                <tr>
-                    <td colSpan={ 5 } className="error-row">
+                <tr className="woocommerce-orders-table__row">
+                    <td className="woocommerce-orders-table__cell" colSpan={ 5 }>
                         { error }
                     </td>
                 </tr>
@@ -69,8 +69,8 @@ const MyCourse: React.FC = () => {
 
         if ( ! courses.length ) {
             return (
-                <tr>
-                    <td colSpan={ 5 } className="no-data-row">
+                <tr className="woocommerce-orders-table__row">
+                    <td className="woocommerce-orders-table__cell" >
                         { __(
                             "You haven't purchased any courses yet.",
                             'moowoodle'
@@ -81,19 +81,19 @@ const MyCourse: React.FC = () => {
         }
 
         return courses.map( ( course, index ) => (
-            <tr key={ index }>
-                <td data-label={ __( 'Username', 'moowoodle' ) }>
+            <tr key={ index } className="woocommerce-orders-table__row">
+                <td className="woocommerce-orders-table__cell" data-label={ __( 'Username', 'moowoodle' ) }>
                     { course.user_name || __( 'N/A', 'moowoodle' ) }
                 </td>
-                <td data-label={ __( 'Course Name', 'moowoodle' ) }>
+                <td className="woocommerce-orders-table__cell" data-label={ __( 'Course Name', 'moowoodle' ) }>
                     { course.course_name ||
                         __( 'Unknown Course', 'moowoodle' ) }
                 </td>
-                <td data-label={ __( 'Enrolment Date', 'moowoodle' ) }>
+                <td className="woocommerce-orders-table__cell" data-label={ __( 'Enrolment Date', 'moowoodle' ) }>
                     { course.enrollment_date ||
                         __( 'No Date Available', 'moowoodle' ) }
                 </td>
-                <td
+                <td className="woocommerce-orders-table__cell"
                     data-label={ __(
                         'Password (First Time Login only)',
                         'moowoodle'
@@ -102,7 +102,7 @@ const MyCourse: React.FC = () => {
                     { course.password ||
                         __( 'Password not Available', 'moowoodle' ) }
                 </td>
-                <td data-label={ __( 'Action', 'moowoodle' ) }>
+                <td className="woocommerce-orders-table__cell" data-label={ __( 'Action', 'moowoodle' ) }>
                     { course.moodle_url ? (
                         <a
                             href={ course.moodle_url }
@@ -158,20 +158,20 @@ const MyCourse: React.FC = () => {
     };
 
     return (
-        <div className="moowoodle-my-courses">
+        <div className="moowoodle-my-courses woocommerce-js">
             <table className="moowoodle-table shop_table shop_table_responsive my_account_orders">
                 <thead>
                     <tr>
-                        <th>{ __( 'Username', 'moowoodle' ) }</th>
-                        <th>{ __( 'Course Name', 'moowoodle' ) }</th>
-                        <th>{ __( 'Enrolment Date', 'moowoodle' ) }</th>
-                        <th>
+                        <th className="woocommerce-orders-table__header">{ __( 'Username', 'moowoodle' ) }</th>
+                        <th className="woocommerce-orders-table__header">{ __( 'Course Name', 'moowoodle' ) }</th>
+                        <th className="woocommerce-orders-table__header">{ __( 'Enrolment Date', 'moowoodle' ) }</th>
+                        <th className="woocommerce-orders-table__header">
                             { __(
                                 'Password (First Time Login only)',
                                 'moowoodle'
                             ) }
                         </th>
-                        <th>{ __( 'Action', 'moowoodle' ) }</th>
+                        <th className="woocommerce-orders-table__header">{ __( 'Action', 'moowoodle' ) }</th>
                     </tr>
                 </thead>
                 <tbody>{ renderTableContent() }</tbody>
