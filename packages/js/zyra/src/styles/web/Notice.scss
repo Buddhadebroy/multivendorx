@@ -173,19 +173,66 @@
         }
 
         &.type-success {
-            .notice-desc {
+
+            .notice-desc,
+            .notice-text {
                 color: map-get(map-get($color-palette, green), color);
             }
         }
 
+        &.type-info {
+
+            .notice-desc,
+            .notice-text {
+                color: $theme-color;
+            }
+        }
+
         &.type-error {
-            .notice-desc {
+
+            .notice-desc,
+            .notice-text {
                 color: map-get(map-get($color-palette, red), color);
             }
         }
 
         &.type-warning {
-            .notice-desc {
+
+            .notice-desc,
+            .notice-text {
+                color: map-get(map-get($color-palette, yellow), color);
+            }
+        }
+    }
+
+    &.display-inline-notice {
+        gap: 0.25rem;
+
+        i {
+            font-size: 1rem;
+        }
+
+        &.type-success {
+
+            .notice-text {
+                color: map-get(map-get($color-palette, green), color);
+            }
+        }
+
+        &.type-info {
+            .notice-text {
+                color: $theme-color;
+            }
+        }
+
+        &.type-error {
+            .notice-text {
+                color: map-get(map-get($color-palette, red), color);
+            }
+        }
+
+        &.type-warning {
+            .notice-text {
                 color: map-get(map-get($color-palette, yellow), color);
             }
         }
