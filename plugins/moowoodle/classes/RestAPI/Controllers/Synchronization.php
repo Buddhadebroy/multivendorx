@@ -96,15 +96,23 @@ class Synchronization extends \WP_REST_Controller {
         }
 
         try {
-            $parameter = $request->get_param( 'parameter' );
+                        $response = array(
+                'status'  => array(),
+                'running' => false,
+            );
 
-            if ( ! empty( $parameter ) ) {
-                return apply_filters( "moowoodle_process_{$parameter}_synchronization", $request );
+            $status = $request->get_param( 'parameter' );
+
+            if ( 'course' === $status ) {
+                $response = array(
+                    'status'  => Util::get_sync_status( 'course' ),
+                    'running' => get_transient( 'course_sync_running' ),
+                );
             } else {
-                do_action( 'moowoodle_sync' );
+                $response = apply_filters( 'moowoodle_sync_status', $request );
             }
 
-            return null;
+            return rest_ensure_response( $response );
         } catch ( \Exception $e ) {
             MooWoodle()->util->log( $e );
 
@@ -139,23 +147,14 @@ class Synchronization extends \WP_REST_Controller {
         }
 
         try {
-            $response = array(
-                'status'  => array(),
-                'running' => false,
-            );
-
-            $status = $request->get_param( 'parameter' );
-
-            if ( 'course' === $status ) {
-                $response = array(
-                    'status'  => Util::get_sync_status( 'course' ),
-                    'running' => get_transient( 'course_sync_running' ),
-                );
+            $parameter = $request->get_param( 'parameter' );
+            if ( ! empty( $parameter ) ) {
+                return apply_filters( "moowoodle_process_{$parameter}_synchronization", $request );
             } else {
-                $response = apply_filters( 'moowoodle_sync_status', $request );
+                do_action( 'moowoodle_sync' );
             }
 
-            return rest_ensure_response( $response );
+            return null;
         } catch ( \Exception $e ) {
             MooWoodle()->util->log( $e );
             return new \WP_Error(
@@ -249,7 +248,6 @@ class Synchronization extends \WP_REST_Controller {
         set_transient( 'course_sync_running', true );
 
         $sync_setting = MooWoodle()->setting->get_setting( 'sync-course-options', array() );
-
         // update course and product categories.
         if ( in_array( 'sync_courses_category', $sync_setting, true ) ) {
 
