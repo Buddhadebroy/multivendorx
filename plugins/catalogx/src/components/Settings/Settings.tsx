@@ -23,6 +23,7 @@ import {
 } from 'zyra';
 import ShowPopup from '../Popup/Popup';
 import { useLocation, Link } from 'react-router-dom';
+import ShowProPopup from '../Popup/Popup';
 
 // Types
 type SettingItem = Record<string, any>;
@@ -107,7 +108,7 @@ const Settings: React.FC<SettingsProps> = () => {
 						updateSetting={updateSetting}
 						appLocalizer={appLocalizer}
 						modules={modules}
-						// Popup={ShowProPopup}
+						Popup={ShowProPopup}
 					/>
                 ) : (
                     <>Loading...</>
