@@ -974,7 +974,7 @@ const OrderDetails: React.FC = () => {
 														#{orderData.id}
 													</div>
 													<div className="desc">
-														{__("Order ID:", 'multivendorx')}
+														{__("Order ID", 'multivendorx')}
 													</div>
 												</div>
 												<div className="details">
