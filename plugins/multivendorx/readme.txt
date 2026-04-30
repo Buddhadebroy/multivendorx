@@ -5,7 +5,7 @@ Donate link: http://multivendorx.com/donate/
 Requires at least: 6.3
 Tested up to: 6.9.4
 Requires PHP: 8.0
-Stable tag: 5.0.2
+Stable tag: 5.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -245,6 +245,13 @@ Ans. Obviously, you can! Join in on our [GitHub repository](https://github.com/m
 15. Store-admin-list.
 
 == Changelog ==
+
+= 5.0.2 - 2026-04-30 =
+* Added     - Display of store social media links in the store banner.
+* Added     - Some CSS fixes.
+* Fixed     - Store list page accessible to non-logged-in users.
+* Fixed     - Migration issues from version 4.2.42 to 5.0.0.
+* Updated   - Language file.
 
 = 5.0.2 - 2026-04-28 =
 * Added     - Support for controlling the number of products displayed on the store shop page as per WooCommerce catalog settings.
