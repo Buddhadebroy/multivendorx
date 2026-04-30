@@ -45,6 +45,7 @@ const OrderDetails: React.FC = () => {
 		restock: true,
 		reason: '',
 	});
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 	const [shipmentData, setShipmentData] = useState({
 		provider: '',
 		tracking_date: '',
@@ -1084,13 +1085,30 @@ const OrderDetails: React.FC = () => {
 																			}
 																			alt={`Refund Proof ${index + 1}`}
 																			className="refund-image"
+																			onClick={() => {
+																				setPreviewUrl(imgUrl);
+																			}}
 																		/>
 																	)
 																)}
 														</div>
 													</div>
 												)}
-
+											<PopupUI
+												position="lightbox"
+												open={!!previewUrl}
+												onClose={() => setPreviewUrl(null)}
+												width="30rem"
+												height="30rem"
+											>
+												<div
+													className="image-preview-container"
+													style={{
+														backgroundImage: `url(${previewUrl})`,
+													}}
+												/>
+											</PopupUI>
+											
 											{/* Customer Reason */}
 											<div className="reason additional">
 												<div className="title">
