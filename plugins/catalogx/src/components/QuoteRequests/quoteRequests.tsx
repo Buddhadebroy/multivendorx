@@ -1,6 +1,5 @@
-import Dialog from '@mui/material/Dialog';
 import React, { useState } from 'react';
-import './quoteRequests.scss';
+import '../common.scss';
 import { NavigatorHeader, PopupUI } from 'zyra';
 import ShowProPopup from '../Popup/Popup';
 import { __ } from '@wordpress/i18n';
@@ -10,7 +9,7 @@ export default function QuotesList() {
 
     return (
         <>
-            {/* {openPopup && (
+            {openPopup && (
                 <PopupUI
                     position="lightbox"
                     open={openPopup}
@@ -22,7 +21,7 @@ export default function QuotesList() {
                 </PopupUI>
             )}
             <NavigatorHeader
-                headerIcon="cohort"
+                headerIcon="quote"
                 headerDescription={__(
                     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, facere atque alias quasi aperiam nesciunt.',
                     'catalogx'
@@ -34,7 +33,7 @@ export default function QuotesList() {
                 onClick={() => {
                     setopenPopup(true);
                 }}
-            ></div> */}
+            ></div>
         </>
     );
 }

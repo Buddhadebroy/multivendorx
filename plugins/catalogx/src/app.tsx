@@ -32,13 +32,13 @@ const Route = () => {
             { currentTab.get( 'tab' ) === 'quote-requests' && (
                 <QuoteRequests />
             ) }
-            {/* { currentTab.get( 'tab' ) === 'wholesale-users' && (
+            { currentTab.get( 'tab' ) === 'wholesale-users' && (
                 <WholesaleUser />
             ) }
             { currentTab.get( 'tab' ) === 'enquiry-messages' && (
                 <EnquiryMessages />
             ) }
-            { currentTab.get( 'tab' ) === 'rules' && <Rules /> } */}
+            { currentTab.get( 'tab' ) === 'rules' && <Rules /> }
         </>
     );
 };
