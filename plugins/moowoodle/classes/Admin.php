@@ -133,10 +133,12 @@ class Admin {
 	public function enqueue_admin_script() {
 
 		if ( get_current_screen()->id === 'toplevel_page_moowoodle' ) {
+			wp_enqueue_script( 'wp-element' );
+			
 			FrontendScripts::admin_load_scripts();
-			FrontendScripts::enqueue_script( 'moowoodle-components-script' );
+			FrontendScripts::enqueue_script( 'moowoodle-vendor-script' );
 			FrontendScripts::enqueue_script( 'moowoodle-admin-script' );
-			FrontendScripts::enqueue_style( 'moowoodle-components-style' );
+			FrontendScripts::enqueue_style( 'moowoodle-index-style' );
 			FrontendScripts::localize_scripts( 'moowoodle-admin-script' );
 		}
 	}

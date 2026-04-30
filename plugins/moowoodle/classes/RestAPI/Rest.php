@@ -32,6 +32,7 @@ class Rest {
      */
     public function __construct() {
         $this->init_classes();
+        add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ), 10 );
     }
 
     /**
@@ -42,5 +43,15 @@ class Rest {
             'settings'          => new Settings(),
             'logs'              => new Logs(),
         );
+    }
+    /**
+     * Register REST API routes.
+     */
+    public function register_rest_api_routes() {
+        foreach ( $this->container as $controller ) {
+            if ( method_exists( $controller, 'register_routes' ) ) {
+                $controller->register_routes();
+            }
+        }
     }
 }
