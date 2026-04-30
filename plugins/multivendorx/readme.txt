@@ -246,7 +246,7 @@ Ans. Obviously, you can! Join in on our [GitHub repository](https://github.com/m
 
 == Changelog ==
 
-= 5.0.2 - 2026-04-30 =
+= 5.0.3 - 2026-04-30 =
 * Added     - Display of store social media links in the store banner.
 * Added     - Some CSS fixes.
 * Fixed     - Store list page accessible to non-logged-in users.
