@@ -339,7 +339,7 @@ const OrderDetails: React.FC = () => {
 			},
 		});
 	};
-	const handleRefunReject = (orderId: number) => {
+	const handleRefundReject = (orderId: number) => {
 		// Add order note
 		axios({
 			method: 'POST',
@@ -1147,7 +1147,7 @@ const OrderDetails: React.FC = () => {
 																'multivendorx'
 															),
 															onClick: () =>
-																handleRefunReject(
+																handleRefundReject(
 																	orderData.id
 																),
 														},
