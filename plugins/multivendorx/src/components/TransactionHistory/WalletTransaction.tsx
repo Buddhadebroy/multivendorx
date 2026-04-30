@@ -21,6 +21,7 @@ import {
 	CategoryCount,
 	ItemListUI,
 	Notice,
+	ChoiceToggleUI
 } from 'zyra';
 
 import {
@@ -51,6 +52,7 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 	const [note, setNote] = useState('');
 
 	const [viewCommission, setViewCommission] = useState(false);
+	const [paymentMethod, setPaymentMethod] = useState('');
 	const [selectedCommissionId, setSelectedCommissionId] = useState<
 		number | null
 	>(null);
@@ -119,7 +121,7 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 	const handleWithdrawal = () => {
 		const newErrors = {};
 
-		if (!storeData?.payment_method || storeData.payment_method === '') {
+		if (!paymentMethod || paymentMethod === '') {
 			newErrors.payment = __(
 				'Please configure a valid payment method before requesting a withdrawal.',
 				'multivendorx'
@@ -145,6 +147,7 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 				amount,
 				store_id: storeId,
 				note,
+				method: paymentMethod
 			},
 		})
 			.then((res) => {
@@ -416,6 +419,23 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 			onClickWithQuery: downloadTransactionCSVByQuery,
 		},
 	];
+
+	const methods =
+		appLocalizer.settings_databases_value['withdrawal-methods']
+			?.payment_methods
+		?? [];
+
+	const formattedMethods = Object.entries(methods)
+		.filter(([key, method]) => {
+			if (!method?.enable) return false;
+			if (key === 'cash' || key === 'custom-gateway') return true;
+			return key === storeData?.payment_method;
+		})
+		.map(([key]) => ({
+			label: formatMethod(key),
+			value: key,
+			key: key,
+		}));
 
 	return (
 		<>
@@ -693,21 +713,11 @@ const WalletTransaction: React.FC<WalletTransactionProps> = ({ storeId }) => {
 								notice={errors.payment}
 							>
 								<div className="payment-method">
-									{storeData?.payment_method ? (
-										<div className="method">
-											<i className="adminfont-bank"></i>
-											{formatMethod(
-												storeData.payment_method
-											)}
-										</div>
-									) : (
-										<span>
-											{__(
-												'No payment method saved',
-												'multivendorx'
-											)}
-										</span>
-									)}
+									<ChoiceToggleUI
+										options={formattedMethods}
+										value={paymentMethod}
+										onChange={(value) => setPaymentMethod(value)}
+									/>
 								</div>
 							</FormGroup>
 
