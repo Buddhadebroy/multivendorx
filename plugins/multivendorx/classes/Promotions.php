@@ -62,7 +62,7 @@ class Promotions {
         }
         ?>
         <div class="notice notice-info is-dismissible review-notice">
-			<h3><?php esc_html_e( 'MultiVendorX', 'multivendorx' ); ?></h3>
+			<h3><?php echo esc_html( 'MultiVendorX' ); ?></h3>
 			<p><?php esc_html_e( 'We appreciate you using MultiVendorX. If it has helped your business, please consider leaving a quick review.', 'multivendorx' ); ?></p>
 			<p>
 				<a href="#" class="button button-secondary" data-action="later"><?php esc_html_e( 'Remind me later', 'multivendorx' ); ?></a>
