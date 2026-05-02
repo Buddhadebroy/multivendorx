@@ -2,7 +2,7 @@
 
 .general-wrapper {
   border-radius: $border-radius-small;
-  margin: 2.5rem 1rem 1rem;
+  margin: 2.5rem 1.25rem 1.25rem;
 
   &:has(.container-wrapper) {
     background: transparent;
@@ -35,7 +35,7 @@
 .title-section {
   display: flex;
   justify-content: space-between;
-  margin: 0 1rem;
+  margin: 0 1.25rem;
   padding: 1.5rem 1.5rem .5rem 0;
   border-bottom: $border-light-small;
 
@@ -87,7 +87,7 @@
 
 .tabs-wrapper {
   border-bottom: $border-light-small;
-  margin: 0 1rem;
+  margin: 0 1.25rem;
 }
 
 // tabs style end
@@ -98,7 +98,7 @@
     }
 
     .breadcrumbs {
-      margin: 0 1rem;
+      margin: 0 1.25rem;
     }
 
     .general-wrapper {

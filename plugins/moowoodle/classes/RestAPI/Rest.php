@@ -9,6 +9,10 @@ namespace MooWoodle\RestAPI;
 
 use MooWoodle\RestAPI\Controllers\Settings;
 use MooWoodle\RestAPI\Controllers\Logs;
+use MooWoodle\RestAPI\Controllers\Synchronization;
+use MooWoodle\RestAPI\Controllers\Courses;
+use MooWoodle\RestAPI\Controllers\Filters;
+use MooWoodle\RestAPI\Controllers\MyCourses;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,6 +36,7 @@ class Rest {
      */
     public function __construct() {
         $this->init_classes();
+        add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ), 10 );
     }
 
     /**
@@ -41,6 +46,20 @@ class Rest {
         $this->container = array(
             'settings'          => new Settings(),
             'logs'              => new Logs(),
+            'synchronization'   => new Synchronization(),
+            'courses'           => new Courses(),
+            'filters'           => new Filters(),
+            'my-courses'        => new MyCourses()
         );
+    }
+    /**
+     * Register REST API routes.
+     */
+    public function register_rest_api_routes() {
+        foreach ( $this->container as $controller ) {
+            if ( method_exists( $controller, 'register_routes' ) ) {
+                $controller->register_routes();
+            }
+        }
     }
 }

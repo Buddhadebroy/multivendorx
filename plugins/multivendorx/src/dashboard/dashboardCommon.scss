@@ -1417,9 +1417,12 @@ body.dark {
 }
 
 .refund-images-wrapper {
-    .images img {
+    .images {
+        margin-top: 0.625rem;
+        img {
         width: 4rem;
         margin-right: 0.625rem;
+    }
     }
 }
 

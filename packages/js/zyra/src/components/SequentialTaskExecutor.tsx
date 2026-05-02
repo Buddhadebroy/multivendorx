@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { FieldComponent, ZyraVariable } from './fieldUtils';
 import { getApiLink } from '../utils/apiService';
@@ -17,6 +17,7 @@ interface Task {
 interface SequentialTaskExecutorProps {
     buttonText: string;
     apilink: string;
+    parameter?: string;
     action: string;
     interval: number;
     successMessage?: string;
@@ -38,6 +39,7 @@ export const SequentialTaskExecutorUI: React.FC<SequentialTaskExecutorProps> = (
     buttonText,
     apilink,
     action,
+    parameter,
     interval,
     successMessage,
     failureMessage,
@@ -56,10 +58,13 @@ export const SequentialTaskExecutorUI: React.FC<SequentialTaskExecutorProps> = (
         }[]
     >([]);
     const [processStatus, setProcessStatus] = useState('');
+    const [syncStarted, setSyncStarted] = useState(false);
+    const [syncStatus, setSyncStatus] = useState([]);
 
     const processStarted = useRef(false);
     const taskIndex = useRef(0);
     const lastResult = useRef<number[]>([]);
+    const fetchStatusRef = useRef<NodeJS.Timeout | null>(null);
 
     const sleep = (ms: number) =>
         new Promise((resolve) => setTimeout(resolve, ms));
@@ -94,8 +99,8 @@ export const SequentialTaskExecutorUI: React.FC<SequentialTaskExecutorProps> = (
 
         const message = isSuccess
             ? currentTask.successMessage ||
-              response?.message ||
-              'Task completed'
+            response?.message ||
+            'Task completed'
             : currentTask.failureMessage || response?.message || 'Task failed';
 
         if (isSuccess) {
@@ -137,10 +142,14 @@ export const SequentialTaskExecutorUI: React.FC<SequentialTaskExecutorProps> = (
         await sleep(interval);
 
         try {
-            const payload: Record<string, unknown> = {
-                action: currentTask.action,
-            };
+            const payload: Record<string, unknown> = {};
 
+            if (action) {
+                payload.action = currentTask.action;
+            }
+            if (parameter) {
+                payload.parameter = parameter;
+            }
             if (currentTask.requiresResponeData) {
                 payload.responseData = lastResult.current;
             }
@@ -201,9 +210,75 @@ export const SequentialTaskExecutorUI: React.FC<SequentialTaskExecutorProps> = (
         executeSequentialTasks();
     }, [executeSequentialTasks]);
 
+    const fetchSyncStatus = useCallback(() => {
+        axios
+            .get(getApiLink(appLocalizer, apilink), {
+                headers: { 'X-WP-Nonce': appLocalizer.nonce },
+                params: { parameter },
+            })
+            .then(({ data }) => {
+                setSyncStarted(data.running);
+                setSyncStatus(data.status || []);
+            });
+    }, [appLocalizer, apilink, parameter]);
+
+    useEffect(() => {
+        if (syncStarted) {
+            fetchStatusRef.current = setInterval(fetchSyncStatus, interval);
+        } else if (fetchStatusRef.current) {
+            clearInterval(fetchStatusRef.current);
+            fetchStatusRef.current = null;
+        }
+
+        return () => {
+            if (fetchStatusRef.current) {
+                clearInterval(fetchStatusRef.current);
+            }
+        };
+    }, [syncStarted, fetchSyncStatus, interval]);
+
+    useEffect(() => {
+        fetchSyncStatus();
+    }, [fetchSyncStatus]);
+
     const handleButtonClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        startProcess();
+
+        // If tasks exist → run normal flow
+        if (tasks && tasks.length > 0) {
+            startProcess();
+            return;
+        }
+
+        setLoading(true);
+
+        const payload: Record<string, unknown> = {};
+
+        if (parameter) {
+            payload.parameter = parameter;
+        }
+
+        axios
+            .post(getApiLink(ZyraVariable, apilink), payload, {
+                headers: {
+                    'X-WP-Nonce': ZyraVariable.nonce,
+                },
+            })
+            .then(() => {
+                setSyncStarted( false );
+                return fetchSyncStatus();
+            })
+            .then(() => {
+                setProcessStatus('completed');
+            })
+            .catch((error) => {
+                console.error('Initial POST failed:', error);
+                setProcessStatus('failed');
+                onError?.(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     const getItemListItems = () => {
@@ -241,6 +316,23 @@ export const SequentialTaskExecutorUI: React.FC<SequentialTaskExecutorProps> = (
             {taskSequence.length > 0 && (
                 <ItemListUI items={getItemListItems()} className="task-list" />
             )}
+
+            {syncStatus &&
+                syncStatus.length > 0 &&
+                syncStatus.map((status, idx) => (
+                    <div key={idx} className="details-status-row">
+                        {status.action}
+                        <div className="status-meta">
+                            <span className="status-icons">
+                                <i className="admin-font adminlib-icon-yes" />
+                            </span>
+                            <span>
+                                {status.current} / {status.total}
+                            </span>
+                        </div>
+                    </div>
+                ))}
+
             {processStatus && (
                 <Notice
                     type={processStatus === 'failed' ? 'error' : 'success'}
@@ -260,6 +352,7 @@ const SequentialTaskExecutor: FieldComponent = {
         <SequentialTaskExecutorUI
             buttonText={field.buttonText}
             apilink={field.apilink}
+            parameter={field.parameter}
             action={field.action}
             interval={field.interval}
             successMessage={field.successMessage}
