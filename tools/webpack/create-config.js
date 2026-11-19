@@ -275,7 +275,9 @@ module.exports = function createWebpackConfig(
 		},
 
 		watchOptions: {
-			ignored: /node_modules/,
+			// Ignore node_modules except an `@multivendorx/zyra` that's `link:`-ed to a local checkout (see
+			// .claude/rules — zyra dev workflow): without this, webpack never notices a local zyra rebuild.
+			ignored: ['**/node_modules/**', '!**/node_modules/@multivendorx/zyra/**'],
 		},
 
 		module: {

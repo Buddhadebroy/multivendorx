@@ -914,30 +914,9 @@ $mw-info-bg: #eff6ff;
 }
 
 // ---- Toolbar: which Moodle™ site, which period, and the range switch ----
-.admin-main-wrapper .mw-insights-toolbar {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	gap: 0.75rem;
-
-	p {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.5rem 1rem;
-		color: var(--mw-muted, #6b7280);
-		font-size: 0.8125rem;
-	}
-}
-
-.admin-main-wrapper .mw-insights-connected {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.375rem;
-	color: var(--mw-ink, #1f1b3e);
-	font-weight: 500;
-}
+// The toolbar itself (site name, connected dot, period switch) is now zyra's `PeriodToolbarComponent` —
+// `.mw-insights-range` stays here because the chart's Enrollments/Revenue toggle reuses the same segmented-control
+// look without going through that component.
 
 // A segmented control: the range switch, and the chart's Enrollments / Revenue.
 .admin-main-wrapper .mw-insights-range {

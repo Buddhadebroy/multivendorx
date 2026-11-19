@@ -7,7 +7,7 @@
 
 // Settings → System & Logs and Synchronization: a log viewer (zyra's `log` field) takes the full width of its card
 // instead of the control column of the two-column row.
-.admin-main-wrapper.admin-main-wrapper .moowoodle-settings .settings-right-section .form-group:has(.section-log-container, .log-container-wrapper) {
+.admin-main-wrapper.admin-main-wrapper .admin-settings .settings-right-section .form-group:has(.section-log-container, .log-container-wrapper) {
 	grid-template-columns: minmax(0, 1fr);
 
 	.section-log-container,
@@ -19,6 +19,6 @@
 
 // A sequential task (Test connection, Synchronize now) shows its progress list under the button; keep that list
 // inside the control column rather than letting it run under the label.
-.admin-main-wrapper.admin-main-wrapper .moowoodle-settings .settings-right-section .form-group.row .settings-input-content {
+.admin-main-wrapper.admin-main-wrapper .admin-settings .settings-right-section .form-group.row .settings-input-content {
 	overflow-wrap: anywhere;
 }

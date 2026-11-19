@@ -269,9 +269,8 @@ const SettingsNavigator: React.FC<SettingsNavigatorProps> = ({
 				}
 				Link={Link}
 				settingName={title}
-				// `admin-settings` is the class zyra scopes its settings spacing under; `moowoodle-settings` is the
-				// one styles/design-system.scss draws the section menu and cards with.
-				className="admin-settings moowoodle-settings"
+				// zyra's own `[data-template="settings"]` styles draw the section menu and cards.
+				className="admin-settings"
 				menuIcon
 				saveStatus={isPanelTab ? undefined : saveStatus}
 			/>

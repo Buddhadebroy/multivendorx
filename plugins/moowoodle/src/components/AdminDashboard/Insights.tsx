@@ -4,10 +4,11 @@ import axios from 'axios';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { getApiLink } from '@zyra/core';
 import {
+	AnalyticsComponent,
 	CardComponent,
 	ColumnComponent,
 	ContainerComponent,
-	TrendStatComponent,
+	PeriodToolbarComponent,
 } from '@zyra/components';
 import './insights.scss';
 import { DOCS_URL } from '../../services/links';
@@ -893,63 +894,45 @@ const Insights: React.FC<InsightsProps> = ({ pro, learn, help, team }) => {
 		);
 	}
 
+	const revenueBadge = changeBadge(revenue, true);
+	const newEnrollmentsBadge = changeBadge(enrollments.new, true);
+
 	return (
 		<div className="mw-insights">
-			<div className="mw-insights-toolbar">
-				<p>
-					{isConnected && (
-						<span className="mw-insights-connected">
-							<span
-								className="mw-insights-dot is-good"
-								aria-hidden="true"
-							/>
-							{connection.site_name}
-						</span>
-					)}
-					<span>
-						{sprintf(
-							/* translators: %1$s: number of days (used twice). */
-							__(
-								'Last %1$s days, compared with the %1$s days before',
-								'moowoodle'
-							),
-							periodDays
-						)}
-					</span>
-				</p>
-				<div
-					className="mw-insights-range"
-					role="group"
-					aria-label={__('Reporting period', 'moowoodle')}
-				>
-					{periodChoices.map((choice) => (
-						<button
-							key={choice}
-							type="button"
-							aria-pressed={choice === periodDays}
-							className={choice === periodDays ? 'is-active' : ''}
-							disabled={isRefreshing}
-							onClick={() => setDays(choice)}
-						>
-							{sprintf(
-								/* translators: %s: number of days; "30d" means 30 days. */
-								__('%sd', 'moowoodle'),
-								choice
-							)}
-						</button>
-					))}
-				</div>
-			</div>
+			<PeriodToolbarComponent
+				connectedLabel={isConnected ? connection.site_name : undefined}
+				summary={sprintf(
+					/* translators: %1$s: number of days (used twice). */
+					__(
+						'Last %1$s days, compared with the %1$s days before',
+						'moowoodle'
+					),
+					periodDays
+				)}
+				periodDays={periodDays}
+				periodChoices={periodChoices}
+				onChangeDays={setDays}
+				disabled={isRefreshing}
+				formatChoice={(choice) =>
+					sprintf(
+						/* translators: %s: number of days; "30d" means 30 days. */
+						__('%sd', 'moowoodle'),
+						choice
+					)
+				}
+				ariaLabel={__('Reporting period', 'moowoodle')}
+			/>
 
 			<div className={isRefreshing ? 'mw-insights-refreshing' : ''}>
-				<TrendStatComponent
+				<AnalyticsComponent
+					variant="trend-stat"
 					cols={4}
-					items={[
+					data={[
 						{
 							icon: 'revenue',
-							label: __('Course revenue', 'moowoodle'),
-							value: money(revenue.current),
-							caption:
+							text: __('Course revenue', 'moowoodle'),
+							number: money(revenue.current),
+							desc:
 								null === perEnrollment
 									? sprintf(
 											/* translators: 1: an amount, 2: number of days. */
@@ -972,26 +955,28 @@ const Insights: React.FC<InsightsProps> = ({ pro, learn, help, team }) => {
 												true
 											)
 										),
-							badge: changeBadge(revenue, true),
+							badgeText: revenueBadge?.text,
+							badgeColor: revenueBadge?.color,
 							chartData: revenueSparkline,
 							chartDataKey: 'value',
 						},
 						{
 							icon: 'classroom-enrollment',
-							label: __('New enrollments', 'moowoodle'),
-							value: numberFormat.format(enrollments.new.current),
-							caption: daysBefore(enrollments.new.previous),
-							badge: changeBadge(enrollments.new, true),
+							text: __('New enrollments', 'moowoodle'),
+							number: numberFormat.format(enrollments.new.current),
+							desc: daysBefore(enrollments.new.previous),
+							badgeText: newEnrollmentsBadge?.text,
+							badgeColor: newEnrollmentsBadge?.color,
 							chartData: sparkline,
 							chartDataKey: 'value',
 						},
 						{
 							icon: 'person',
-							label: __('Active students', 'moowoodle'),
-							value: numberFormat.format(
+							text: __('Active students', 'moowoodle'),
+							number: numberFormat.format(
 								enrollments.by_status.enrolled ?? 0
 							),
-							caption: sprintf(
+							desc: sprintf(
 								/* translators: %s: number of unenrollments. */
 								_n(
 									'%s unenrolled in this period',
@@ -1004,42 +989,38 @@ const Insights: React.FC<InsightsProps> = ({ pro, learn, help, team }) => {
 								)
 							),
 							// Only worth a colour when more students are leaving than before.
-							badge:
+							badgeText:
 								unenrolledMore > 0
-									? {
-											text: sprintf(
-												/* translators: %s: number of extra unenrollments. */
-												__('+%s leaving', 'moowoodle'),
-												numberFormat.format(
-													unenrolledMore
-												)
-											),
-											color: 'red',
-										}
+									? sprintf(
+											/* translators: %s: number of extra unenrollments. */
+											__('+%s leaving', 'moowoodle'),
+											numberFormat.format(
+												unenrolledMore
+											)
+										)
 									: undefined,
+							badgeColor: unenrolledMore > 0 ? 'red' : undefined,
 						},
 						{
 							icon: 'catalog',
-							label: __('Courses on sale', 'moowoodle'),
-							value: numberFormat.format(courses.with_product),
-							caption: sprintf(
+							text: __('Courses on sale', 'moowoodle'),
+							number: numberFormat.format(courses.with_product),
+							desc: sprintf(
 								/* translators: %s: number of synced courses. */
 								__('of %s synced courses', 'moowoodle'),
 								numberFormat.format(courses.total)
 							),
-							badge:
+							badgeText:
 								courses.without_product > 0
-									? {
-											text: sprintf(
-												/* translators: %s: number of courses. */
-												__('%s unlisted', 'moowoodle'),
-												numberFormat.format(
-													courses.without_product
-												)
-											),
-											color: 'gray',
-										}
+									? sprintf(
+											/* translators: %s: number of courses. */
+											__('%s unlisted', 'moowoodle'),
+											numberFormat.format(
+												courses.without_product
+											)
+										)
 									: undefined,
+							badgeColor: courses.without_product > 0 ? 'gray' : undefined,
 						},
 					]}
 				/>
