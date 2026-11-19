@@ -1,6 +1,6 @@
 /* global appLocalizer */
 import React, { useEffect, useState } from 'react';
-import { CardComponent, NoticeManager, PopupComponent } from '@zyra/components';
+import { CardComponent, ListComponent, NoticeManager, PopupComponent } from '@zyra/components';
 import { __, sprintf } from '@wordpress/i18n';
 import axios from 'axios';
 import catalogx from '../../assets/images/catalogx.png';
@@ -188,35 +188,16 @@ const COMPANION_PLUGINS = [
 
 const isExternal = (link: string) => !link.startsWith('#');
 
-/** One help row: icon, title and description, the whole row a link (external ones open in a new tab). */
-const LinkRow = ({ item }: { item: HelpLink }) => (
-	<li>
-		<a
-			className="mw-dash-row"
-			href={item.link}
-			{...(isExternal(item.link)
-				? { target: '_blank', rel: 'noopener noreferrer' }
-				: {})}
-		>
-			<span className="mw-dash-icon" aria-hidden="true">
-				<i className={`adminfont-${item.icon}`} />
-			</span>
-			<span className="mw-dash-row-text">
-				<strong>{item.title}</strong>
-				<span>{item.desc}</span>
-			</span>
-			<i
-				className={`mw-dash-row-arrow adminfont-${isExternal(item.link) ? 'external' : 'arrow-right'}`}
-				aria-hidden="true"
-			/>
-			{isExternal(item.link) && (
-				<span className="screen-reader-text">
-					{__('(opens in a new tab)', 'moowoodle')}
-				</span>
-			)}
-		</a>
-	</li>
-);
+/** `HelpLink[]` as `ListComponent`'s `link-rows` variant expects them — external links open in a new tab. */
+const toLinkRows = (items: HelpLink[]) =>
+	items.map((item) => ({
+		id: item.title,
+		icon: item.icon,
+		title: item.title,
+		desc: item.desc,
+		link: item.link,
+		targetBlank: isExternal(item.link),
+	}));
 
 /**
  * The Overview tab: builds the Learn, Help & Support, companion-plugin and (free sites) Pro cards, and hands them to
@@ -330,19 +311,14 @@ const DashboardTab: React.FC<object> = () => {
 				</span>
 			}
 		>
-			<ul className="mw-dash-pro-features">
-				{PRO_FEATURES.map((feature) => (
-					<li key={feature.title}>
-						<span className="mw-dash-icon" aria-hidden="true">
-							<i className={`adminfont-${feature.icon}`} />
-						</span>
-						<span>
-							<strong>{feature.title}</strong>
-							<span>{feature.desc}</span>
-						</span>
-					</li>
-				))}
-			</ul>
+			<ListComponent
+				className="grid-rows"
+				cols={3}
+				items={PRO_FEATURES.map((feature) => ({
+					...feature,
+					id: feature.title,
+				}))}
+			/>
 			{proPopupOpen && (
 				<PopupComponent
 					position="lightbox"
@@ -362,11 +338,7 @@ const DashboardTab: React.FC<object> = () => {
 			title={__('Learn MooWoodle', 'moowoodle')}
 			desc={__('Guides, videos and the community', 'moowoodle')}
 		>
-			<ul className="mw-dash-list">
-				{LEARN.map((item) => (
-					<LinkRow key={item.title} item={item} />
-				))}
-			</ul>
+			<ListComponent className="link-rows" items={toLinkRows(LEARN)} />
 		</CardComponent>
 	);
 
@@ -383,19 +355,11 @@ const DashboardTab: React.FC<object> = () => {
 			<div className="mw-dash-help-groups">
 				<section>
 					<h3>{__('Troubleshoot first', 'moowoodle')}</h3>
-					<ul className="mw-dash-list">
-						{TROUBLESHOOT.map((item) => (
-							<LinkRow key={item.title} item={item} />
-						))}
-					</ul>
+					<ListComponent className="link-rows" items={toLinkRows(TROUBLESHOOT)} />
 				</section>
 				<section>
 					<h3>{__('Talk to our team', 'moowoodle')}</h3>
-					<ul className="mw-dash-list">
-						{CONTACT.map((item) => (
-							<LinkRow key={item.title} item={item} />
-						))}
-					</ul>
+					<ListComponent className="link-rows" items={toLinkRows(CONTACT)} />
 				</section>
 			</div>
 		</CardComponent>

@@ -564,89 +564,9 @@ $mw-info-bg: #eff6ff;
 }
 
 // ---- Latest enrollments ----
-.admin-main-wrapper .mw-insights-recent li {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-	padding: 0.625rem 0;
-
-	+ li {
-		border-top: 1px solid var(--mw-border-soft, #eef0f6);
-	}
-}
-
-.admin-main-wrapper .mw-insights-avatar {
-	display: inline-flex;
-	flex: none;
-	align-items: center;
-	justify-content: center;
-	width: 2rem;
-	height: 2rem;
-	border-radius: 50%;
-	background: #f4eefb;
-	color: var(--mw-primary, #5007aa);
-	font-size: 0.8125rem;
-	font-weight: 700;
-}
-
-.admin-main-wrapper .mw-insights-recent-text {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	min-width: 0;
-
-	strong,
-	span {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	strong {
-		color: var(--mw-ink, #1f1b3e);
-		font-size: 0.875rem;
-		font-weight: 600;
-	}
-
-	span {
-		color: var(--mw-muted, #6b7280);
-		font-size: 0.8125rem;
-	}
-}
-
-.admin-main-wrapper .mw-insights-recent-meta {
-	display: flex;
-	flex: none;
-	flex-direction: column;
-	align-items: flex-end;
-	gap: 0.125rem;
-
-	time {
-		color: #8a8fa0;
-		font-size: 0.75rem;
-	}
-}
-
-.admin-main-wrapper .mw-insights-status-tag {
-	padding: 0.0625rem 0.5rem;
-	border-radius: 999px;
-	font-size: 0.6875rem;
-	font-weight: 600;
-
-	&.is-enrolled {
-		background: $mw-good-bg;
-		color: $mw-good;
-	}
-
-	&.is-unenrolled {
-		background: $mw-critical-bg;
-		color: $mw-critical;
-	}
-
-	&.is-expired {
-		background: #f3f4f6;
-		color: #4b5563;
-	}
+.admin-main-wrapper .mw-insights-recent-time {
+	color: #8a8fa0;
+	font-size: 0.75rem;
 }
 
 .admin-main-wrapper .mw-insights-failed {
@@ -681,61 +601,7 @@ $mw-info-bg: #eff6ff;
 	}
 }
 
-.admin-main-wrapper .mw-dash-pro-features {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 1.25rem 1.5rem;
-
-	@media (width <= 1100px) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-
-	@media (width <= 600px) {
-		grid-template-columns: minmax(0, 1fr);
-	}
-
-	li {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.75rem;
-		min-width: 0;
-
-		> span:last-child {
-			display: flex;
-			flex-direction: column;
-			gap: 0.125rem;
-			min-width: 0;
-		}
-	}
-
-	strong {
-		color: var(--mw-ink, #1f1b3e);
-		font-size: 0.875rem;
-		font-weight: 600;
-	}
-
-	span span {
-		color: var(--mw-muted, #6b7280);
-		font-size: 0.8125rem;
-		line-height: 1.5;
-	}
-}
-
 // ---- Help and companion-plugin panels ----
-.admin-main-wrapper .mw-dash-icon {
-	display: inline-flex;
-	flex: none;
-	align-items: center;
-	justify-content: center;
-	width: 2.25rem;
-	height: 2.25rem;
-	border: 1px solid var(--mw-border, #e3e6ef);
-	border-radius: 0.5rem;
-	background: var(--mw-surface, #fff);
-	color: var(--mw-ink, #1f1b3e);
-	font-size: 1rem;
-}
-
 .admin-main-wrapper .mw-dash-list {
 	margin: 0 -0.75rem;
 
@@ -752,14 +618,6 @@ $mw-info-bg: #eff6ff;
 	border-radius: 0.5rem;
 	color: inherit;
 	text-decoration: none;
-}
-
-.admin-main-wrapper a.mw-dash-row:hover {
-	background: var(--mw-surface-hover, #faf9fe);
-
-	.mw-dash-row-arrow {
-		color: var(--mw-primary, #5007aa);
-	}
 }
 
 .admin-main-wrapper .mw-dash-row-text {
@@ -783,12 +641,6 @@ $mw-info-bg: #eff6ff;
 		font-size: 0.8125rem;
 		line-height: 1.5;
 	}
-}
-
-.admin-main-wrapper .mw-dash-row-arrow {
-	flex: none;
-	color: #9ca3af;
-	font-size: 1rem;
 }
 
 .admin-main-wrapper .mw-dash-logo {
@@ -827,15 +679,6 @@ $mw-info-bg: #eff6ff;
 .admin-main-wrapper .mw-insights-grid.is-equal > .card-wrapper > .card-content {
 	height: 100%;
 	box-sizing: border-box;
-}
-
-// The Pro card beside the team's plugins is two-thirds wide: its features go two to a row.
-.admin-main-wrapper .mw-insights-grid.is-equal > .card-wrapper .mw-dash-pro-features {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-
-	@media (width <= 600px) {
-		grid-template-columns: minmax(0, 1fr);
-	}
 }
 
 // …and the guarantee sits under its button, so the card's title keeps the width.

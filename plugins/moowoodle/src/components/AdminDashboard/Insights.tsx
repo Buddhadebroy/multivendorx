@@ -5,9 +5,11 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { getApiLink } from '@zyra/core';
 import {
 	AnalyticsComponent,
+	BadgeComponent,
 	CardComponent,
 	ColumnComponent,
 	ContainerComponent,
+	ListComponent,
 	PeriodToolbarComponent,
 } from '@zyra/components';
 import './insights.scss';
@@ -608,6 +610,12 @@ const STATUS_LABEL: Record<string, string> = {
 	enrolled: __('Enrolled', 'moowoodle'),
 	unenrolled: __('Unenrolled', 'moowoodle'),
 	expired: __('Expired', 'moowoodle'),
+};
+
+const STATUS_COLOR: Record<string, string> = {
+	enrolled: 'green',
+	unenrolled: 'red',
+	expired: 'gray',
 };
 
 interface InsightsProps {
@@ -1460,46 +1468,53 @@ const Insights: React.FC<InsightsProps> = ({ pro, learn, help, team }) => {
 							}
 						>
 							{data.recent.length > 0 ? (
-								<ul className="mw-insights-recent">
-									{data.recent.map((enrollment, index) => (
-										<li key={`${enrollment.date}-${index}`}>
-											<span
-												className="mw-insights-avatar"
-												aria-hidden="true"
-											>
-												{(enrollment.student || '?')
-													.charAt(0)
-													.toUpperCase()}
-											</span>
-											<span className="mw-insights-recent-text">
-												<strong>
-													{enrollment.student}
-												</strong>
-												<span>
-													{enrollment.course ||
-														__(
-															'Deleted course',
-															'moowoodle'
+								<ListComponent
+									className="mini-card report"
+									items={data.recent.map(
+										(enrollment, index) => ({
+											id: `${enrollment.date}-${index}`,
+											avatarText: (
+												enrollment.student || '?'
+											).charAt(0),
+											title: enrollment.student,
+											desc:
+												enrollment.course ||
+												__(
+													'Deleted course',
+													'moowoodle'
+												),
+											tags: (
+												<>
+													<BadgeComponent
+														color={
+															STATUS_COLOR[
+																enrollment
+																	.status
+															] ?? 'gray'
+														}
+														text={
+															STATUS_LABEL[
+																enrollment
+																	.status
+															] ??
+															enrollment.status
+														}
+													/>
+													<time
+														className="mw-insights-recent-time"
+														dateTime={
+															enrollment.date
+														}
+													>
+														{formatAgo(
+															enrollment.date
 														)}
-												</span>
-											</span>
-											<span className="mw-insights-recent-meta">
-												<span
-													className={`mw-insights-status-tag is-${enrollment.status}`}
-												>
-													{STATUS_LABEL[
-														enrollment.status
-													] ?? enrollment.status}
-												</span>
-												<time
-													dateTime={enrollment.date}
-												>
-													{formatAgo(enrollment.date)}
-												</time>
-											</span>
-										</li>
-									))}
-								</ul>
+													</time>
+												</>
+											),
+										})
+									)}
+								/>
 							) : (
 								<p className="mw-insights-empty">
 									{nextStep
